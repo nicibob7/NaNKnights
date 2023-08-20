@@ -1,0 +1,32 @@
+const intRegex = /^[0-9]+$/;
+
+const validateParameters = (parameterTypes) => {
+    return (req, res, next) => {
+        const bodyParameters = req.body;
+
+        for (const paramName in parameterTypes) {
+            if (bodyParameters.hasOwnProperty(paramName)) {
+                const paramValue = bodyParameters[paramName];
+                const paramConfig = parameterTypes[paramName];
+
+                if (paramConfig.type === 'boolean' && typeof paramValue !== 'boolean') {
+                    return res.status(400).json({error: `${paramName} should be a boolean.`});
+                } else if (paramConfig.type === 'string' && typeof paramValue !== 'string') {
+                    return res.status(400).json({error: `${paramName} should be a string.`});
+                } else if (paramConfig.type === 'int' && !intRegex.test(paramValue)) {
+                    return res.status(400).json({error: `${paramName} should be a valid integer.`});
+                } else if (paramConfig.type === 'positiveInt' && (!intRegex.test(paramValue) || paramValue <= 0)) {
+                    return res.status(400).json({error: `${paramName} should be a valid positive integer.`});
+                } else if (paramConfig.type === 'stringWithMaxLength' && paramValue.length > paramConfig.maxLength) {
+                    return res.status(400).json({error: `${paramName} should have a maximum length of ${paramConfig.maxLength} characters.`});
+                }
+            } else {
+                return res.status(400).json({error: `${paramName} is required.`});
+            }
+        }
+
+        next();
+    };
+};
+
+module.exports = validateParameters;

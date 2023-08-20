@@ -1,0 +1,10 @@
+.env
+.DS_Store
+thumbs.db
+desktop.ini
+node_modules/
+coverage/
+.idea/
+vscode/
+package-lock.json
+.log
