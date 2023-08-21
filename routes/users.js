@@ -21,6 +21,8 @@ router.post("/login", validateParameters({
     password: { type: 'stringWithMaxLength', maxLength: 64 },
 }), users.login);
 
+router.get("/verify/:emailToken", users.verify);
+
 // must be logged in
 router.post("/logout", authenticator, users.logout);
 router.post("/ping", authenticator, users.loggedInCheck);

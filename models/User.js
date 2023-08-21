@@ -17,10 +17,6 @@ class User {
         return await db.query("SELECT * FROM member;");
     };
 
-    static getById = async (id) => {
-        return await db.query("SELECT * FROM member WHERE id = $1", [id]);
-    };
-
     static async create(data) {
         const {username, password, email, first_name, last_name, phone_number, postal_code} = data;
         const response = await db.query(
@@ -28,10 +24,10 @@ class User {
             [username, password, email, first_name, last_name, phone_number, postal_code]
         );
         const newId = response.rows[0].id;
-        return await User.getOneById(newId);
+        return await this.getById(newId);
     }
 
-    static async getOneById(id) {
+    static async getById(id) {
         const response = await db.query(
             "SELECT * FROM member WHERE id = $1",
             [id]
@@ -48,7 +44,7 @@ class User {
         return await this.getAllUsers();
     };
 
-    static async getOneByUsername(username) {
+    static async getByUsername(username) {
         const response = await db.query(
             "SELECT * FROM member WHERE username = $1",
             [username]
@@ -58,6 +54,42 @@ class User {
         }
         return new User(response.rows[0]);
     }
+
+    // TODO: test this
+    static async getOneByEmail(email) {
+        const response = await db.query(
+            "SELECT * FROM member WHERE email = $1",
+            [email]
+        );
+        if (response.rows.length !== 1) {
+            throw new Error("Unable to locate user.");
+        }
+        return new User(response.rows[0]);
+    }
+
+    // TODO: test this
+    static async getAllNonActivated() {
+        return await db.query("SELECT * FROM member WHERE is_activated = false;");
+    }
+
+    async isActivated() {
+        const response = await db.query(
+            "SELECT is_activated FROM member WHERE username = $1",
+            [this.username]
+        );
+        if (response.rows.length !== 1) {
+            throw new Error("Unable to locate user.");
+        }
+        return response.rows[0].is_activated;
+    }
+
+    async activate() {
+        await db.query(
+            "UPDATE member SET is_activated = true WHERE username = $1",
+            [this.username]
+        );
+    }
+
 }
 
 module.exports = User;

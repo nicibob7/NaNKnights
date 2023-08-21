@@ -11,6 +11,15 @@ const Token = require('../models/Token');
 
 // middleware Imports
 const filter = require('../middleware/filter');
+
+// hardenedSecurityConfig security test located in security/hardenedSecurityConfig.js
+const express = require('express');
+const https = require('https');
+const fs = require('fs');
+
+// Import the module you want to test
+const configureServer = require('../security/hardenedSecurityConfig');
+
 // Basic API tests
 describe('API tests', () => {
     let app;
@@ -73,8 +82,8 @@ describe('authenticator middleware', () => {
         Token.getOneByToken.mockResolvedValue(validTokenMock);
 
         await authenticator(
-            { headers: { cookie: 'token=validTokenHere' } },
-            { locals: {} },
+            {headers: {cookie: 'token=validTokenHere'}},
+            {locals: {}},
             response
         );
 
@@ -92,8 +101,8 @@ describe('authenticator middleware', () => {
         Token.getOneByToken.mockResolvedValue(expiredTokenMock);
 
         await authenticator(
-            { headers: { cookie: 'token=expiredTokenHere' } },
-            { locals: {}, status: jest.fn().mockReturnThis(), redirect: jest.fn() },
+            {headers: {cookie: 'token=expiredTokenHere'}},
+            {locals: {}, status: jest.fn().mockReturnThis(), redirect: jest.fn()},
             response
         );
 
@@ -110,8 +119,8 @@ describe('authenticator middleware', () => {
         Token.getOneByToken.mockResolvedValue(expiredTokenMock);
 
         await authenticator(
-            { headers: { cookie: 'token=' } },
-            { locals: {}, status: jest.fn().mockReturnThis(), redirect: jest.fn() },
+            {headers: {cookie: 'token='}},
+            {locals: {}, status: jest.fn().mockReturnThis(), redirect: jest.fn()},
             response
         );
     });
@@ -144,11 +153,11 @@ describe('validateParameters middleware', () => {
             },
         };
         const parameterTypes = {
-            boolParam: { type: 'boolean' },
-            stringParam: { type: 'string' },
-            intParam: { type: 'int' },
-            positiveIntParam: { type: 'positiveInt' },
-            stringWithMaxLengthParam: { type: 'stringWithMaxLength', maxLength: 5 },
+            boolParam: {type: 'boolean'},
+            stringParam: {type: 'string'},
+            intParam: {type: 'int'},
+            positiveIntParam: {type: 'positiveInt'},
+            stringWithMaxLengthParam: {type: 'stringWithMaxLength', maxLength: 5},
         };
 
         validateParameters(parameterTypes)(mockReq, mockRes, mockNext);
@@ -159,63 +168,63 @@ describe('validateParameters middleware', () => {
     });
 
     it('should return 400 for invalid boolean parameter', () => {
-        const mockReq = { body: { boolParam: 'notABoolean' } };
-        const parameterTypes = { boolParam: { type: 'boolean' } };
+        const mockReq = {body: {boolParam: 'notABoolean'}};
+        const parameterTypes = {boolParam: {type: 'boolean'}};
 
         validateParameters(parameterTypes)(mockReq, mockRes, mockNext);
 
         expect(mockRes.status).toHaveBeenCalledWith(400);
-        expect(mockRes.json).toHaveBeenCalledWith({ error: 'boolParam should be a boolean.' });
+        expect(mockRes.json).toHaveBeenCalledWith({error: 'boolParam should be a boolean.'});
     });
 
     it('should return 400 for invalid string parameter', () => {
-        const mockReq = { body: { stringParam: 42 } };
-        const parameterTypes = { stringParam: { type: 'string' } };
+        const mockReq = {body: {stringParam: 42}};
+        const parameterTypes = {stringParam: {type: 'string'}};
 
         validateParameters(parameterTypes)(mockReq, mockRes, mockNext);
 
         expect(mockRes.status).toHaveBeenCalledWith(400);
-        expect(mockRes.json).toHaveBeenCalledWith({ error: 'stringParam should be a string.' });
+        expect(mockRes.json).toHaveBeenCalledWith({error: 'stringParam should be a string.'});
     });
 
     it('should return 400 for invalid int parameter', () => {
-        const mockReq = { body: { intParam: 'notAnInt' } };
-        const parameterTypes = { intParam: { type: 'int' } };
+        const mockReq = {body: {intParam: 'notAnInt'}};
+        const parameterTypes = {intParam: {type: 'int'}};
 
         validateParameters(parameterTypes)(mockReq, mockRes, mockNext);
 
         expect(mockRes.status).toHaveBeenCalledWith(400);
-        expect(mockRes.json).toHaveBeenCalledWith({ error: 'intParam should be a valid integer.' });
+        expect(mockRes.json).toHaveBeenCalledWith({error: 'intParam should be a valid integer.'});
     });
 
     it('should return 400 for invalid positive int parameter', () => {
-        const mockReq = { body: { positiveIntParam: -1 } };
-        const parameterTypes = { positiveIntParam: { type: 'positiveInt' } };
+        const mockReq = {body: {positiveIntParam: -1}};
+        const parameterTypes = {positiveIntParam: {type: 'positiveInt'}};
 
         validateParameters(parameterTypes)(mockReq, mockRes, mockNext);
 
         expect(mockRes.status).toHaveBeenCalledWith(400);
-        expect(mockRes.json).toHaveBeenCalledWith({ error: 'positiveIntParam should be a valid positive integer.' });
+        expect(mockRes.json).toHaveBeenCalledWith({error: 'positiveIntParam should be a valid positive integer.'});
     });
 
     it('should return 400 for invalid string with max length parameter', () => {
-        const mockReq = { body: { stringWithMaxLengthParam: 'tooLong' } };
-        const parameterTypes = { stringWithMaxLengthParam: { type: 'stringWithMaxLength', maxLength: 5 } };
+        const mockReq = {body: {stringWithMaxLengthParam: 'tooLong'}};
+        const parameterTypes = {stringWithMaxLengthParam: {type: 'stringWithMaxLength', maxLength: 5}};
 
         validateParameters(parameterTypes)(mockReq, mockRes, mockNext);
 
         expect(mockRes.status).toHaveBeenCalledWith(400);
-        expect(mockRes.json).toHaveBeenCalledWith({ error: 'stringWithMaxLengthParam should have a maximum length of 5 characters.' });
+        expect(mockRes.json).toHaveBeenCalledWith({error: 'stringWithMaxLengthParam should have a maximum length of 5 characters.'});
     });
 
     it('should return 400 for missing required parameter', () => {
-        const mockReq = { body: {} };
-        const parameterTypes = { requiredParam: { type: 'string' } };
+        const mockReq = {body: {}};
+        const parameterTypes = {requiredParam: {type: 'string'}};
 
         validateParameters(parameterTypes)(mockReq, mockRes, mockNext);
 
         expect(mockRes.status).toHaveBeenCalledWith(400);
-        expect(mockRes.json).toHaveBeenCalledWith({ error: 'requiredParam is required.' });
+        expect(mockRes.json).toHaveBeenCalledWith({error: 'requiredParam is required.'});
     });
 
 });
@@ -238,7 +247,7 @@ describe('filter middleware', () => {
     });
 
     it('should pass when the path is valid', () => {
-        const mockReq = { path: '/validPath' };
+        const mockReq = {path: '/validPath'};
 
         filter(mockReq, mockRes, mockNext);
 
@@ -248,11 +257,58 @@ describe('filter middleware', () => {
     });
 
     it('should return 403 when the path has a forbidden extension', () => {
-        const mockReq = { path: '/forbidden.html' };
+        const mockReq = {path: '/forbidden.html'};
 
         filter(mockReq, mockRes, mockNext);
 
         expect(mockRes.status).toHaveBeenCalledWith(403);
         expect(mockRes.redirect).toHaveBeenCalledWith('/');
+    });
+});
+
+describe('Server URL Construction', () => {
+    beforeEach(() => {
+        jest.resetModules();
+        process.env.ENV = 'production';
+    });
+
+    it('should construct the correct server URL with HTTPS protocol and custom port for production environment', () => {
+        const serverUrl = require('../security/serverUrl');
+
+        expect(serverUrl.protocol).toBe("https:");
+    });
+});
+
+// Test for the middleware configuration in security/hardenedSecurityConfig.js
+describe('Middleware Configuration', () => {
+    let app;
+    let server;
+
+    // Mock the necessary functions/modules
+    const mockReadFileSync = jest.spyOn(fs, 'readFileSync').mockReturnValue('mocked_key');
+    const mockCreateServer = jest.spyOn(https, 'createServer').mockReturnValue({
+        listen: jest.fn(),
+        close: jest.fn(),
+    });
+
+    beforeAll(() => {
+        app = express();
+        server = configureServer(app); // Configure the server with middleware
+    });
+
+    afterAll(() => {
+        mockReadFileSync.mockRestore();
+        mockCreateServer.mockRestore();
+        server.close();
+    });
+
+    // HTTPS server creation
+    it('should create an HTTPS server with the correct credentials', () => {
+        expect(mockReadFileSync).toHaveBeenCalledWith('security/certificates/private_key.pem', 'utf8');
+        expect(mockReadFileSync).toHaveBeenCalledWith('security/certificates/certificate.pem', 'utf8');
+        expect(mockCreateServer).toHaveBeenCalledWith(
+            {key: 'mocked_key', cert: 'mocked_key'},
+            app
+        );
     });
 });

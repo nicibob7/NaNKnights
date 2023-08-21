@@ -79,9 +79,16 @@ CREATE TABLE community_event (
 );
 REVOKE UPDATE (date_posted, posted_by) ON community_event FROM PUBLIC;
 
--- delete expired tokens
-CREATE OR REPLACE FUNCTION delete_expired_tokens() RETURNS void AS $$
+-- delete expired session tokens
+CREATE OR REPLACE FUNCTION delete_expired_session_tokens() RETURNS void AS $$
 BEGIN
   DELETE FROM token WHERE expires_at <= NOW();
+END;
+$$ LANGUAGE plpgsql;
+
+-- delete expired email verification tokens
+CREATE OR REPLACE FUNCTION delete_expired_email_verification_tokens() RETURNS void AS $$
+BEGIN
+  DELETE FROM email_verify WHERE expires_at <= NOW();
 END;
 $$ LANGUAGE plpgsql;
