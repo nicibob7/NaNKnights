@@ -3,9 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global-styles.css" >
+    <link rel="stylesheet" href="./css/home.css" >
+    <script defer src="./js/global-script.js"></script>
+    <script defer src="./js/home.js"></script>
     <title>Home | Day 'n' Day | Florin Community App</title>
 </head>
 <body>
-    
+    <nav class="menu-default">
+        <div id="nav-left">
+            <div id="logo-wrapper">
+                <a id="nav-home-button" href="./home.html">
+                    <img id="nav-logo" src="./res/logo1.png">
+                    <div id="logo-text-wrapper">
+                        <p id="logo-text-main">Day 'n' Day</p>
+                        <p id="logo-text-sub">Florin Country Community App</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div id="nav-button-wrapper">
+                <a href="./news.html" id="nav-news-button" class="nav-button">News</a>
+                <a href="./events.html" id="nav-events-button" class="nav-button">Events</a>
+                <a href="./suggestions.html" id="nav-suggestions-button" class="nav-button">Suggestions</a>
+                <a href="./about.html" id="nav-about-button" class="nav-button">About</a>
+            </div>
+
+        </div>
+        <div id="nav-right">
+            <div id="nav-right-button-wrapper">
+                <a href="./dashboard.html" id="nav-news-button" class="nav-button">My Stuff</a>
+            </div>
+            <div id="nav-account-wrapper">
+                <img id="nav-account-icon" src="./res/account-icon.png">
+                <div id="nav-account-dropdown-list" class="menu-default hide">
+                    <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
+                    <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
+                    <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div id="news-container">
+            <div id="carousel">
+                <div id="carousel-left" class="carousel-tabs">
+                    <button>Left</button>
+                </div>
+                <div id="carousel-main">
+                    <div class="slide">
+                        
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+                        
+                    </div>
+                </div>
+                <div id="carousel-right" class="carousel-tabs">
+                    <button>right</button>
+                </div>
+            </div>
+            <div id="carousel-buttons">
+                <div id="circle-1" class="carousel-circle-button"></div>
+                <div id="circle-2" class="carousel-circle-button"></div>
+                <div id="circle-3" class="carousel-circle-button"></div>
+            </div>
+        </div>
+        <div id="second-container"></div>
+    </main>
+    <footer class="menu-default">
+        <p>Copyrighted by NaNKnights 2023</p>
+    </footer>
 </body>
 </html>

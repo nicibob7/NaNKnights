@@ -1,0 +1,159 @@
+main {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+#news-container {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+#second-container {
+    width: 100%;
+    height: 450px;
+    background-color: #F0EDE7;
+}
+
+#carousel {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+}
+
+#carousel-left {
+    height: 100%;
+    width: 5%;
+}
+
+#carousel-main {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    overflow: hidden;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+}
+
+#carousel-right {
+    height: 100%;
+    width: 5%;
+}
+
+#carousel-left > button {
+    margin-right: auto;
+}
+
+#carousel-right > button {
+    margin-left: auto;
+}
+
+#carousel-buttons {
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    width: 100%;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top: 0.75%;
+}
+
+.carousel-tabs {
+    display: flex;
+}
+
+.slide {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-circle-button {
+    width: 15px;
+    height: 15px;
+    background-color: #6a6a6a;
+    transition: background-color .4s;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 4px 0 4px;
+}
+
+.carousel-circle-button:hover {
+    background-color: #ababab;
+}
+
+.carousel-circle-button-selected {
+    background-color: #ababab;
+}
+
+.news-card {
+    display: flex;
+    justify-content: flex-end;
+    color: #fff;
+    position: relative;
+    height: 100%;
+    width: 28%;
+    margin: 0 0.75% 0 0.75%;
+}
+
+.news-card > a {
+    width: 100%;
+    height: 100%;
+}
+
+.news-card-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-indeX: 2;
+}
+
+.news-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 45%;
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40%, rgb(0, 0, 0) 100%);
+    z-index: 5;
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+}
+
+.news-el {
+    margin: 0 5% 0 5%;
+}
+
+.news-card-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.news-card-date {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1%;
+}
+
+.news-card-description {
+    font-size: 1.0rem;
+    margin-top: 2%;
+}
+
+.news-card-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: auto 5% 5% 5%;
+
+}
