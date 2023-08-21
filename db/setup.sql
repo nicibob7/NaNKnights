@@ -52,6 +52,7 @@ CREATE TABLE suggestion (
     posted_by VARCHAR(32) NOT NULL,
     votes INT NOT NULL DEFAULT 0,
     is_resolved BOOLEAN NOT NULL DEFAULT FALSE,
+    is_activated BOOLEAN NOT NULL DEFAULT FALSE, -- admins will activate suggestions
     image BYTEA,
     urgency_level VARCHAR(16) NOT NULL,
     CONSTRAINT fk_suggestion_user FOREIGN KEY (posted_by) REFERENCES member(username)

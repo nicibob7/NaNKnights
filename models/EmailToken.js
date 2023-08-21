@@ -12,16 +12,17 @@ class EmailToken {
 
         const token = uuidv4();
 
-        const response = await db.query('INSERT INTO email_verify (username, token) VALUES ($1, $2) RETURNING *',
+        await db.query('INSERT INTO email_verify (username, token) VALUES ($1, $2) RETURNING *',
             [username, token]);
 
-        return base_url + "/users/verify/" + token;
+        // note the missing / at the start of the url
+        return base_url + "users/verify/" + token;
     }
 
     static async getOneByToken(token) {
         const response = await db.query('SELECT * FROM email_verify WHERE token = $1', [token]);
         if (response.rows.length !== 1) {
-            throw new Error('Token has been used or does not exist.');
+            throw new Error('Token has been used or expired.');
         }
 
         return response.rows[0];

@@ -29,6 +29,7 @@ describe('API tests', () => {
     });
 
     afterAll(() => {
+        jest.clearAllMocks();
         app.close();
     });
 
@@ -56,73 +57,152 @@ describe('API tests', () => {
         const response = await request(app).head('/unknown');
         expect(response.statusCode).toBe(404);
     });
+
+    it('should handle invalid JSON format', async () => {
+        const response = await request(server)
+            .post('/test')
+            .send('"json":"invalid-json"');
+
+        expect(response.status).toBe(404);
+    });
 });
 
 
 // Authenticator tests in middleware/authenticator.js
-jest.mock("../models/Token", () => ({
-    getOneByToken: jest.fn(),
-}));
+const User = require('../models/User');
+
+jest.mock('../models/Token'); // Mock the Token class
+jest.mock('../models/User'); // Mock the User class
 
 describe('authenticator middleware', () => {
-    let agent;
-    let response;
+    let next;
+    let req;
+    let res;
 
     beforeEach(() => {
-        agent = request.agent(server); // Replace 'app' with your Express app instance
-        response = jest.fn();
+        next = jest.fn();
+        req = {
+            headers: {
+                cookie: 'token=validTokenHere',
+            },
+        };
+        res = {
+            redirect: jest.fn(), // Mock the redirect method
+            locals: {},
+        };
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
     it('should pass with a valid token', async () => {
         const validTokenMock = {
-            username: 'testUser',
+            account_username: 'testUser',
+            isExpired: jest.fn().mockResolvedValue(false),
+        };
+
+        const userMock = {
+            isActivated: jest.fn().mockResolvedValue(true),
+        };
+
+        Token.getOneByToken.mockResolvedValue(validTokenMock);
+        User.getByUsername.mockResolvedValue(userMock);
+
+        await authenticator(req, res, next);
+
+        expect(Token.getOneByToken).toHaveBeenCalledWith('validTokenHere');
+        expect(validTokenMock.isExpired).toHaveBeenCalled();
+        expect(User.getByUsername).toHaveBeenCalledWith('testUser');
+        expect(userMock.isActivated).toHaveBeenCalled();
+        expect(res.locals.token).toBe('validTokenHere');
+        expect(res.locals.user).toBe('testUser');
+        expect(next).toHaveBeenCalled();
+        expect(res.redirect).not.toHaveBeenCalled();
+    });
+
+    it('should redirect to "/" if token is empty', async () => {
+        req.headers.cookie = 'token=';
+
+        await authenticator(req, res, next);
+
+        expect(Token.getOneByToken).not.toHaveBeenCalled();
+        expect(res.redirect).toHaveBeenCalledWith('/');
+        expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should redirect to "/" if an error occurs in token retrieval', async () => {
+        Token.getOneByToken.mockRejectedValue(new Error('Mocked token error'));
+
+        await authenticator(req, res, next);
+
+        expect(Token.getOneByToken).toHaveBeenCalledWith('validTokenHere');
+        expect(res.redirect).toHaveBeenCalledWith('/');
+        expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should redirect to "/" if an error occurs in user retrieval', async () => {
+        // Mock valid token, but throw an error when retrieving the user
+        const validTokenMock = {
+            account_username: 'testUser',
             isExpired: jest.fn().mockResolvedValue(false),
         };
 
         Token.getOneByToken.mockResolvedValue(validTokenMock);
+        User.getByUsername.mockRejectedValue(new Error('Mocked user error'));
 
-        await authenticator(
-            {headers: {cookie: 'token=validTokenHere'}},
-            {locals: {}},
-            response
-        );
+        await authenticator(req, res, next);
+
+        expect(Token.getOneByToken).toHaveBeenCalledWith('validTokenHere');
+        expect(User.getByUsername).toHaveBeenCalledWith('testUser');
+        expect(res.redirect).toHaveBeenCalledWith('/');
+        expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should redirect to "/" if user is not activated', async () => {
+        const validTokenMock = {
+            account_username: 'testUser',
+            isExpired: jest.fn().mockResolvedValue(false),
+        };
+
+        const userMock = {
+            isActivated: jest.fn().mockResolvedValue(false), // User is not activated
+        };
+
+        Token.getOneByToken.mockResolvedValue(validTokenMock);
+        User.getByUsername.mockResolvedValue(userMock);
+
+        await authenticator(req, res, next);
+
+        expect(Token.getOneByToken).toHaveBeenCalledWith('validTokenHere');
+        expect(validTokenMock.isExpired).not.toHaveBeenCalled();
+        expect(User.getByUsername).toHaveBeenCalledWith('testUser');
+        expect(userMock.isActivated).toHaveBeenCalled();
+        expect(res.redirect).toHaveBeenCalledWith('/');
+        expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should redirect to "/" if token is expired', async () => {
+        const validTokenMock = {
+            account_username: 'testUser',
+            isExpired: jest.fn().mockResolvedValue(true), // Token is expired
+        };
+
+        const mocked = {
+            isActivated: jest.fn().mockResolvedValue(true), // User is activated
+        };
+
+        Token.getOneByToken.mockResolvedValue(validTokenMock);
+        User.getByUsername.mockResolvedValue(mocked);
+
+        await authenticator(req, res, next);
 
         expect(Token.getOneByToken).toHaveBeenCalledWith('validTokenHere');
         expect(validTokenMock.isExpired).toHaveBeenCalled();
-        expect(response).toHaveBeenCalledWith();
-    });
-
-    it('should redirect with an expired token', async () => {
-        const expiredTokenMock = {
-            username: 'testUser',
-            isExpired: jest.fn().mockResolvedValue(true),
-        };
-
-        Token.getOneByToken.mockResolvedValue(expiredTokenMock);
-
-        await authenticator(
-            {headers: {cookie: 'token=expiredTokenHere'}},
-            {locals: {}, status: jest.fn().mockReturnThis(), redirect: jest.fn()},
-            response
-        );
-
-        expect(Token.getOneByToken).toHaveBeenCalledWith('expiredTokenHere');
-        expect(expiredTokenMock.isExpired).toHaveBeenCalled();
-    });
-
-    it('should redirect with an empty token', async () => {
-        const expiredTokenMock = {
-            username: 'testUser',
-            isExpired: jest.fn().mockResolvedValue(true),
-        };
-
-        Token.getOneByToken.mockResolvedValue(expiredTokenMock);
-
-        await authenticator(
-            {headers: {cookie: 'token='}},
-            {locals: {}, status: jest.fn().mockReturnThis(), redirect: jest.fn()},
-            response
-        );
+        expect(User.getByUsername).toHaveBeenCalledWith('testUser');
+        expect(mocked.isActivated).toHaveBeenCalled();
+        expect(res.redirect).toHaveBeenCalledWith('/');
+        expect(next).not.toHaveBeenCalled();
     });
 });
 
@@ -284,29 +364,38 @@ describe('Middleware Configuration', () => {
     let app;
     let server;
 
-    // Mock the necessary functions/modules
-    const mockReadFileSync = jest.spyOn(fs, 'readFileSync').mockReturnValue('mocked_key');
-    const mockCreateServer = jest.spyOn(https, 'createServer').mockReturnValue({
-        listen: jest.fn(),
-        close: jest.fn(),
-    });
+    const originalReadFileSync = fs.readFileSync;
+    const originalCreateServer = https.createServer;
 
     beforeAll(() => {
         app = express();
-        server = configureServer(app); // Configure the server with middleware
+
+        // Mock the readFileSync function
+        fs.readFileSync = jest.fn(() => 'mocked_key');
+
+        // Mock the createServer function
+        https.createServer = jest.fn(() => ({
+            listen: jest.fn(),
+            close: jest.fn(),
+        }));
+
+        // Configure the server with middleware
+        server = configureServer(app);
     });
 
     afterAll(() => {
-        mockReadFileSync.mockRestore();
-        mockCreateServer.mockRestore();
+        // Restore the original functions
+        fs.readFileSync = originalReadFileSync;
+        https.createServer = originalCreateServer;
+
         server.close();
     });
 
     // HTTPS server creation
     it('should create an HTTPS server with the correct credentials', () => {
-        expect(mockReadFileSync).toHaveBeenCalledWith('security/certificates/private_key.pem', 'utf8');
-        expect(mockReadFileSync).toHaveBeenCalledWith('security/certificates/certificate.pem', 'utf8');
-        expect(mockCreateServer).toHaveBeenCalledWith(
+        expect(fs.readFileSync).toHaveBeenCalledWith('security/certificates/private_key.pem', 'utf8');
+        expect(fs.readFileSync).toHaveBeenCalledWith('security/certificates/certificate.pem', 'utf8');
+        expect(https.createServer).toHaveBeenCalledWith(
             {key: 'mocked_key', cert: 'mocked_key'},
             app
         );

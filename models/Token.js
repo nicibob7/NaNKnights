@@ -3,9 +3,9 @@ const db = require("../db/db");
 
 
 class Token {
-    constructor({ token_id, username, token, expires_at, created_at }) {
+    constructor({ token_id, account_username, token, expires_at, created_at }) {
         this.token_id = token_id;
-        this.username = username;
+        this.account_username = account_username;
         this.token = token;
         this.expires_at = expires_at;
         this.created_at = created_at;
