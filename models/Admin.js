@@ -1,7 +1,7 @@
 const db = require("../db/db");
 
 class Admin {
-    constructor(username, password){
+    constructor(username, password) {
         this.username = username;
         this.password = password;
     }
@@ -13,10 +13,10 @@ class Admin {
             [username, password]
         );
         const newId = response.rows[0].id;
-        return await Admin.getOneById(newId);
+        return await this.getById(newId);
     }
 
-    static async getOneById(id) {
+    static async getById(id) {
         const response = await db.query(
             "SELECT * FROM administrator WHERE id = $1",
             [id]
@@ -26,4 +26,19 @@ class Admin {
         }
         return new Admin(response.rows[0]);
     }
+
+    static async getByUsername(username) {
+        const response = await db.query(
+            "SELECT * FROM administrator WHERE username = $1",
+            [username]
+        );
+        if (response.rows.length !== 1) {
+            throw new Error("Unable to locate user.");
+        }
+        return new Admin(response.rows[0]);
+    }
+
+
 }
+
+module.exports = Admin;
