@@ -21,6 +21,8 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    position: relative;
+    border-bottom: solid 2px #c0c0c0;
 }
 
 #news-main-content {
@@ -33,10 +35,12 @@ main {
     flex-wrap: wrap;
     padding: 2%;
     justify-content: space-evenly;
+    position: relative;
 }
 
 #news-title {
     font-size: 2.5rem;
+    margin: 0;
 }
 
 #news-top-buttons {
@@ -44,7 +48,9 @@ main {
     padding: 0.5% 0;
     display: flex;
     flex-direction: row;
+    position: relative;
 }
+
 
 #add-news-button {
     font-size: 1.2rem;
@@ -95,6 +101,29 @@ main {
     margin-left: 1%;
 }
 
+#filter-button > svg > path {
+    transition: d .4s, fill .4s;
+}
+
+#filter-button:hover > svg > path {
+    fill:#FBB348;
+    /* d: path("M7.5 0L14.8612 12.75L0.138784 12.75L7.5 0Z"); */
+}
+
+#top-dropdown-box {
+    width: 100%;
+    height: 0;
+    position: absolute;
+    top: calc(100% + 2px);
+    background-color:#FBB348;
+    z-index: 5;
+    transition: height .4s;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .plus-image {
     margin-left: 10px;
 }
@@ -103,11 +132,17 @@ main {
     transition: fill .4s;
 }
 
-.hidden-button-style {
-    outline: none;
-    border: none;
-    background: transparent;
-    cursor:pointer;
+.filter-image {
+    margin-left: 10px;
+}
+
+#filter-button:hover > svg > path {
+    
+}
+
+.filter-image-reverse-path {
+    d: path("M7.5 0L14.8612 12.75L0.138784 12.75L7.5 0Z");
+
 }
 
 
@@ -135,6 +170,33 @@ main {
     color: #000;
 }
 
+#filter-form {
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+#filter-form-button {
+    width: 100px;
+    height: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .4s;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+    margin-left: 40px;
+}
+
+#filter-form-button:hover {
+    background-color:#b6b6b6;
+}
+
+.filter-form-spacing {
+    margin: 0 12px;
+}
 
 .card {
     width: 380px;
@@ -143,6 +205,11 @@ main {
     box-shadow: 0px 5px 10px 0px #c0c0c0;
     flex-shrink: 0;
     margin-right: auto;
+    transition: transform .4s;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
 
 .card-link {
@@ -268,6 +335,99 @@ main {
     margin: 12px 6px;
 }
 
+#overlay {
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity .4s;
+    z-index: 9;
+}
+
+#add-news-form {
+    width: 37%;
+    height: 75%;
+    background-color: #fff;
+    overflow: auto;
+    position: relative;
+    padding: 3% 4%;
+    display: flex;
+    flex-direction: column;
+}
+
+#add-news-close-button {
+    position: absolute;
+    top: 3%;
+    right: 3%;
+}
+
+#add-news-close-button > svg > path {
+    transition: fill .4s;
+} 
+
+#add-news-close-button:hover > svg > path {
+    fill: #F25555;
+} 
+
+#add-news-form-title {
+    font-size: 1.8rem;
+}
+
+#add-news-type {
+    max-width: 220px;
+}
+
+#add-news-upload {
+    font-size: 1.05rem;
+}
+
+#add-news-description {
+    height: 38%;
+    font-family: 'Inter', sans-serif;
+}
+
+#add-news-cancel-button {
+    outline: none;
+    margin-right: 12px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.05rem;
+    cursor: pointer;
+    display: block;
+	position: relative;
+}
+
+/* #add-news-cancel-button::after {
+	content: '';
+	position: absolute;
+	bottom: 5px;
+	left: 0;
+	width: 100%;
+	height: 0.1rem;
+	background-color: #323232;
+	opacity: 0;
+	transition: opacity 300ms, transform 300ms;
+}
+
+#add-news-cancel-button:hover::after,
+#add-news-cancel-button:focus::after {
+	opacity: 1;
+	transform: translate3d(0, 0.2em, 0);
+} */
+
+#add-news-submit-button {
+    width: 100px;
+}
+
+#add-news-submit-button:disabled {
+    background-color: #979797;
+}
+
 .push-right {
     margin-left: auto;
 }
@@ -275,3 +435,51 @@ main {
 .push-bottom {
     margin-top: auto;
 }
+
+.radio-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-column {
+    margin: 0 10% 0 0;
+}
+
+.input-text {
+    height: 30px;
+}
+
+.form-label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 24px 0 6px 0;
+}
+
+.form-input-horizontal {
+    margin: 6px 0;
+}
+
+.form-button-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.filter-stretch {
+    height: 150px !important;
+}
+

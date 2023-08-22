@@ -14,7 +14,7 @@
     <nav class="menu-default">
         <div id="nav-left">
             <div id="logo-wrapper">
-                <a id="nav-home-button" href="./home.html">
+                <a id="nav-home-button" href="./index.html">
                     <img id="nav-logo" src="./res/logo1.png">
                     <div id="logo-text-wrapper">
                         <p id="logo-text-main">Day 'n' Day</p>
@@ -73,15 +73,37 @@
                     </div>
                     <button id="filter-button" class="hidden-button-style">
                         Filter
-                        <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="filter-image" width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7.5 13L0.138786 0.249999L14.8612 0.25L7.5 13Z" fill="#D9D9D9"/>
                         </svg>
                     </button>
                 </div>
+                <div id="top-dropdown-box" class="">
+
+                    <form id="filter-form">
+                        <div class="radio-wrapper filter-form-spacing">
+                            <label class="container">A-Z
+                                <input type="radio" checked="checked" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Z-A
+                                <input type="radio" checked="checked" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="date-wrapper filter-form-spacing">
+                            <label for="filter-start-date">Date</label>
+
+                            <input type="date" id="filter-start-date" class="input-text" name="filter-start-date" value=""  />
+                        </div>
+                        <input id="filter-form-button" class="filter-form-spacing" type="submit" value="Filter"/>
+                    </form>
+
+                </div>
+
             </div>
             <div id="news-main-content" >
-
-
+                
                 <div class="card card-spacing">
                     <a class="card-link" href="#">
                     <div class="card-image-wrapper">
@@ -99,7 +121,6 @@
                         </div>
                         <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
                             <h2 class="card-type card-text">TYPE</h2>
-                            
                         </div>
                     </div>
                     </a>
@@ -132,6 +153,8 @@
                     <a class="card-link" href="#">
                     <div class="card-image-wrapper">
                         <img src="./res/wholesale-news-image.jpg">
+                        <button class="card-edit-button"></button>
+                        <button class="card-delete-button"></button>
                     </div>
                     <div class="card-text-wrapper">
                         <div class="card-text-top card-text-flex card-text-padder">
@@ -269,7 +292,45 @@
             </div>
         </div>
 
-        
+        <div id="overlay" class="hide">
+            <form id="add-news-form">
+                <button id="add-news-close-button" class="hidden-button-style">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                    </svg>
+                </button>
+                <h2 id="add-news-form-title">Add News</h2>
+                
+                
+                <div id="add-news-input-wrapper" class="flex-row">
+                <div id="add-news-form-left" class="flex-column form-column">
+                        <label for="add-news-date" class="form-label">Date</label>
+                        <input type="date" id="add-news-date" class="input-text form-input-horizontal add-news-form-input" name="add-news-date">
+                        <label for="add-news-title" class="form-label">Title</label>
+                        <input type="password" id="add-news-title" class="input-text form-input-horizontal add-news-form-input" name="add-news-title">
+                </div>
+                <div id="add-news-form-right" class="flex-column form-column">
+                        <label for="add-news-type" class="form-label">Type</label>
+                        <select id="add-news-type" class="input-text form-input-horizontal add-news-form-input" name="add-news-type">
+                            <option value="agriculture">Agriculture</option>
+                            <option value="sports">Sports</option>
+                            <option value="tech">Technology</option>
+                            <option value="nature">Nature</option>
+                            <option value="science">Science</option>
+                          </select>
+                        <label for="add-news-upload" class="form-label">Images</label>
+                        <input type="file" accept=".png, .jpg, .gif" id="add-news-upload" class="form-input-horizontal add-news-form-input" name="add-news-upload" multiple>
+                </div>
+                </div>
+                <label for="add-news-description" class="form-label">Description</label>
+                <textarea id="add-news-description" name="add-news-description" class="add-news-form-input" autocomplete = "off">as</textarea>
+                <div class="filler"></div>
+                <div class="form-button-wrapper push-right">
+                <button id="add-news-cancel-button" class="">Cancel</button>
+                <input type="submit" id="add-news-submit-button" class="input-submit" value="Add" disabled=true>
+                </div>
+            </form>
+        </div>
     </main>
     <footer class="menu-default">
         <p>Copyrighted by NaNKnights 2023</p>

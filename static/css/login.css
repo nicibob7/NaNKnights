@@ -4,11 +4,32 @@ main {
     align-items: center;
 }
 
-#login-form {
+#login-container {
     background-color: #fff;
-    height: 60%;
-    width: 25%;
+    height: 65%;
+    width: 26%;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: auto;
+}
+
+
+#login-form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: auto;
+}
+
+#admin-form {
+    height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +40,11 @@ main {
 h1 {
     font-size: 1.8rem;
     font-weight: bolder;
-    margin: 10px 0 10px;
+    margin: 0 0 10px 0;
+}
+
+#admin-title {
+    margin: 5% 0 5% 0;
 }
 
 #login-wrapper {
@@ -30,8 +55,43 @@ h1 {
     justify-content: center;
 }
 
+
+#admin-login-wrapper {
+    width: 51%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: auto;
+}
+
+#login-account-button {
+    margin-top: 15px;
+}
+
+#login-account-button:hover {
+    background-color: #000;
+}
+
+#login-account-button > svg > #body-mask > .tie {
+    transition: fill .4s;
+}
+
+#login-account-button:hover > svg > #body-mask > .tie {
+    fill: rgba(251, 179, 72, 1);
+}
+
+.admin {
+    fill: rgba(251, 179, 72, 1);
+    transition: fill .4s;
+}
+
+#login-account-button:hover > svg > #body-mask > .admin {
+    fill: rgba(251, 179, 72, 0);
+}
+
 .login-el {
-    margin: 3% 0 3% 0;
+    margin: 2% 0 2% 0;
     white-space: nowrap;
 }
 
@@ -67,6 +127,14 @@ form > a  {
 }
 
 #forgot-password {
+    margin-top: -2%;
+    margin-left: auto;
+    margin-bottom: 10%;
+    text-decoration: none;
+    /* float: right; */
+}
+
+#admin-forgot-password {
     margin-top: -2%;
     margin-left: auto;
     margin-bottom: 10%;

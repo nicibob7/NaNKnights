@@ -349,6 +349,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin: 0 12px;
 }
 
 .view-all-link {
