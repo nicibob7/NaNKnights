@@ -6,16 +6,6 @@ const Token = require("../models/Token");
 const User = require("../models/User");
 const Suggestion = require("../models/Suggestion");
 
-async function register(req, res) {
-    const data = req.body;
-    try {
-        const newAdmin = await Admin.create(data);
-        return res.status(201).json(newAdmin);
-    } catch (error) {
-        return res.status(400).json({error: error.detail});
-    }
-}
-
 async function login(req, res) {
     const data = req.body;
 
@@ -61,7 +51,6 @@ const logout = async (req, res) => {
 
 
 module.exports = {
-    register,
     login,
     logout
 }
