@@ -1,30 +1,16 @@
 const express = require("express");
-const multer = require("multer");
 const home = require("../controllers/home");
-const validateParameters = require("../middleware/validateParams");
-const authenticator = require("../middleware/authenticator");
-
 const router = express.Router();
-const upload = multer({storage: multer.memoryStorage()});
 
+/* public endpoints */
+// cant have get here, as it will conflict with the get /suggestions/all & /suggestions/:id
+router.post("/suggestions/:id", home.getSuggestionById);
 
-// public routes
 router.get("/news/popular", home.getNewsByPopularity)
 router.get("/events/date", home.getEventsByPopularity)
 router.get("/suggestions/popular", home.getSuggestionsByPopularity)
-
-router.post("/suggestions/new", authenticator, validateParameters({
-        title: {type: 'stringWithMaxLength', maxLength: 32},
-        description: {type: 'stringWithMaxLength', maxLength: 512},
-        urgency_level: {type: 'stringWithMaxLength', maxLength: 16},
-        image: {type: 'image'},
-    }
-), upload.single("image"), home.postSuggestion);
-
-router.post("/suggestions/:id", home.getSuggestionById);
-
 router.get("/suggestions/all", home.getSuggestions);
-
+router.post("/comments/:id", home.getCommentsBySuggestionId);
 
 
 // endpoint to html routes

@@ -4,7 +4,7 @@ const static_path = path.join(__dirname, "../static");
 const Suggestion = require("../models/Suggestion");
 const CommunityEvent = require("../models/CommunityEvent");
 const Information = require("../models/Information");
-
+const Comment = require("../models/Comment");
 
 const postSuggestion = async (req, res) => {
     try {
@@ -62,6 +62,28 @@ const getSuggestionsByPopularity = async (req, res) => {
     try {
         const news = await Suggestion.getSuggestionsByPopularity();
         res.status(200).json(news);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const postComment = async (req, res) => {
+    try {
+        const data = req.body;
+        // get user from auth middleware
+        data.posted_by = res.locals.user;
+
+        const comment = await Comment.create(data);
+        res.status(201).json(comment);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const getCommentsBySuggestionId = async (req, res) => {
+    try {
+        const comments = await Comment.getAllBySuggestionId(req.params.id);
+        res.status(200).json(comments);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
@@ -125,6 +147,9 @@ module.exports = {
     postSuggestion,
     getSuggestions,
     getSuggestionById,
+
+    postComment,
+    getCommentsBySuggestionId,
 
     login,
     events,
