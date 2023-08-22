@@ -34,6 +34,11 @@ class Suggestion {
         return result.rows;
     }
 
+    static async getSuggestionsByPopularity(){
+        const result = await db.query("SELECT * FROM suggestion ORDER BY votes DESC");
+        return result.rows;
+    }
+
     static async getById(id) {
         const result = await db.query('SELECT * FROM suggestion WHERE id = $1', [id]);
         return result.rows[0];
