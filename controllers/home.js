@@ -8,22 +8,26 @@ const postSuggestion = async (req, res) => {
     try {
         const data = req.body;
 
-        if (!req.file) {
-            return res.status(400).send({error : "No image uploaded"});
-        }
-
-        const uploadedImage = req.file.buffer;
-
-
         data.username = res.locals.user;
-        data.image = uploadedImage;
-        console.log(data)
+
         const suggestion = await Suggestion.create(data);
+        // cache images for an hour
+        //res.set('Cache-Control', 'public, max-age=3600');
         res.status(201).json(suggestion);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
 }
+
+const getSuggestionById = async (req, res) => {
+    try {
+        const suggestion = await Suggestion.getById(req.params.id);
+        res.status(200).json(suggestion);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 
 const getSuggestions = async (req, res) => {
     try {
@@ -92,6 +96,7 @@ const notFound = async (req, res) => {
 module.exports = {
     postSuggestion,
     getSuggestions,
+    getSuggestionById,
 
     login,
     events,

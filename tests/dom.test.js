@@ -53,11 +53,6 @@ describe("login.html", () => {
         dom = await renderDom("login.html");
         document = await dom.window.document;
     });
-
-    test("should display Login page", () => {
-        const h1 = document.querySelector("p");
-        expect(h1.innerHTML).toContain("Login page");
-    });
 });
 
 

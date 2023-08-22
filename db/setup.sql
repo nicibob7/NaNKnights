@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS information;
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS email_verify;
 DROP TABLE IF EXISTS administrator;
@@ -5,7 +6,7 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS suggestion;
 DROP TABLE IF EXISTS community_event;
 DROP TABLE IF EXISTS member;
-DROP TABLE IF EXISTS information;
+
 
 CREATE TABLE administrator (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

@@ -13,8 +13,11 @@ router.post("/suggestions/new", authenticator, validateParameters({
         title: {type: 'stringWithMaxLength', maxLength: 32},
         description: {type: 'stringWithMaxLength', maxLength: 512},
         urgency_level: {type: 'stringWithMaxLength', maxLength: 16},
+        image: {type: 'image'},
     }
 ), upload.single("image"), home.postSuggestion);
+
+router.post("/suggestions/:id", home.getSuggestionById);
 
 router.get("/suggestions/all", home.getSuggestions);
 

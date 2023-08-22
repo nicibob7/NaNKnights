@@ -19,6 +19,8 @@ const validateParameters = (parameterTypes) => {
                     return res.status(400).json({error: `${paramName} should be a valid positive integer.`});
                 } else if (paramConfig.type === 'stringWithMaxLength' && paramValue.length > paramConfig.maxLength) {
                     return res.status(400).json({error: `${paramName} should have a maximum length of ${paramConfig.maxLength} characters.`});
+                } else if(paramConfig.type === 'image' && !paramValue.startsWith('data:image/')) {
+                    return res.status(400).json({error: `${paramName} should be a valid base64 image.`});
                 }
             } else {
                 return res.status(400).json({error: `${paramName} is required.`});

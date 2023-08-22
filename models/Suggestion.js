@@ -26,6 +26,11 @@ class Suggestion {
 
     static async getAll() {
         const result = await db.query('SELECT * FROM suggestion');
+        // convert image from buffer to base64
+        result.rows.forEach((suggestion) => {
+            if(!suggestion.image) return;
+            suggestion.image = suggestion.image.toString();
+        });
         return result.rows;
     }
 
