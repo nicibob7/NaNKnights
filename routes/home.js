@@ -5,6 +5,10 @@ const router = express.Router();
 /* public endpoints */
 // cant have get here, as it will conflict with the get /suggestions/all & /suggestions/:id
 router.post("/suggestions/:id", home.getSuggestionById);
+
+router.get("/news/popular", home.getNewsByPopularity)
+router.get("/events/date", home.getEventsByPopularity)
+router.get("/suggestions/popular", home.getSuggestionsByPopularity)
 router.get("/suggestions/all", home.getSuggestions);
 router.post("/comments/:id", home.getCommentsBySuggestionId);
 

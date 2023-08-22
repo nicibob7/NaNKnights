@@ -2,6 +2,8 @@ const path = require("path");
 const static_path = path.join(__dirname, "../static");
 
 const Suggestion = require("../models/Suggestion");
+const CommunityEvent = require("../models/CommunityEvent");
+const Information = require("../models/Information");
 const Comment = require("../models/Comment");
 
 const postSuggestion = async (req, res) => {
@@ -38,6 +40,32 @@ const getSuggestions = async (req, res) => {
     }
 }
 
+const getNewsByPopularity = async (req, res) => {
+    try {
+        const news = await Information.getNewsByPopularity();
+        res.status(200).json(news);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const getEventsByPopularity = async (req, res) => {
+    try {
+        const news = await CommunityEvent.getEventsByPopularity();
+        res.status(200).json(news);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const getSuggestionsByPopularity = async (req, res) => {
+    try {
+        const news = await Suggestion.getSuggestionsByPopularity();
+        res.status(200).json(news);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
 
 const postComment = async (req, res) => {
     try {
@@ -135,4 +163,9 @@ module.exports = {
     suggestion_page,
     news_page,
     notFound,
+
+    getNewsByPopularity,
+    getEventsByPopularity,
+    getSuggestionsByPopularity
+
 };
