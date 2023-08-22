@@ -22,7 +22,7 @@ main {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     overflow: auto;
 }
@@ -32,7 +32,7 @@ main {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     overflow: auto;
 }
@@ -40,11 +40,11 @@ main {
 h1 {
     font-size: 1.8rem;
     font-weight: bolder;
-    margin: 0 0 10px 0;
+    margin: 6px 0 10px 0;
 }
 
 #admin-title {
-    margin: 5% 0 5% 0;
+    margin: 6px 0 11.6% 0;
 }
 
 #login-wrapper {
