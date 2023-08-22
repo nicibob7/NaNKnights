@@ -38,4 +38,17 @@ router.post("/register", validateParameters({
     postal_code: {type: 'stringWithMaxLength', maxLength: 12},
 }), users.register);
 
+router.post("/login", validateParameters({
+    username: {type: 'stringWithMaxLength', maxLength: 32},
+    password: {type: 'stringWithMaxLength', maxLength: 64},
+}), users.login);
+
+router.get("/verify/:emailToken", users.verify);
+
+
+// must be logged in
+router.post("/logout", authenticator, users.logout);
+router.post("/ping", authenticator, users.loggedInCheck);
+
+
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require("express");
 const cron = require('node-cron');
+const cors = require("cors")
 
 const app = express();
 
@@ -11,6 +12,7 @@ const hardenedSecurityConfig = require("./security/hardenedSecurityConfig");
 
 // parse as json
 app.use(express.json());
+app.use(cors());
 
 /* istanbul ignore next */
 // check if json is valid
