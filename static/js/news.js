@@ -10,6 +10,16 @@ const addNewsSubmitButton = document.querySelector('#add-news-submit-button');
 const overlay = document.querySelector('#overlay');
 const addNewsElements = document.querySelectorAll('.add-news-form-input');
 const filterForm = document.querySelector('#filter-form');
+const updateNewsForm = document.querySelector('#update-news-form');
+const updateNewsCloseButton = document.querySelector('#update-news-close-button');
+const updateNewsCancelButton = document.querySelector('#update-news-cancel-button');
+const updateNewsSubmitButton = document.querySelector('#update-news-submit-button');
+const deleteNewsCancelButton = document.querySelector('#delete-news-cancel-button');
+const deleteNewsButton = document.querySelector('#delete-news-button');
+const deleteNewsDialog = document.querySelector('#delete-news-dialog');
+const cardsList = document.querySelectorAll('.card');
+
+let selectedID = 0;
 
 function overlayShow() {
     document.getElementById('overlay').style.opacity = (parseFloat(document.getElementById('overlay').style.opacity) + 0.1);
@@ -25,21 +35,13 @@ function overlayFadeIn() {
     setTimeout(overlayShow, 20);
 }
 
-function overlayHide() {
-    document.getElementById('overlay').style.opacity = (parseFloat(document.getElementById('overlay').style.opacity) - 0.1);
-    if (document.getElementById('overlay').style.opacity > 0) {
-        setTimeout(overlayHide, 20);
-    }
-    
+
+const hideOverlay = () => {
+    overlay.classList.add('hide');
+    addNewsForm.classList.add('hide');
+    updateNewsForm.classList.add('hide');
+    deleteNewsDialog.classList.add('hide');
 }
-
-function overlayFadeOut() {
-    document.getElementById('overlay').style.opacity = 1;
-    document.getElementById('overlay').style.display = 'flex';
-    setTimeout(overlayHide, 20);
-}
-
-
 
 
 filterButton.addEventListener('click', (e) => {
@@ -72,19 +74,53 @@ addNewsUpload.addEventListener('change', (e) => {
 addNewsCloseButton.addEventListener('click', (e) => {
     e.preventDefault();
     //overlayFadeOut();
-    overlay.classList.add('hide');
-    
+    // overlay.classList.add('hide');
+    hideOverlay();
 });
 
 addNewsCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
    //overlayFadeOut();
-    overlay.classList.add('hide');
+    hideOverlay();
     
+});
+
+addNewsSubmitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+});
+
+updateNewsCloseButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    //overlayFadeOut();
+    // overlay.classList.add('hide');
+    hideOverlay();
+});
+
+updateNewsCancelButton.addEventListener('click', (e) => {
+    e.preventDefault();
+   //overlayFadeOut();
+    hideOverlay();
+    
+});
+
+updateNewsSubmitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+});
+
+deleteNewsCancelButton.addEventListener('click', (e) => {
+    e.preventDefault();
+   //overlayFadeOut();
+    hideOverlay();
+    
+});
+
+deleteNewsButton.addEventListener('click', (e) => {
+    e.preventDefault();
 });
 
 addNewsButton.addEventListener('click', (e) => {
     e.preventDefault();
+    addNewsForm.classList.remove('hide');
     overlayFadeIn();
     overlay.classList.remove('hide');
 });
@@ -116,25 +152,35 @@ addNewsForm.addEventListener('submit', (e) => {
 });
 
 
-// for (let i = 0; i < addNewsElements.length; i++) {
-//     console.log(addNewsElements[i].value);
-//     addNewsElements[i].addEventListener('change', () => {
-//         let emptyInput = false;
+for (let i = 0; i < cardsList.length; i++) {
+    cardsList[i].querySelector('.card-edit-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        // let idArray = (cardsList[i].id).split('-');
+        // selectedID = idArray[idArray.length-1];
 
-//         for (let j = 0; j < addNewsElements.length; j++) {
-//             console.log(addNewsElements[j].value);
-//             if (addNewsElements[j].value == "" || !addNewsElements[j].value) {
-//                 emptyInput = true;
-//                 break;
-//             }
+        
 
-//         }
-//         console.log(emptyInput);
-//         if (!emptyInput) {
-//             addNewsSubmitButton.disabled = false;
-//         }
-//         else {
-//             addNewsSubmitButton.disabled = true;
-//         }
-//     });
-// }
+        updateNewsForm.classList.remove('hide');
+        overlay.classList.remove('hide');
+        // hideOverlay();
+    });
+    cardsList[i].querySelector('.card-delete-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        // let idArray = (cardsList[i].id).split('-');
+        // selectedID = idArray[idArray.length-1];
+
+        deleteNewsDialog.classList.remove('hide');
+        overlay.classList.remove('hide');
+        // hideOverlay();
+    });
+
+    cardsList[i].addEventListener('mousemove', () => {
+        cardsList[i].querySelector('.card-edit-button').classList.remove('hide');
+        cardsList[i].querySelector('.card-delete-button').classList.remove('hide');
+    });
+
+    cardsList[i].addEventListener('mouseleave', () => {
+        cardsList[i].querySelector('.card-edit-button').classList.add('hide');
+        cardsList[i].querySelector('.card-delete-button').classList.add('hide');
+    });
+}
