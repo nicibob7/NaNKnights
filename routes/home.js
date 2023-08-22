@@ -9,9 +9,9 @@ const upload = multer({storage: multer.memoryStorage()});
 
 
 // public routes
-router.get("/getNews", home.getNewsByPopularity)
-router.get("/getEvents", home.getEventsByPopularity)
-router.get("/getSuggestions", home.getSuggestionsByPopularity)
+router.get("/news/popular", home.getNewsByPopularity)
+router.get("/events/date", home.getEventsByPopularity)
+router.get("/suggestions/popular", home.getSuggestionsByPopularity)
 
 router.post("/suggestions/new", authenticator, validateParameters({
         title: {type: 'stringWithMaxLength', maxLength: 32},
