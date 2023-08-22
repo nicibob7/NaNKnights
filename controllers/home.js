@@ -2,7 +2,7 @@ const path = require("path");
 const static_path = path.join(__dirname, "../static");
 
 const Suggestion = require("../models/Suggestion");
-
+const Comment = require("../models/Comment");
 
 const postSuggestion = async (req, res) => {
     try {
@@ -38,6 +38,28 @@ const getSuggestions = async (req, res) => {
     }
 }
 
+
+const postComment = async (req, res) => {
+    try {
+        const data = req.body;
+        // get user from auth middleware
+        data.posted_by = res.locals.user;
+
+        const comment = await Comment.create(data);
+        res.status(201).json(comment);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const getCommentsBySuggestionId = async (req, res) => {
+    try {
+        const comments = await Comment.getAllBySuggestionId(req.params.id);
+        res.status(200).json(comments);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
 
 
 // explicit mapping of all html files in /static
@@ -97,6 +119,9 @@ module.exports = {
     postSuggestion,
     getSuggestions,
     getSuggestionById,
+
+    postComment,
+    getCommentsBySuggestionId,
 
     login,
     events,
