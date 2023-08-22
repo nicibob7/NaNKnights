@@ -1,15 +1,37 @@
 const express = require("express");
-const router = express.Router();
+const multer = require("multer");
 const home = require("../controllers/home");
+const validateParameters = require("../middleware/validateParams");
 const authenticator = require("../middleware/authenticator");
 
+const router = express.Router();
+const upload = multer({storage: multer.memoryStorage()});
+
+
 // public routes
+router.post("/suggestions/new", authenticator, validateParameters({
+        title: {type: 'stringWithMaxLength', maxLength: 32},
+        description: {type: 'stringWithMaxLength', maxLength: 512},
+        urgency_level: {type: 'stringWithMaxLength', maxLength: 16},
+    }
+), upload.single("image"), home.postSuggestion);
+
+router.get("/suggestions/all", home.getSuggestions);
+
+
+
+// endpoint to html routes
 router.get("/login", home.login);
-
-
-// must be logged in
-router.get("/secured", authenticator, home.secured);
-
+router.get("/events", home.events);
+router.get("/suggestions", home.suggestions);
+router.get("/account", home.account);
+router.get("/about", home.about);
+router.get("/register", home.register);
+router.get("/dashboard", home.dashboard);
+router.get("/event-page", home.event_page);
+router.get("/news", home.news);
+router.get("/suggestions/:id", home.suggestion_page);
+router.get("/news/:id", home.news_page);
 
 // keep always last, handles all other unimplemented routes
 router.get("*", (req, res) => {

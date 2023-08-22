@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS suggestion;
 DROP TABLE IF EXISTS community_event;
 DROP TABLE IF EXISTS member;
+DROP TABLE IF EXISTS information;
 
 CREATE TABLE administrator (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -61,7 +62,7 @@ REVOKE UPDATE (date_posted, posted_by) ON suggestion FROM PUBLIC;
 
 CREATE TABLE comment (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    suggestion_id INT NOT NULL,
+    suggestion_id INT,
     comment VARCHAR(128) NOT NULL,
     date_posted TIMESTAMP DEFAULT NOW(),
     posted_by VARCHAR(32) NOT NULL,
@@ -76,9 +77,22 @@ CREATE TABLE community_event (
     description VARCHAR(512) NOT NULL,
     date_posted TIMESTAMP DEFAULT NOW(),
     posted_by VARCHAR(32) NOT NULL,
+    location VARCHAR(32) NOT NULL,
+    date DATE NOT NULL,
     CONSTRAINT fk_event_user FOREIGN KEY (posted_by) REFERENCES member(username)
 );
 REVOKE UPDATE (date_posted, posted_by) ON community_event FROM PUBLIC;
+
+CREATE TABLE information (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title VARCHAR(32) NOT NULL,
+    description VARCHAR(512) NOT NULL,
+    date_posted TIMESTAMP DEFAULT NOW(),
+    posted_by VARCHAR(32) NOT NULL,
+    type VARCHAR(16) NOT NULL,
+    image BYTEA NOT NULL,
+    CONSTRAINT fk_information_user FOREIGN KEY (posted_by) REFERENCES administrator(username)
+);
 
 -- delete expired session tokens
 CREATE OR REPLACE FUNCTION delete_expired_session_tokens() RETURNS void AS $$
