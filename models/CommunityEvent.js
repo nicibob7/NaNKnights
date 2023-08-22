@@ -11,7 +11,7 @@ class CommunityEvent {
         this.date = date;
     }
 
-    static async getEventsByPopularity(){
+    static async getEventsByDate(){
         const result = await db.query("SELECT * FROM community_event ORDER BY date");
         return result.rows;
     }
