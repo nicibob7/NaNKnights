@@ -1,3 +1,9 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #login-form {
     background-color: #fff;
     height: 60%;
@@ -7,6 +13,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    overflow: auto;
 }
 
 h1 {
@@ -25,6 +32,7 @@ h1 {
 
 .login-el {
     margin: 3% 0 3% 0;
+    white-space: nowrap;
 }
 
 .input-text {
@@ -34,6 +42,8 @@ h1 {
     margin: 4% 0 4% 0;
     font-size: 1.05rem;
 }
+
+
 
 .input-submit {
     height: 40px;

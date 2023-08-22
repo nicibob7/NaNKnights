@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/global-styles.css" >
+    <link rel="stylesheet" href="./css/news.css" >
+    <script defer src="./js/global-script.js"></script>
+    <script defer src="./js/news.js"></script>
+    <title>News | Day 'n' Day</title>
+</head>
+<body>
+    <nav class="menu-default">
+        <div id="nav-left">
+            <div id="logo-wrapper">
+                <a id="nav-home-button" href="./home.html">
+                    <img id="nav-logo" src="./res/logo1.png">
+                    <div id="logo-text-wrapper">
+                        <p id="logo-text-main">Day 'n' Day</p>
+                        <p id="logo-text-sub">Florin Country Community App</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div id="nav-button-wrapper">
+                <a href="./news.html" id="nav-news-button" class="nav-button">News</a>
+                <a href="./events.html" id="nav-events-button" class="nav-button">Events</a>
+                <a href="./suggestions.html" id="nav-suggestions-button" class="nav-button">Suggestions</a>
+                <a href="./about.html" id="nav-about-button" class="nav-button">About</a>
+            </div>
+
+        </div>
+        <div id="nav-right" class="hide-padding">
+            <div id="nav-right-button-wrapper">
+                <a href="./dashboard.html" id="nav-news-button" class="nav-button hide">My Stuff</a>
+                <a href="./login.html" id="nav-login-button" class="nav-button">Login</a>
+            </div>
+            
+            <a href="./register.html" id="nav-signup-button">SIGN UP</a>
+
+            <div id="nav-account-wrapper" class="hide">
+                <img id="nav-account-icon" src="./res/account-icon.png">
+                <div id="nav-account-dropdown-list" class="menu-default hide">
+                    <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
+                    <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
+                    <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div id="news-container">
+            <div id="news-top-bar">
+                <h1 id="news-title">News</h1>
+                <div id="news-top-buttons">
+                    <button id="add-news-button" class="hidden-button-style">
+                        Add News
+                        <svg class="plus-image" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="plus-image-path" d="M13 0H7V7L0 7V13L7 13V20H13V13H20V7H13V0Z" fill="#D9D9D9"/>
+                        </svg>
+                            
+                    </button>
+                    <div class="filler"></div>
+                    <div id="search-container">
+                    <input type="text" id="search-box" class="input-text"/>
+                    <button id="search-button" class="hidden-button-style">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="14.0015" cy="9" r="7.5" stroke="#868686" stroke-width="3"/>
+                            <rect x="7.07129" y="14" width="4" height="10" rx="2" transform="rotate(45 7.07129 14)" fill="#868686"/>
+                        </svg>
+                            
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <div id="news-main-content" >
+
+            </div>
+        </div>
+
+        
+    </main>
+    <footer class="menu-default">
+        <p>Copyrighted by NaNKnights 2023</p>
+    </footer>
+</body>
+</html>

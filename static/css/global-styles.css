@@ -6,12 +6,10 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: 'Inter', sans-serif;
-
 }
 
 body {
     background-color: #F0EDE7;
-    overflow: hidden;
 }
 
 nav {
@@ -80,6 +78,24 @@ nav {
     margin-left: 5%;
 }
 
+#nav-signup-button {
+    text-decoration: none;
+    height: 100%;
+    width: 20%;
+    background-color: #FBB348;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    transition: background-color .4s;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+#nav-signup-button:hover {
+    background-color: #dc9d3f;
+}
+
 #nav-account-wrapper {
     position: relative;
 }
@@ -130,8 +146,6 @@ main {
     height: calc(100vh - 80px - 80px);
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -140,7 +154,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    flex-shrink: 0;
     height: 80px;
     width: 100%;
 }
@@ -172,6 +186,26 @@ footer > p {
     color: #000;
     font-size: 1.1rem;
     white-space: nowrap;
+    display: block;
+	position: relative;
+}
+
+.nav-button::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 0.1rem;
+	background-color: #323232;
+	opacity: 0;
+	transition: opacity 300ms, transform 300ms;
+}
+
+.nav-button:hover::after,
+.nav-button:focus::after {
+	opacity: 1;
+	transform: translate3d(0, 0.2em, 0);
 }
 
 .input-text {
@@ -203,6 +237,10 @@ footer > p {
 .text-link {
     color: #FBB348;
     text-decoration: underline;
+}
+
+.hide-padding {
+    padding: 0 !important;
 }
 
 .hide {
