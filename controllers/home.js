@@ -3,6 +3,7 @@ const static_path = path.join(__dirname, "../static");
 
 const Suggestion = require("../models/Suggestion");
 const CommunityEvent = require("../models/CommunityEvent");
+const Information = require("../models/Information");
 
 
 const postSuggestion = async (req, res) => {
