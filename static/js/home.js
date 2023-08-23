@@ -153,7 +153,6 @@ const populateNewsCarousel = async () => {
     const newsCard8 = [newsCard8Title, newsCard8Date, newsCard8Description, newsCard8Type]
 
     const newsCards = [newsCard1, newsCard2, newsCard3, newsCard4, newsCard5, newsCard6, newsCard7, newsCard8]
-    console.log(newsCards)
 
 
     for(let i = 0; i < newsItems.length; i++){
@@ -164,8 +163,67 @@ const populateNewsCarousel = async () => {
     }
 }
 
-const populateEvents = () => {
+const populateEvents = async () => {
+    const events = await fetch("/events/all")
+    const eventItems = await events.json()
+    console.log(eventItems)
 
+    const eventCard1Title = document.getElementById("event-card1-title")
+    const eventCard1Date = document.getElementById("event-card1-date")
+    const eventCard1Location = document.getElementById("event-card1-location")
+    const eventCard1Host = document.getElementById("event-card1-host")
+    const eventCard1Description = document.getElementById("event-card1-description")
+    const eventCard1Type = document.getElementById("event-card1-type")
+
+    const eventCard1 = [eventCard1Title, eventCard1Date, eventCard1Location, eventCard1Host, eventCard1Description, eventCard1Type]
+
+    const eventCard2Title = document.getElementById("event-card2-title")
+    const eventCard2Date = document.getElementById("event-card2-date")
+    const eventCard2Location = document.getElementById("event-card2-location")
+    const eventCard2Host = document.getElementById("event-card2-host")
+    const eventCard2Description = document.getElementById("event-card2-description")
+    const eventCard2Type = document.getElementById("event-card2-type")
+
+    const eventCard2 = [eventCard2Title, eventCard2Date, eventCard2Location, eventCard2Host, eventCard2Description, eventCard2Type]
+
+    const eventCard3Title = document.getElementById("event-card3-title")
+    const eventCard3Date = document.getElementById("event-card3-date")
+    const eventCard3Location = document.getElementById("event-card3-location")
+    const eventCard3Host = document.getElementById("event-card3-host")
+    const eventCard3Description = document.getElementById("event-card3-description")
+    const eventCard3Type = document.getElementById("event-card3-type")
+
+    const eventCard3 = [eventCard3Title, eventCard3Date, eventCard3Location, eventCard3Host, eventCard3Description, eventCard3Type]
+
+    const eventCard4Title = document.getElementById("event-card4-title")
+    const eventCard4Date = document.getElementById("event-card4-date")
+    const eventCard4Location = document.getElementById("event-card4-location")
+    const eventCard4Host = document.getElementById("event-card4-host")
+    const eventCard4Description = document.getElementById("event-card4-description")
+    const eventCard4Type = document.getElementById("event-card4-type")
+
+    const eventCard4 = [eventCard4Title, eventCard4Date, eventCard4Location, eventCard4Host, eventCard4Description, eventCard4Type]
+
+    const eventCard5Title = document.getElementById("event-card5-title")
+    const eventCard5Date = document.getElementById("event-card5-date")
+    const eventCard5Location = document.getElementById("event-card5-location")
+    const eventCard5Host = document.getElementById("event-card5-host")
+    const eventCard5Description = document.getElementById("event-card5-description")
+    const eventCard5Type = document.getElementById("event-card5-type")
+
+    const eventCard5 = [eventCard5Title, eventCard5Date, eventCard5Location, eventCard5Host, eventCard5Description, eventCard5Type]
+
+    const eventCards = [eventCard1, eventCard2, eventCard3, eventCard4, eventCard5]
+    console.log(eventCards)
+
+    for(let i = 0; i < eventItems.length; i++){
+        eventCards[i][0].innerHTML = eventItems[i].title
+        eventCards[i][1].innerHTML = eventItems[i].date_posted
+        eventCards[i][2].innerHTML = eventItems[i].location
+        eventCards[i][3].innerHTML = eventItems[i].host
+        eventCards[i][4].innerHTML = eventItems[i].description
+        eventCards[i][5].innerHTML = eventItems[i].type
+    }
 }
 
 const populateSuggestions = () => {
@@ -239,6 +297,7 @@ const init = () => {
     checkCurrentEvent();
     checkCurrentSuggestion();
     populateNewsCarousel();
+    populateEvents();
     
 }
 

@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/suggestions/:id", home.getSuggestionById);
 
 router.get("/news/all", home.getNews)
-router.get("/events/date", home.getEventsByPopularity)
+router.get("/events/all", home.getEvents)
 router.get("/suggestions/popular", home.getSuggestionsByPopularity)
 router.get("/suggestions/all", home.getSuggestions);
 router.post("/comments/:id", home.getCommentsBySuggestionId);
