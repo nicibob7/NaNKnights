@@ -108,6 +108,21 @@ describe("Token Models unit tests", () => {
             })
         })
 
+        describe("Token.deleteByToken(token)", () => {
+
+            it("returns empty after deletion by token", async() => {
+                const token = "bob_token";
+
+                jest.spyOn(db,'query').mockResolvedValueOnce();
+
+                const result = await Token.deleteByToken(token);
+                expect(result).toBeFalsy()
+                expect(result).toReturn();
+
+            })
+            
+        })
+
     })
 
     // describe("async isExpired() instance method", () => {
