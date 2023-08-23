@@ -11,7 +11,7 @@ const validateParameters = (parameterTypes) => {
 
                 if (paramConfig.type === 'boolean' && typeof paramValue !== 'boolean') {
                     return res.status(400).json({error: `${paramName} should be a boolean.`});
-                } else if (paramConfig.type === 'string' && typeof paramValue !== 'string') {
+                } else if (paramConfig.type === 'string' || paramConfig.type === 'stringWithMaxLength' && typeof paramValue !== 'string') {
                     return res.status(400).json({error: `${paramName} should be a string.`});
                 } else if (paramConfig.type === 'int' && !intRegex.test(paramValue)) {
                     return res.status(400).json({error: `${paramName} should be a valid integer.`});

@@ -42,7 +42,7 @@ const getSuggestions = async (req, res) => {
 
 const getNewsByPopularity = async (req, res) => {
     try {
-        const news = await Information.getNewsByPopularity();
+        const news = await Information.getByPopularity();
         res.status(200).json(news);
     } catch (error) {
         res.status(400).json({error: error.message});

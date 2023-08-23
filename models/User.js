@@ -18,10 +18,10 @@ class User {
     };
 
     static async create(data) {
-        const {username, password, email, first_name, last_name, phone_number, postal_code} = data;
+        const {username, password, email} = data;
         const response = await db.query(
-            "INSERT INTO member (username, password, email, first_name, last_name, phone_number, postal_code) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;",
-            [username, password, email, first_name, last_name, phone_number, postal_code]
+            "INSERT INTO member (username, password, email) VALUES ($1, $2, $3) RETURNING id;",
+            [username, password, email]
         );
         const newId = response.rows[0].id;
         return await this.getById(newId);
@@ -49,9 +49,11 @@ class User {
             "SELECT * FROM member WHERE username = $1",
             [username]
         );
+
         if (response.rows.length !== 1) {
             throw new Error("Unable to locate user.");
         }
+
         return new User(response.rows[0]);
     }
 
@@ -90,6 +92,30 @@ class User {
         );
     }
 
+    async updateBasicDetails(data) {
+        const {username, first_name, last_name, phone_number, postal_code} = data;
+        const response = await db.query(
+            "UPDATE member SET first_name = $1, last_name = $2, phone_number = $3, postal_code = $4 WHERE username = $5 RETURNING *;",
+            [first_name, last_name, phone_number, postal_code, this.username]
+        );
+        return new User(response.rows[0]);
+    }
+
+    async userDetailsCheck() {
+        // check if either first_name, last_name, phone_number, or postal_code is null
+        const response = await db.query(
+            'SELECT\n' +
+            '  CASE\n' +
+            '    WHEN first_name IS NULL OR last_name IS NULL OR phone_number IS NULL OR post_code IS NULL\n' +
+            '    THEN false\n' +
+            '    ELSE true\n' +
+            '  END AS result\n' +
+            'FROM users\n' +
+            'WHERE username = \'$1\';',
+            [this.username]);
+
+        return response.rows[0].result;
+    }
 }
 
 module.exports = User;

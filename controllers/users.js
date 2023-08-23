@@ -89,10 +89,24 @@ const verify = async (req, res) => {
     }
 };
 
+const updateDetails = async (req, res) => {
+    try {
+        const data = req.body;
+        const user = await User.getByUsername(res.locals.user);
+
+        const updatedUser = await user.updateBasicDetails(data);
+
+        res.status(200).json({status: "success"});
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 module.exports = {
     register,
     login,
     logout,
     loggedInCheck,
     verify,
+    updateDetails,
 };

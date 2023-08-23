@@ -34,3 +34,8 @@ INSERT INTO community_event (title, description, date, location, posted_by) VALU
 INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
 INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
 INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
+
+-- information data
+INSERT INTO information (title, description, posted_by, type, image) VALUES ('Information 1', 'This is an information', 'admin', 'International news', 'image placeholder');
+INSERT INTO information (title, description, posted_by, type, image) VALUES ('Information 2', 'This is another info about the world', 'admin', 'Science news', 'image placeholder');
+INSERT INTO information (title, description, posted_by, type, image) VALUES ('Information 3', 'This is a piece of info', 'admin', 'IT news', 'image placeholder');

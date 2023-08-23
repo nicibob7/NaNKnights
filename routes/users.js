@@ -28,14 +28,16 @@ router.post("/suggestions/new", authenticator, validateParameters({
         image: {type: 'image'},
     }
 ), home.postSuggestion);
-router.post("/register", validateParameters({
+router.post("/register", authenticator, validateParameters({
     username: {type: 'stringWithMaxLength', maxLength: 32},
     password: {type: 'stringWithMaxLength', maxLength: 64},
-    email: {type: 'stringWithMaxLength', maxLength: 64},
-    first_name: {type: 'stringWithMaxLength', maxLength: 16},
-    last_name: {type: 'stringWithMaxLength', maxLength: 16},
+    email: {type: 'stringWithMaxLength', maxLength: 64}
+}), users.register);
+router.post("/update", authenticator, validateParameters({
+    first_name: {type: 'stringWithMaxLength', maxLength: 32},
+    last_name: {type: 'stringWithMaxLength', maxLength: 32},
     phone_number: {type: 'stringWithMaxLength', maxLength: 16},
     postal_code: {type: 'stringWithMaxLength', maxLength: 12},
-}), users.register);
+}), users.updateDetails);
 
 module.exports = router;
