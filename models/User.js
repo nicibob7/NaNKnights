@@ -68,7 +68,7 @@ class User {
         return new User(response.rows[0]);
     }
 
-    // TODO: test this *PASSED UNIT TEST (User.spec.js line 229) IN THIS STATE*
+    // TODO: test this *PASSED UNIT TEST (User.spec.js line 276) IN THIS STATE*
     static async getAllNonActivated() {
         const result = await db.query("SELECT * FROM member WHERE is_activated = false;");
         return result.rows
