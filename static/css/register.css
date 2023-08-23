@@ -7,7 +7,7 @@ body {
 
   .modal {
     padding: 2%;
-    background-color: white;
+    /* background-color: white; */
     position: absolute;
     top: 50%;
     left: 50%;
