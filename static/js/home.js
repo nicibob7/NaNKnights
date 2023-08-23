@@ -226,8 +226,54 @@ const populateEvents = async () => {
     }
 }
 
-const populateSuggestions = () => {
+const populateSuggestions = async () => {
+    const suggestions = await fetch("/suggestions/popular")
+    const suggestionItems = await suggestions.json()
+    console.log(suggestionItems)
 
+    const suggestionCard1Title = document.getElementById("suggestion-card1-title")
+    const suggestionCard1Date = document.getElementById("suggestion-card1-date")
+    const suggestionCard1Description = document.getElementById("suggestion-card1-description")
+    const suggestionCard1Type = document.getElementById("suggestion-card1-type")
+
+    const suggestionCard1 = [suggestionCard1Title, suggestionCard1Date, suggestionCard1Description, suggestionCard1Type]
+
+    const suggestionCard2Title = document.getElementById("suggestion-card2-title")
+    const suggestionCard2Date = document.getElementById("suggestion-card2-date")
+    const suggestionCard2Description = document.getElementById("suggestion-card2-description")
+    const suggestionCard2Type = document.getElementById("suggestion-card2-type")
+
+    const suggestionCard2 = [suggestionCard2Title, suggestionCard2Date, suggestionCard2Description, suggestionCard2Type]
+
+    const suggestionCard3Title = document.getElementById("suggestion-card3-title")
+    const suggestionCard3Date = document.getElementById("suggestion-card3-date")
+    const suggestionCard3Description = document.getElementById("suggestion-card3-description")
+    const suggestionCard3Type = document.getElementById("suggestion-card3-type")
+
+    const suggestionCard3 = [suggestionCard3Title, suggestionCard3Date, suggestionCard3Description, suggestionCard3Type]
+
+    const suggestionCard4Title = document.getElementById("suggestion-card4-title")
+    const suggestionCard4Date = document.getElementById("suggestion-card4-date")
+    const suggestionCard4Description = document.getElementById("suggestion-card4-description")
+    const suggestionCard4Type = document.getElementById("suggestion-card4-type")
+
+    const suggestionCard4 = [suggestionCard4Title, suggestionCard4Date, suggestionCard4Description, suggestionCard4Type]
+
+    const suggestionCard5Title = document.getElementById("suggestion-card5-title")
+    const suggestionCard5Date = document.getElementById("suggestion-card5-date")
+    const suggestionCard5Description = document.getElementById("suggestion-card5-description")
+    const suggestionCard5Type = document.getElementById("suggestion-card5-type")
+
+    const suggestionCard5 = [suggestionCard5Title, suggestionCard5Date, suggestionCard5Description, suggestionCard5Type]
+
+    const suggestionCards = [suggestionCard1, suggestionCard2, suggestionCard3, suggestionCard4, suggestionCard5]
+
+    for(let i = 0; i < suggestionItems.length; i++){
+        suggestionCards[i][0].innerHTML = suggestionItems[i].title
+        suggestionCards[i][1].innerHTML = suggestionItems[i].date_posted
+        suggestionCards[i][2].innerHTML = suggestionItems[i].description
+        suggestionCards[i][3].innerHTML = suggestionItems[i].type
+    }
 }
 
 carouselLeftButton.addEventListener('click', (e) => {
@@ -298,6 +344,7 @@ const init = () => {
     checkCurrentSuggestion();
     populateNewsCarousel();
     populateEvents();
+    populateSuggestions();
     
 }
 
