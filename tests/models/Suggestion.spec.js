@@ -55,4 +55,19 @@ describe("Suggestion Models unit tests", () => {
         })
     })
 
+    describe("Suggestion.getAllByNotActivated()", () => {
+
+        it("Should return the all rows of suggestions where is_activated value equals FALSE", async () => {
+
+            jest.spyOn(db,'query').mockResolvedValueOnce({rows: [suggestion1, suggestion1]});
+
+            const result = await Suggestion.getAllByNotActivated();
+            expect(result).toHaveLength(2);
+            expect(typeof(result)).toBe('object');
+            expect(Object.keys(result[0])).toEqual(Object.keys(suggestion1));
+            expect(Object.values(result[0])).toEqual(Object.values(suggestion1));
+            
+        })
+    })
+
 })
