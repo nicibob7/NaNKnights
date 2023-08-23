@@ -1,6 +1,8 @@
 const loginForm = document.querySelector('#login-form');
+const adminForm = document.querySelector('#admin-form');
 
 
+const loginAccountButton = document.querySelector('#login-account-button');
 
 
 loginForm.addEventListener('submit', async (e) => {
@@ -31,3 +33,17 @@ loginForm.addEventListener('submit', async (e) => {
     }
 });
 
+loginAccountButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const tie = document.querySelector('.tie');
+    if (tie.classList.contains('admin')) {
+        tie.classList.remove('admin');
+        adminForm.classList.add('hide');
+        loginForm.classList.remove('hide');
+    }
+    else {
+        tie.classList.add('admin');
+        loginForm.classList.add('hide');
+        adminForm.classList.remove('hide');
+    }
+});

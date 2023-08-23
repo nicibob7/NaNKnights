@@ -15,7 +15,7 @@
     <nav class="menu-default">
         <div id="nav-left">
             <div id="logo-wrapper">
-                <a id="nav-home-button" href="/login">
+                <a id="nav-home-button" href="./index.html">
                     <img id="nav-logo" src="./res/logo1.png">
                     <div id="logo-text-wrapper">
                         <p id="logo-text-main">Day 'n' Day</p>
@@ -51,8 +51,23 @@
         </div>
     </nav>
     <main>
+        <div id="login-container">
+            <button id="login-account-button" class="hidden-button-style">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <mask id="mask0_206_27" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+                        <circle cx="40" cy="40" r="40" fill="#D9D9D9"/>
+                    </mask>
+                    <g id="body-mask" mask="url(#mask0_206_27)">
+                        <circle cx="40" cy="38.8406" r="40" fill="#D9D9D9"/>
+                        <ellipse cx="40.0002" cy="64.348" rx="23.7681" ry="21.4493" fill="white"/>
+                        <path class="tie" d="M40 76L36.5 72.5C36.5 72.5 38.726 56.6923 38.3834 51.5L35.2513 46.075L33 42.4C33 42.4 35.1 41 40 41C44.9 41 47 42.4 47 42.4L41.6166 51.5C41.3162 56.0527 43.5 72.5 43.5 72.5L40 76Z" fill="rgba(251, 179, 72, 0)"/>
+                        <circle cx="39.7536" cy="30.7536" r="12.7536" fill="white"/>
+                    </g>
+                </svg>
+            </button>
         <form id="login-form">
-            <h1 id="login-title login-el">Login</h1>
+            
+            <h1 id="login-title">Login</h1>
             <div id="login-wrapper">
                 <p id="registration-link" class="form-text login-el">Don't have an account? <a href="/register" class="text-link">Sign up</a></p>
                 <input type="text" id="username" class="input-text login-el" name="username" placeholder="Username">
@@ -67,6 +82,19 @@
                 <a href="#" id="facebook-icon" class="social-button"></a>
             </div>
         </form>
+        <form id="admin-form" class="hide">
+            
+            <h1 id="admin-title" class="login-el">Admin Login</h1>
+            <div id="admin-login-wrapper">
+                <input type="text" id="admin-email" class="input-text login-el" name="admin-email" placeholder="Email">
+                <input type="password" id="admin-password" class="input-text login-el" name="admin-password" placeholder="Password">
+                <a href="#" id="admin-forgot-password" class="form-text login-el">Forgot Password?</a>
+                
+                <input type="submit" class="input-submit login-el" value="Login">
+            </div>
+        </form>
+
+    </div>
     </main>
     <footer>
         <p>Copyrighted by NaNKnights 2023</p>
