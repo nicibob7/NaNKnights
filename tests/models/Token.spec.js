@@ -31,6 +31,25 @@ describe("Token Models unit tests", () => {
         })
     })
 
+    describe("Token Methods:", () => {
+
+        describe("Token.create(username)", () => {
+
+            it("returns full token details for that username", async () => {
+
+                const username = "bob";
+
+                jest.spyOn(db,'query').mockResolvedValueOnce({rows: [testToken1]});
+
+                const result = await Token.create(username);
+                expect(typeof(result)).toBe('object');
+                expect(Object.keys(result).length).toBe(5);
+                expect(Object.keys(result)).toEqual(Object.keys(testToken1));
+                expect(Object.values(result)).toEqual(Object.values(testToken1))
+            })
+        })
+    })
+
     // describe("async isExpired() instance method", () => {
 
     //     beforeEach(() => {
