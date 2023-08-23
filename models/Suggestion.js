@@ -1,8 +1,8 @@
 const db = require("../db/db");
 
 class Suggestion {
-    constructor({username, title, description, image, urgency_level}) {
-        this.username = username;
+    constructor({posted_by, title, description, image, urgency_level}) {
+        this.username = posted_by;
         this.title = title;
         this.description = description;
         this.image = image;
