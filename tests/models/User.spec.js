@@ -215,13 +215,26 @@ describe("User Models unit tests", () => {
                     is_activated: true
                 }
 
+                const dbRemainingUser = {
+                    id: 1, username: "username2",
+                    password: "password2",
+                    email: "username2@email.com",
+                    first_name: "user2", 
+                    last_name: "userlast2",
+                    phone_number: "+123user2", 
+                    postal_code: "US ER2",
+                    is_activated: true
+                }
+
                 let newUser = new User({userData1})
 
                 jest.spyOn(db, 'query')
-                .mockResolvedValueOnce({rows: userData1});
+                .mockResolvedValueOnce({rows: [userData1]}).mockResolvedValueOnce({rows: [dbRemainingUser]});
 
                 const result = await User.delete(newUser.id)
-                expect(result).toBeInstanceOf(Error)
+                console.log(result.rows)
+                expect(result.rows[0]).toEqual(dbRemainingUser);
+                expect(typeof(result)).toBe('object')
             })
 
         })
@@ -243,7 +256,7 @@ describe("User Models unit tests", () => {
                     is_activated: false
                 }
 
-                mockData = jest.spyOn(db, 'query')
+                jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({rows: [userData1, userData1]});
 
                 const result = await User.getAllNonActivated()
@@ -252,8 +265,44 @@ describe("User Models unit tests", () => {
                 expect(typeof(result)).toBe('object')
                 expect(Object.keys(result[0])).toEqual(Object.keys(userData1))
             })
+            /*
+            it("throws error if no users with false 'is_activated' values exit in table", () => {
+
+                //TO DO
+            }) */
 
         })
+
+        // describe(".isActivated() instance method", () => {
+
+        //     beforeEach(() => jest.clearAllMocks())
+        //     // To pass the data must return result.rows from db and have 7 keys per object
+        //     it("returns the is_activated value of 'true' on successful db query filtering specific username", async () => {
+        //         const userData1 = {
+        //             id: 1, 
+        //             username: "username1", 
+        //             password: "password1", 
+        //             email: "username1@email.com", 
+        //             first_name: "user1", 
+        //             last_name: "userlast1", 
+        //             phone_number: "+123user1", 
+        //             postal_code: "US ER1",
+        //             is_activated: false
+        //         }
+
+        //         let checkUser = new User({userData1})
+        //         console.log(checkUser)
+        //         jest.spyOn(db, 'query')
+        //         .mockResolvedValueOnce({rows: [userData1.username]});
+
+        //         const result = await checkUser.isActivated()
+        //         // expect(Object.keys(result).length).toBe(1)
+        //         // expect(Object.keys(result[0]).length).toBe(9)
+        //         expect(typeof(result)).toBe('object')
+        //         expect(Object.keys(result[0])).toEqual(Object.keys(userData1))
+        //     })
+
+        // })
 
     })
 })
