@@ -53,7 +53,6 @@ class User {
         if (response.rows.length !== 1) {
             throw new Error("Unable to locate user.");
         }
-
         return new User(response.rows[0]);
     }
 
@@ -69,9 +68,10 @@ class User {
         return new User(response.rows[0]);
     }
 
-    // TODO: test this
+    // TODO: test this *PASSED UNIT TEST (User.spec.js line 229) IN THIS STATE*
     static async getAllNonActivated() {
-        return await db.query("SELECT * FROM member WHERE is_activated = false;");
+        const result = await db.query("SELECT * FROM member WHERE is_activated = false;");
+        return result.rows
     }
 
     async isActivated() {
