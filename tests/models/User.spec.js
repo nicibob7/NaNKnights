@@ -57,7 +57,7 @@ describe("User Models unit tests", () => {
 
             it("resolves the Users successfully", async () => {
                 jest.spyOn(db, 'query').mockResolvedValueOnce({
-                        rows: 
+                    rows: 
                         [{
                             id: 1, 
                             username: "username1", 

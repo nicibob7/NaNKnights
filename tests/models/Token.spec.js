@@ -25,7 +25,6 @@ describe("Token Models unit tests", () => {
 
         it("should create an instance of Token when initated", () => {
             const newToken = new Token(testToken1)
-            console.log(newToken)
             expect(newToken).toBeInstanceOf(Token)
             expect(Object.keys(newToken)).toEqual(Object.keys(testToken1))
         })
@@ -149,52 +148,58 @@ describe("Token Models unit tests", () => {
                 const result = await Token.deleteByUsername(username);
                 expect(result).toBeFalsy();
 
-
             })
             
         })
 
+        describe("tokenInstance.isExpired() instance method", () => {
+
+            it("should return FALSE if the current new Date for comparison is less than the expiry date", async () => {
+
+                const modToken = {
+                    token_id: 1, 
+                    account_username: "bob", 
+                    token: "bob_token", 
+                    expires_at: new Date("Wed Aug 23 2024 22:12:58 GMT+0100 (British Summer Time)"),
+                    created_at: "2023-08-23 12:47:19.960744"
+                }
+
+                let newToken = new Token(modToken)
+
+                jest.spyOn(db, 'query')
+                .mockResolvedValue({rows: [modToken]});
+
+                const result = await newToken.isExpired();
+                expect(result).toBe(false);
+            })
+
+            it("should return TRUE if the current new Date for comparison is greater than the expiry date", async () => {
+
+                let newToken = new Token(testToken1)
+                console.log(newToken)
+                jest.spyOn(db, 'query')
+                .mockResolvedValue({rows: [newToken]});
+
+                const result = await newToken.isExpired();
+                expect(result).toBe(true);
+            })
+
+            it("should throw error if there is not 1 db response row", async () => {
+
+                let newToken = new Token(testToken1)
+
+                let error1 = new Error("Unable to locate token")
+
+                jest.spyOn(db, 'query').mockRejectedValueOnce(error1);
+
+                try {
+                    await newToken.isExpired() 
+                } catch (error) {
+                    expect(error).toBeInstanceOf(Error)
+                    expect(error.message).toBe("Unable to locate token")
+                }
+            })
+        })
+
     })
-
-    // describe("async isExpired() instance method", () => {
-
-    //     beforeEach(() => {
-    //         jest.clearAllMocks()
-    //     })
-
-    //     afterEach(() => {
-    //         jest.clearAllMocks()
-    //     })
-
-    //     it("test", async () => {
-                
-            
-            
-    //         Token.prototype.isExpired = jest.fn( async () => {
-    //             const response = await db.query("SELECT * FROM token WHERE token = $1", [
-    //                 this.token,
-    //             ]);
-    //             if (response.rows.length !== 1) {
-    //                 throw new Error("Unable to locate token.");
-    //             } else {
-    //                 const tokenObj = new Token(response.rows[0]);
-        
-    //                 const expiry = new Date(tokenObj.expires_at);
-    //                 return new Date() > expiry;
-    //             }
-    //         })
-            
-    //         let newToken = new Token({token_id: 1, account_username: "bob", token: "bob_token", expires_at: "2023-08-23 13:17:19.960744", created_at: "2023-08-23 12:47:19.960744"})
-
-    //         // jest.spyOn(db,'query').mockRejectedValueOnce()
-    //         const response = await newToken.isExpired()
-    //         console.log(response.rows)
-
-    //     })
-
-
-    // })
-
-    
-    
 })
