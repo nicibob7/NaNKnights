@@ -71,7 +71,36 @@ describe("Token Models unit tests", () => {
                 jest.spyOn(db, 'query').mockRejectedValueOnce(error1);
 
                 try {
-                    await Token.getOneById() 
+                    await Token.getOneById(id) 
+                } catch (error) {
+                    expect(error).toBeInstanceOf(Error)
+                    expect(error.message).toBe("Unable to locate token")
+                }
+            })
+        })
+
+        describe("Token.getOneByToken(token)", () => {
+
+            const token = "bob_token";
+
+            it("returns new instance of Token after querying a given token", async () => {
+
+
+                jest.spyOn(db,'query').mockResolvedValueOnce({rows: [testToken1]});
+
+                const result = await Token.getOneByToken(token);
+
+                expect(result).toBeInstanceOf(Token);
+                expect(Object.values(result)).toEqual(Object.values(testToken1));
+            })
+            it("returns error if number of rows returned does not equal 1", async () => {
+
+                let error1 = new Error("Unable to locate token")
+
+                jest.spyOn(db, 'query').mockRejectedValueOnce(error1);
+
+                try {
+                    await Token.getOneByToken(token) 
                 } catch (error) {
                     expect(error).toBeInstanceOf(Error)
                     expect(error.message).toBe("Unable to locate token")
