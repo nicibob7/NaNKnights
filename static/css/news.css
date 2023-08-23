@@ -237,6 +237,7 @@ main {
     position: absolute;
     top: 2%;
     right: 2%;
+    z-index: 5;
 }
 
 .card-edit-button {
@@ -397,6 +398,11 @@ main {
     font-size: 1.05rem;
 }
 
+.news-upload-description {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
 .news-description {
     height: 38%;
     font-family: 'Inter', sans-serif;
@@ -428,7 +434,7 @@ main {
     margin-bottom: 36px;
 }
 
-/* #add-news-cancel-button::after {
+.news-cancel-button::after {
 	content: '';
 	position: absolute;
 	bottom: 5px;
@@ -440,11 +446,11 @@ main {
 	transition: opacity 300ms, transform 300ms;
 }
 
-#add-news-cancel-button:hover::after,
-#add-news-cancel-button:focus::after {
+.news-cancel-button:hover::after,
+.news-cancel-button:focus::after {
 	opacity: 1;
 	transform: translate3d(0, 0.2em, 0);
-} */
+}
 
 .news-submit-button {
     width: 100px;

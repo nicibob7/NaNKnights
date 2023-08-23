@@ -207,7 +207,8 @@
                             <option value="science">Science</option>
                           </select>
                         <label for="add-news-upload" class="form-label">Images</label>
-                        <input type="file" accept=".png, .jpg, .gif" id="add-news-upload" class="form-input-horizontal add-news-form-input news-upload" name="add-news-upload" multiple>
+                        <input type="file" accept=".png, .jpg, .gif" id="add-news-upload" class="form-input-horizontal add-news-form-input news-upload" name="add-news-upload" single>
+                        <p class="news-upload-description">Max size 10MB</p>
                 </div>
                 </div>
                 <label for="add-news-description" class="form-label">Description</label>
@@ -229,14 +230,14 @@
                 
                 
                 <div id="update-news-input-wrapper" class="flex-row">
-                <div id="update-news-form-left" class="flex-column form-column">
+                    <div id="update-news-form-left" class="flex-column form-column">
                         <label for="add-news-date" class="form-label">Date</label>
                         <input type="date" id="add-news-date" class="input-text form-input-horizontal news-date" name="add-news-date">
                         <label for="add-news-title" class="form-label">Title</label>
                         <input type="text" id="add-news-title" class="input-text form-input-horizontal news-title" name="add-news-title">
-                </div>
+                    </div>
 
-                <div id="update-news-form-right" class="flex-column form-column">
+                    <div id="update-news-form-right" class="flex-column form-column">
                         <label for="add-news-type" class="form-label">Type</label>
                         <select id="add-news-type" class="input-text form-input-horizontal news-type" name="add-news-type">
                             <option value="agriculture">Agriculture</option>
@@ -246,8 +247,9 @@
                             <option value="science">Science</option>
                           </select>
                         <label for="update-news-upload" class="form-label">Images</label>
-                        <input type="file" accept=".png, .jpg, .gif" id="add-news-upload" class="form-input-horizontal news-upload" name="add-news-upload" multiple>
-                </div>
+                        <input type="file" accept=".png, .jpg, .gif" id="add-news-upload" class="form-input-horizontal news-upload" name="add-news-upload" single>
+                        <p class="news-upload-description">Max size 10MB</p>
+                    </div>
                 </div>
                 <label for="update-news-description" class="form-label">Description</label>
                 <textarea id="update-news-description" name="add-news-description" class="add-news-form-input news-description" autocomplete = "off"></textarea>

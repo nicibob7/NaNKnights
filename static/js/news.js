@@ -130,14 +130,13 @@ addNewsForm.addEventListener('input', (e) => {
     let emptyInput = false;
 
         for (let j = 0; j < addNewsElements.length; j++) {
-            console.log(addNewsElements[j].value);
+            
             if (addNewsElements[j].value == "" || !addNewsElements[j].value) {
                 emptyInput = true;
                 break;
             }
-
         }
-        console.log(emptyInput);
+        
         if (!emptyInput) {
             addNewsSubmitButton.disabled = false;
         }
@@ -148,28 +147,41 @@ addNewsForm.addEventListener('input', (e) => {
 
 addNewsForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    // Add news to database POST Request
     console.log('Fired');
 });
 
 
 for (let i = 0; i < cardsList.length; i++) {
+    cardsList[i].addEventListener('click', (e) => {
+        e.preventDefault();
+        // console.log('Triggered');
+        
+
+        // open news page ->
+        // 
+    });
     cardsList[i].querySelector('.card-edit-button').addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         // let idArray = (cardsList[i].id).split('-');
         // selectedID = idArray[idArray.length-1];
 
         
 
         updateNewsForm.classList.remove('hide');
+        overlayFadeIn();
         overlay.classList.remove('hide');
         // hideOverlay();
     });
     cardsList[i].querySelector('.card-delete-button').addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         // let idArray = (cardsList[i].id).split('-');
         // selectedID = idArray[idArray.length-1];
 
         deleteNewsDialog.classList.remove('hide');
+        overlayFadeIn();
         overlay.classList.remove('hide');
         // hideOverlay();
     });
