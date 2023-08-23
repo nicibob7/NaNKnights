@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 
 const Token = require('../../models/Token')
 
@@ -21,6 +21,13 @@ describe("Token Models unit tests", () => {
 
         it("Token class exists", () => {
             expect(Token).toBeDefined()
+        })
+
+        it("should create an instance of Token when initated", () => {
+            const newToken = new Token(testToken1)
+            console.log(newToken)
+            expect(newToken).toBeInstanceOf(Token)
+            expect(Object.keys(newToken)).toEqual(Object.keys(testToken1))
         })
     })
 

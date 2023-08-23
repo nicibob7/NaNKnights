@@ -76,7 +76,9 @@ class User {
 
     async isActivated() {
         const response = await db.query(
-            "SELECT is_activated FROM member WHERE username = $1",
+            /*"SELECT is_activated FROM member WHERE username = $1",
+            [this.username]*/
+            "SELECT * FROM member WHERE username = $1",
             [this.username]
         );
         if (response.rows.length !== 1) {

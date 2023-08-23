@@ -232,7 +232,6 @@ describe("User Models unit tests", () => {
                 .mockResolvedValueOnce({rows: [userData1]}).mockResolvedValueOnce({rows: [dbRemainingUser]});
 
                 const result = await User.delete(newUser.id)
-                console.log(result.rows)
                 expect(result.rows[0]).toEqual(dbRemainingUser);
                 expect(typeof(result)).toBe('object')
             })
@@ -307,41 +306,38 @@ describe("User Models unit tests", () => {
 
         })
 
-        // describe(".isActivated() instance method", () => {
-        //     const User1 = require('../../models/User')
-        //     jest.mock('../../models/User')
+        describe(".isActivated() instance method", () => {
+            // const User1 = require('../../models/User')
+            // jest.mock('../../models/User')
 
-        //     beforeEach(() => {
-        //         jest.clearAllMocks()
+            beforeEach(() => {
+                jest.clearAllMocks()
 
-        //     })
-        //     // To pass the data must return result.rows from db and have 7 keys per object
-        //     it("returns the is_activated value of 'true' on successful db query filtering specific username", async () => {
-        //         const userData1 = {
-        //             id: 1, 
-        //             username: "username1", 
-        //             password: "password1", 
-        //             email: "username1@email.com", 
-        //             first_name: "user1", 
-        //             last_name: "userlast1", 
-        //             phone_number: "+123user1", 
-        //             postal_code: "US ER1",
-        //             is_activated: false
-        //         }
+            })
+            // To pass the data must return result.rows from db and have 7 keys per object
+            it("returns a 'true' value on successful db query filtering by username", async () => {
+                const userData1 = {
+                    id: 1, 
+                    username: "username1", 
+                    password: "password1", 
+                    email: "username1@email.com", 
+                    first_name: "user1", 
+                    last_name: "userlast1", 
+                    phone_number: "+123user1", 
+                    postal_code: "US ER1",
+                    is_activated: true
+                }
                 
-        //         let checkUser = new User1({userData1})
-        //         jest.spyOn(db, 'query')
-        //         .mockResolvedValueOnce({rows: [userData1.username]});
+                let checkUser = new User(userData1)
+                jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: [userData1]});
 
-        //         const result = await checkUser.isActivated
-        //         console.log(result)
-        //         // expect(Object.keys(result).length).toBe(1)
-        //         // expect(Object.keys(result[0]).length).toBe(9)
-        //         expect(typeof(result)).toBe('object')
-        //         expect(Object.keys(result[0])).toEqual(Object.keys(userData1))
-        //     })
+                const result = await checkUser.isActivated()
+                expect(typeof(result)).toBe('boolean')
+                expect(result).toEqual(userData1.is_activated)
+            })
 
-        // })
+        })
 
     })
 })
