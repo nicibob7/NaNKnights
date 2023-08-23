@@ -110,14 +110,45 @@ describe("Token Models unit tests", () => {
 
         describe("Token.deleteByToken(token)", () => {
 
-            it("returns empty after deletion by token", async() => {
+            it("does not return a value so it should be falsy", async() => {
+
                 const token = "bob_token";
 
                 jest.spyOn(db,'query').mockResolvedValueOnce();
 
                 const result = await Token.deleteByToken(token);
-                expect(result).toBeFalsy()
-                expect(result).toReturn();
+                expect(result).toBeFalsy();
+
+            })
+            
+        })
+
+        describe("Token.deleteById(id)", () => {
+
+            it("does not return a value so it should be falsy", async() => {
+
+                const id = 1;
+
+                jest.spyOn(db,'query').mockResolvedValueOnce();
+
+                const result = await Token.deleteById(id);
+                expect(result).toBeFalsy();
+
+            })
+            
+        })
+
+        describe("Token.deleteByUsername(username)", () => {
+
+            it("does not return a value so it should be falsy", async() => {
+
+                const username = "bob";
+
+                jest.spyOn(db,'query').mockResolvedValueOnce();
+
+                const result = await Token.deleteByUsername(username);
+                expect(result).toBeFalsy();
+
 
             })
             
