@@ -69,5 +69,45 @@ describe("Suggestion Models unit tests", () => {
             
         })
     })
+    // DO GETALL() METHOD
+
+    // describe("Suggestion.getAll()", () => {
+
+    //     it("Should return all suggestions with falsy image values being changed to base64", async () => {
+
+
+    //     })
+    // })
+
+    describe("Suggestion.getSuggestionByPopularity()", () => {
+
+        it("Should return an array representing rows of suggestions in descending order of popularity", async () => {
+            
+            const suggestion2 = {
+                id: 3,
+                title: "suggestion1",
+                description: "this is a suggestion",
+                date_posted: "2023-08-23 12:47:19.960744",
+                posted_by: "bob",
+                votes: 6,
+                is_resolved: false,
+                is_activated: true,
+                image: null,
+                urgency_level: "low"
+            }
+
+            jest.spyOn(db,'query').mockResolvedValueOnce({rows: [suggestion2, suggestion1]});
+
+            const result = await Suggestion.getSuggestionsByPopularity();
+            console.log(result)
+            expect(result).toHaveLength(2);
+            expect(typeof(result)).toBe('object');
+            expect(Object.keys(result[0])).toEqual(Object.keys(suggestion1));
+            expect(Object.values(result[0])).toEqual(Object.values(suggestion2));
+            
+        })
+    })
+
+    // THREE METHODS LEFT
 
 })
