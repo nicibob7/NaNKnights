@@ -3,30 +3,7 @@ body {
     margin: 0;
     background-color: #F0EDE7;
 }
-/* ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #f7f7f7;
-  }
-  
-  li {
-    float: left;
-  }
-  
-  li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  li a:hover {
-    background-color: #FBB348;
-    color: white
-  } */
+
 
   .modal {
     padding: 2%;
@@ -38,10 +15,7 @@ body {
     border-radius: 2%;
   }
 
-  /* input:focus::placeholder {
-    color: transparent;
-} */
-
+ 
 
 .password-container {
     position: relative;
@@ -74,7 +48,7 @@ body {
   .password-req-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2px; /* Adjust the gap between columns */
+    gap: 2px; 
   }
   
   .grid-item {
@@ -97,9 +71,6 @@ body {
     font-weight: 600;
     font-size: 1.0rem;
 }
-  /* input:focus::placeholder {
-    color: transparent;
-} */
 
 /* Social buttons styling */
 #social-buttons-wrapper {

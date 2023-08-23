@@ -61,8 +61,4 @@ passwordInput.addEventListener('input', () => {
   }
   passwordMatcher()
 
-//   passwordInput2.addEventListener('input', () => {
-
-//   })
-
 
