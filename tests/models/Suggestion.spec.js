@@ -11,7 +11,7 @@ describe("Suggestion Models unit tests", () => {
         description: "this is a suggestion",
         date_posted: "2023-08-23 12:47:19.960744",
         posted_by: "bob",
-        votes: 0,
+        votes: 1,
         is_resolved: false,
         is_activated: false,
         image: null,
@@ -32,5 +32,27 @@ describe("Suggestion Models unit tests", () => {
         })
     })
 
+    describe("Suggestion.create(data)", () => {
+
+        it("Returns the full suggestion details from newly created suggestion entry in database", async () => {
+
+            const frontendSugg = {
+                title: "suggestion1",
+                description: "this is a suggestion",
+                date_posted: "2023-08-23 12:47:19.960744",
+                posted_by: "bob",
+                votes: 1,
+                image: null,
+                urgency_level: "low"
+            }
+
+            jest.spyOn(db,'query').mockResolvedValueOnce({rows: [suggestion1]});
+
+            const result = await Suggestion.create(frontendSugg);
+            expect(typeof(result)).toBe('object')
+            expect(Object.keys(result)).toEqual(Object.keys(suggestion1));
+            expect(Object.values(result)).toEqual(Object.values(suggestion1));
+        })
+    })
 
 })
