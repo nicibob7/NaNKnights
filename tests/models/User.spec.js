@@ -14,7 +14,7 @@ describe("User Models unit tests", () => {
         })
 
         it('should be an instance of User', () => {
-            const testUser = {id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1"}
+            const testUser = {id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false}
 
             const user = new User(testUser)
             expect(user).toBeInstanceOf(User)
@@ -22,7 +22,7 @@ describe("User Models unit tests", () => {
         })
 
         it('correctly structured input data should return be returned in instance format', () => {
-            const testUser = {username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1"}
+            const testUser = {id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false}
 
             const user = new User(testUser)
             expect(Object.keys(user)).toEqual(Object.keys(testUser))
@@ -40,7 +40,7 @@ describe("User Models unit tests", () => {
 
             it("resolves the Users successfully", async () => {
                 jest.spyOn(db, 'query').mockResolvedValueOnce({
-                        rows: [{username: 'username1', password: 'password1', email: 'username1@email.com', first_name: 'user1', last_name: 'userlast1', phone_number: '+123user1', postal_code: 'US ER1'}]
+                        rows: [{id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false}]
                     });
                 
                 const newUser = await User.getAllUsers()
@@ -53,14 +53,14 @@ describe("User Models unit tests", () => {
 
             it('resolves the user on successful db query of user id', async () => {
                 const userData1 = {
-                    id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1"
+                    id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false
                 }
 
                 jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({ rows: [userData1]});
 
                 const result = await User.getById(userData1.id)
-                expect(Object.keys(result).length).toBe(8)
+                expect(Object.keys(result).length).toBe(9)
                 expect(typeof(result)).toBe('object')
                 expect(Object.keys(result)).toEqual(Object.keys(userData1))
             })
@@ -87,14 +87,14 @@ describe("User Models unit tests", () => {
 
             it('resolves the user on successful db query of username', async () => {
                 const userData1 = {
-                    id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1"
+                    id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false
                 }
 
                 jest.spyOn(db, 'query')
                     .mockResolvedValueOnce({ rows: [userData1]});
 
                 const result = await User.getByUsername(userData1.username)
-                expect(Object.keys(result).length).toBe(8)
+                expect(Object.keys(result).length).toBe(9)
                 expect(typeof(result)).toBe('object')
                 expect(Object.keys(result)).toEqual(Object.keys(userData1))
             })
@@ -120,15 +120,15 @@ describe("User Models unit tests", () => {
             beforeEach(() => jest.clearAllMocks())
 
             it('resolves the user on successful db query of email', async () => {
-                let userData1 = {
-                    id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1"
+                const userData1 = {
+                    id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false
                 }
 
                 jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({ rows: [userData1]});
 
                 const result = await User.getOneByEmail(userData1.email)
-                expect(Object.keys(result).length).toBe(8)
+                expect(Object.keys(result).length).toBe(9)
                 expect(typeof(result)).toBe('object')
                 expect(Object.keys(result)).toEqual(Object.keys(userData1))
             })
@@ -150,7 +150,27 @@ describe("User Models unit tests", () => {
 
         })
 
-        // describe("User.delete()", () => {
+        describe("User.delete()", () => {
+
+            beforeEach(() => jest.clearAllMocks())
+
+            it('resolves the user on successful db delete by id query', async () => {
+                const userData1 = {
+                    id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false
+                }
+
+                let newUser = new User(userData1)
+
+                jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: userData1});
+
+                const result = await User.delete(newUser.id)
+                expect(result).toBeInstanceOf(Error)
+            })
+
+        })
+
+        // describe("User.getAllNonActivated()", () => {
 
         //     beforeEach(() => jest.clearAllMocks())
 
@@ -169,5 +189,6 @@ describe("User Models unit tests", () => {
         //     })
 
         // })
+
     })
 })
