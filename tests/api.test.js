@@ -70,6 +70,8 @@ describe('API tests', () => {
 
 // Authenticator tests in middleware/authenticator.js
 const User = require('../models/User');
+const EmailToken = require('../models/EmailToken');
+const Suggestion = require('../models/Suggestion');
 
 jest.mock('../models/Token'); // Mock the Token class
 jest.mock('../models/User'); // Mock the User class
@@ -401,3 +403,64 @@ describe('Middleware Configuration', () => {
         );
     });
 });
+
+//API routes tests
+
+describe("All Full API Routes",() => {
+
+
+    //home api tests
+    describe('home API tests', () => {
+        let app;
+        let resp;
+
+        beforeAll(() => {
+            app = server.listen(3000);
+            resp = jest.fn();
+        });
+
+        afterAll(() => {
+            app.close();
+        });
+
+        describe('if ..static/login.html exists', () =>{
+
+            it('should return a 200 status code for GET request to /login', async () => {
+                const response = await request(app).get('/login');
+                expect(response.statusCode).toBe(200);
+            });
+
+        })
+        
+    });
+
+    // describe("All endpoints that go through the 'app.(/users)' route", () => {
+    //     //the server
+    //     let app;
+    //     //next
+    //     let next;
+
+    //     let reqReg;
+    //     //create mocks
+
+
+    //     beforeEach(() => {
+    //         next = jest.fn 
+    //     })
+    // })
+})
+
+// const users = require('../controllers/users')
+// const Suggestion = require('../models/Suggestion')
+// const EmailToken = require('../models/EmailToken')
+// const User = require('../models/User')
+
+// describe("users controller functions", () => {
+    
+//     const mockSend = jest.fn()
+//     const mockJson = jest.fn()
+//     const mockStatus = jest.fn(code => ({ send: mockSend, json: mockJson, end: jest.fn() }))
+//     const mockRes = { status: mockStatus }
+
+//     it('')
+// })

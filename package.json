@@ -15,7 +15,8 @@
     "setup_db": "node db/setup_db.js",
     "populate_db": "node db/data/populate_db.js",
     "psql": "docker exec -it nan-instance psql -U nan nan_db",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test-watch": "jest --watch"
   },
   "repository": {
     "type": "git",
