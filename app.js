@@ -7,14 +7,14 @@ const db = require("./db/db");
 const filter = require("./middleware/filter");
 const users = require("./routes/users");
 const home = require("./routes/home");
+const admins = require("./routes/admins");
 const hardenedSecurityConfig = require("./security/hardenedSecurityConfig");
-
-
 
 // parse as json
 app.use(express.json());
-// check if json is valid
+
 /* istanbul ignore next */
+// check if json is valid
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
         // Handle JSON parsing error
@@ -27,11 +27,12 @@ app.use((err, req, res, next) => {
 
 // set static files
 app.use(express.static("static",
-    {maxAge: 1800000,}));
+    ));
 // filter out direct requests to *.(html,htm) files
 app.use(filter);
 // routes mapping
 app.use("/users", users);
+app.use("/admins", admins);
 app.use("/", home);// should always be last
 
 /* istanbul ignore next */

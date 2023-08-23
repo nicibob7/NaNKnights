@@ -1,16 +1,700 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-    <link type="text/css" rel="stylesheet" href="css/index.css">
-    <script defer type="application/javascript" src="js/index.js"></script>
-    <link rel="icon" type="image/x-icon" href="res/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global-styles.css" >
+    <link rel="stylesheet" href="./css/home.css" >
+    <script defer src="./js/global-script.js"></script>
+    <script defer src="./js/home.js"></script>
+    <title>Home | Day 'n' Day | Florin Community App</title>
 </head>
 <body>
-    <p>Welcome to this page</p>
+    <nav class="menu-default">
+        <div id="nav-left">
+            <div id="logo-wrapper">
+                <a id="nav-home-button" href="./home.html">
+                    <img id="nav-logo" src="./res/logo1.png">
+                    <div id="logo-text-wrapper">
+                        <p id="logo-text-main">Day 'n' Day</p>
+                        <p id="logo-text-sub">Florin Country Community App</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div id="nav-button-wrapper">
+                <a href="./news.html" id="nav-news-button" class="nav-button">News</a>
+                <a href="./events.html" id="nav-events-button" class="nav-button">Events</a>
+                <a href="./suggestions.html" id="nav-suggestions-button" class="nav-button">Suggestions</a>
+                <a href="./about.html" id="nav-about-button" class="nav-button">About</a>
+            </div>
+
+        </div>
+        <div id="nav-right" class="hide-padding">
+            <div id="nav-right-button-wrapper">
+                <a href="./dashboard.html" id="nav-news-button" class="nav-button hide">My Stuff</a>
+                <a href="./login.html" id="nav-login-button" class="nav-button">Login</a>
+            </div>
+            
+            <a href="./register.html" id="nav-signup-button">SIGN UP</a>
+
+            <div id="nav-account-wrapper" class="hide">
+                <img id="nav-account-icon" src="./res/account-icon.png">
+                <div id="nav-account-dropdown-list" class="menu-default hide">
+                    <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
+                    <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
+                    <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div id="news-container" class="flex-container">
+            <div id="carousel">
+                <div id="carousel-left" class="carousel-tabs">
+                    <button>
+                        <svg id="carousel-left-arrow" width="28" height="45" viewBox="0 0 28 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path id="left-arrow-path" d="M0 23L22 0L28 6L11 23L27.5 39.5L22 45L0 23Z" fill="#D9D9D9"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="carousel-main">
+                    <div id="strip">
+                        <div class="slide">
+                        
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/bridge.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/horse.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="slide">
+
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="news-card">
+                                <a href="#">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="news-text-wrapper">
+                                    <h2 class="news-card-title news-el">Wholesale prices rapidly dropping!</h2>
+                                    <h3 class="news-card-date news-el">18/08/2023</h3>
+                                    <p class="news-card-description news-el">A description about the current news.</p>
+
+                                    <h3 class="news-card-type news-el">TYPE</h3>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="news-card">
+                                <a href="./news.html">
+                                <img class="news-card-image" src="./res/wholesale-news-image.jpg">
+                                <div class="more-news-bg">
+                                    <p class="more-news-text">More News</p>
+                                </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="carousel-right" class="carousel-tabs">
+                    <button>
+                        <svg id="carousel-right-arrow" width="28" height="45" viewBox="0 0 28 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path id="right-arrow-path" d="M28 22L6 45L5.24537e-07 39L17 22L0.500003 5.5L6 -1.9233e-06L28 22Z" fill="#D9D9D9"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="carousel-buttons">
+                <!-- <div id="circle-1" class="carousel-circle-button carousel-circle-button-selected"></div>
+                <div id="circle-2" class="carousel-circle-button"></div>
+                <div id="circle-3" class="carousel-circle-button"></div> -->
+            </div>
+        </div>
+        <div id="second-container" class="flex-container flex-mid-container">
+            <div id="events-container" class="container-with-sidebar">
+                <div class="event-main flex-mid-container">
+                <h2 id="event-title" class="second-container-title">Events</h2>
+                <div id="events-window">
+                    <div id="events-strip">
+
+                        <div class="card card-spacing">
+                            <a class="card-link" href="#">
+                            <div class="card-image-wrapper">
+                                <img src="./res/tram-image.png">
+                            </div>
+                            <div class="card-text-wrapper">
+                                <div class="card-text-top card-text-flex card-text-padder">
+                                    <h2 class="card-title card-text">Title</h2>
+                                    <h2 class="card-date card-text push-right">DATE</h2>
+                                </div>
+                                <div class="card-text-second card-text-flex card-text-padder">
+                                    <h2 class="card-location card-text">Location</h2>
+                                    <h2 class="card-host card-text push-right">HOST</h2>
+                                </div>
+                                <div class="card-text-third card-text-flex card-text-padder">
+                                    <p class="card-description card-text">Description</p>
+                                </div>
+                                <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                    <h2 class="card-type card-text">TYPE</h2>
+                                    <div class="counter-wrapper push-right">
+                                        <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                            <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                            <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                            <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                            <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                        </svg>
+                                        <p class="card-comment-counter card-text card-counter">0</p>
+                                    </div>
+                                    <div class="counter-wrapper">
+                                        <svg class="volunteer-image counter-image" width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect class="volunteer-image-rect" x="7.56226" y="2" width="4" height="15" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" y="17.8467" width="4.11361" height="11.8038" rx="1" transform="rotate(-43.7887 0 17.8467)" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="12.5623" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="17.5623" y="2" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="22.5623" y="5" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="7.56226" y="13" width="19" height="15" rx="3" fill="#F5DE6A"/>
+                                        </svg>
+                                        <p class="card-volunteer-counter card-text card-counter">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+
+                        <div class="card card-spacing">
+                            <a class="card-link" href="#">
+                            <div class="card-image-wrapper">
+                                <img src="./res/tram-image.png">
+                            </div>
+                            <div class="card-text-wrapper">
+                                <div class="card-text-top card-text-flex card-text-padder">
+                                    <h2 class="card-title card-text">Title</h2>
+                                    <h2 class="card-date card-text push-right">DATE</h2>
+                                </div>
+                                <div class="card-text-second card-text-flex card-text-padder">
+                                    <h2 class="card-location card-text">Location</h2>
+                                    <h2 class="card-host card-text push-right">HOST</h2>
+                                </div>
+                                <div class="card-text-third card-text-flex card-text-padder">
+                                    <p class="card-description card-text">Description</p>
+                                </div>
+                                <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                    <h2 class="card-type card-text">TYPE</h2>
+                                    <div class="counter-wrapper push-right">
+                                        <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                            <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                            <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                            <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                            <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                        </svg>
+                                        <p class="card-comment-counter card-text card-counter">0</p>
+                                    </div>
+                                    <div class="counter-wrapper">
+                                        <svg class="volunteer-image counter-image" width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect class="volunteer-image-rect" x="7.56226" y="2" width="4" height="15" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" y="17.8467" width="4.11361" height="11.8038" rx="1" transform="rotate(-43.7887 0 17.8467)" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="12.5623" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="17.5623" y="2" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="22.5623" y="5" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="7.56226" y="13" width="19" height="15" rx="3" fill="#F5DE6A"/>
+                                        </svg>
+                                        <p class="card-volunteer-counter card-text card-counter">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+
+                        <div class="card card-spacing">
+                            <a class="card-link" href="#">
+                            <div class="card-image-wrapper">
+                                <img src="./res/tram-image.png">
+                            </div>
+                            <div class="card-text-wrapper">
+                                <div class="card-text-top card-text-flex card-text-padder">
+                                    <h2 class="card-title card-text">Title</h2>
+                                    <h2 class="card-date card-text push-right">DATE</h2>
+                                </div>
+                                <div class="card-text-second card-text-flex card-text-padder">
+                                    <h2 class="card-location card-text">Location</h2>
+                                    <h2 class="card-host card-text push-right">HOST</h2>
+                                </div>
+                                <div class="card-text-third card-text-flex card-text-padder">
+                                    <p class="card-description card-text">Description</p>
+                                </div>
+                                <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                    <h2 class="card-type card-text">TYPE</h2>
+                                    <div class="counter-wrapper push-right">
+                                        <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                            <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                            <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                            <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                            <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                        </svg>
+                                        <p class="card-comment-counter card-text card-counter">0</p>
+                                    </div>
+                                    <div class="counter-wrapper">
+                                        <svg class="volunteer-image counter-image" width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect class="volunteer-image-rect" x="7.56226" y="2" width="4" height="15" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" y="17.8467" width="4.11361" height="11.8038" rx="1" transform="rotate(-43.7887 0 17.8467)" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="12.5623" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="17.5623" y="2" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="22.5623" y="5" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="7.56226" y="13" width="19" height="15" rx="3" fill="#F5DE6A"/>
+                                        </svg>
+                                        <p class="card-volunteer-counter card-text card-counter">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+
+                        <div class="card card-spacing">
+                            <a class="card-link" href="#">
+                            <div class="card-image-wrapper">
+                                <img src="./res/tram-image.png">
+                            </div>
+                            <div class="card-text-wrapper">
+                                <div class="card-text-top card-text-flex card-text-padder">
+                                    <h2 class="card-title card-text">Title</h2>
+                                    <h2 class="card-date card-text push-right">DATE</h2>
+                                </div>
+                                <div class="card-text-second card-text-flex card-text-padder">
+                                    <h2 class="card-location card-text">Location</h2>
+                                    <h2 class="card-host card-text push-right">HOST</h2>
+                                </div>
+                                <div class="card-text-third card-text-flex card-text-padder">
+                                    <p class="card-description card-text">Description</p>
+                                </div>
+                                <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                    <h2 class="card-type card-text">TYPE</h2>
+                                    <div class="counter-wrapper push-right">
+                                        <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                            <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                            <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                            <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                            <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                        </svg>
+                                        <p class="card-comment-counter card-text card-counter">0</p>
+                                    </div>
+                                    <div class="counter-wrapper">
+                                        <svg class="volunteer-image counter-image" width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect class="volunteer-image-rect" x="7.56226" y="2" width="4" height="15" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" y="17.8467" width="4.11361" height="11.8038" rx="1" transform="rotate(-43.7887 0 17.8467)" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="12.5623" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="17.5623" y="2" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="22.5623" y="5" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="7.56226" y="13" width="19" height="15" rx="3" fill="#F5DE6A"/>
+                                        </svg>
+                                        <p class="card-volunteer-counter card-text card-counter">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+
+                        <div class="card card-spacing">
+                            <a class="card-link" href="#">
+                            <div class="card-image-wrapper">
+                                <img src="./res/tram-image.png">
+                            </div>
+                            <div class="card-text-wrapper">
+                                <div class="card-text-top card-text-flex card-text-padder">
+                                    <h2 class="card-title card-text">Title</h2>
+                                    <h2 class="card-date card-text push-right">DATE</h2>
+                                </div>
+                                <div class="card-text-second card-text-flex card-text-padder">
+                                    <h2 class="card-location card-text">Location</h2>
+                                    <h2 class="card-host card-text push-right">HOST</h2>
+                                </div>
+                                <div class="card-text-third card-text-flex card-text-padder">
+                                    <p class="card-description card-text">Description</p>
+                                </div>
+                                <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                    <h2 class="card-type card-text">TYPE</h2>
+                                    <div class="counter-wrapper push-right">
+                                        <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                            <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                            <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                            <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                            <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                        </svg>
+                                        <p class="card-comment-counter card-text card-counter">0</p>
+                                    </div>
+                                    <div class="counter-wrapper">
+                                        <svg class="volunteer-image counter-image" width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect class="volunteer-image-rect" x="7.56226" y="2" width="4" height="15" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" y="17.8467" width="4.11361" height="11.8038" rx="1" transform="rotate(-43.7887 0 17.8467)" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="12.5623" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="17.5623" y="2" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="22.5623" y="5" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="7.56226" y="13" width="19" height="15" rx="3" fill="#F5DE6A"/>
+                                        </svg>
+                                        <p class="card-volunteer-counter card-text card-counter">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <a href="./events.html" class="view-all-link">View All Events</a>
+                </div>
+                <div class="container-sidebar">
+                    <svg id="events-up-button" class="arrow-buttons hide" width="41" height="25" viewBox="0 0 41 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path id="events-up-path" d="M20.0444 -9.15996e-07L41 19.6429L35.5333 25L20.0444 9.82143L5.01111 24.5536L-8.58617e-07 19.6429L20.0444 -9.15996e-07Z" fill="#D9D9D9"/>
+                    </svg>
+                    <svg id="events-down-button" class="arrow-buttons" width="41" height="25" viewBox="0 0 41 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path id="events-down-path" d="M20.9556 25L-8.58617e-07 5.35714L5.46667 1.66839e-06L20.9556 15.1786L35.9889 0.446429L41 5.35714L20.9556 25Z" fill="#D9D9D9"/>
+                    </svg>                        
+                </div>
+            </div>
+
+            <div id="suggestions-container" class="container-with-sidebar">
+                <div class="suggestions-main flex-mid-container">
+                    <h2 id="suggestions-title" class="second-container-title">Suggestions</h2>
+                    <div id="suggestions-window">
+                        <div id="suggestions-strip">
+
+                            <div class="card card-spacing">
+                                <a class="card-link" href="#">
+                                <div class="card-image-wrapper">
+                                    <img src="./res/recycle-image.png">
+                                </div>
+                                <div class="card-text-wrapper">
+                                    <div class="card-text-top card-text-flex card-text-padder">
+                                        <h2 class="card-title card-text">Title</h2>
+                                        <h2 class="card-date card-text push-right">DATE</h2>
+                                    </div>
+                                    <div class="card-text-second card-text-flex card-text-padder">
+                                    </div>
+                                    <div class="card-text-third card-text-flex card-text-padder">
+                                        <p class="card-description card-text">Description</p>
+                                    </div>
+                                    <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                        <h2 class="card-type card-text">TYPE</h2>
+                                        <div class="counter-wrapper push-right">
+                                            <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                                <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                                <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                                <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                                <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                            </svg>
+                                            <p class="card-comment-counter card-text card-counter">0</p>
+                                        </div>
+                                        <div class="counter-wrapper">
+                                            <svg class="vote-image counter-image" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path class="vote-image-path" d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
+                                            </svg>
+                                            <p class="card-volunteer-counter card-text card-counter">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                            
+                            <div class="card card-spacing">
+                                <a class="card-link" href="#">
+                                <div class="card-image-wrapper">
+                                    <img src="./res/recycle-image.png">
+                                </div>
+                                <div class="card-text-wrapper">
+                                    <div class="card-text-top card-text-flex card-text-padder">
+                                        <h2 class="card-title card-text">Title</h2>
+                                        <h2 class="card-date card-text push-right">DATE</h2>
+                                    </div>
+                                    <div class="card-text-second card-text-flex card-text-padder">
+                                    </div>
+                                    <div class="card-text-third card-text-flex card-text-padder">
+                                        <p class="card-description card-text">Description</p>
+                                    </div>
+                                    <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                        <h2 class="card-type card-text">TYPE</h2>
+                                        <div class="counter-wrapper push-right">
+                                            <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                                <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                                <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                                <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                                <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                            </svg>
+                                            <p class="card-comment-counter card-text card-counter">0</p>
+                                        </div>
+                                        <div class="counter-wrapper">
+                                            <svg class="vote-image counter-image" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path class="vote-image-path" d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
+                                            </svg>
+                                            <p class="card-volunteer-counter card-text card-counter">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="card card-spacing">
+                                <a class="card-link" href="#">
+                                <div class="card-image-wrapper">
+                                    <img src="./res/recycle-image.png">
+                                </div>
+                                <div class="card-text-wrapper">
+                                    <div class="card-text-top card-text-flex card-text-padder">
+                                        <h2 class="card-title card-text">Title</h2>
+                                        <h2 class="card-date card-text push-right">DATE</h2>
+                                    </div>
+                                    <div class="card-text-second card-text-flex card-text-padder">
+                                    </div>
+                                    <div class="card-text-third card-text-flex card-text-padder">
+                                        <p class="card-description card-text">Description</p>
+                                    </div>
+                                    <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                        <h2 class="card-type card-text">TYPE</h2>
+                                        <div class="counter-wrapper push-right">
+                                            <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                                <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                                <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                                <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                                <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                            </svg>
+                                            <p class="card-comment-counter card-text card-counter">0</p>
+                                        </div>
+                                        <div class="counter-wrapper">
+                                            <svg class="vote-image counter-image" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path class="vote-image-path" d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
+                                            </svg>
+                                            <p class="card-volunteer-counter card-text card-counter">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="card card-spacing">
+                                <a class="card-link" href="#">
+                                <div class="card-image-wrapper">
+                                    <img src="./res/recycle-image.png">
+                                </div>
+                                <div class="card-text-wrapper">
+                                    <div class="card-text-top card-text-flex card-text-padder">
+                                        <h2 class="card-title card-text">Title</h2>
+                                        <h2 class="card-date card-text push-right">DATE</h2>
+                                    </div>
+                                    <div class="card-text-second card-text-flex card-text-padder">
+                                    </div>
+                                    <div class="card-text-third card-text-flex card-text-padder">
+                                        <p class="card-description card-text">Description</p>
+                                    </div>
+                                    <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                        <h2 class="card-type card-text">TYPE</h2>
+                                        <div class="counter-wrapper push-right">
+                                            <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                                <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                                <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                                <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                                <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                            </svg>
+                                            <p class="card-comment-counter card-text card-counter">0</p>
+                                        </div>
+                                        <div class="counter-wrapper">
+                                            <svg class="vote-image counter-image" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path class="vote-image-path" d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
+                                            </svg>
+                                            <p class="card-volunteer-counter card-text card-counter">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="card card-spacing">
+                                <a class="card-link" href="#">
+                                <div class="card-image-wrapper">
+                                    <img src="./res/recycle-image.png">
+                                </div>
+                                <div class="card-text-wrapper">
+                                    <div class="card-text-top card-text-flex card-text-padder">
+                                        <h2 class="card-title card-text">Title</h2>
+                                        <h2 class="card-date card-text push-right">DATE</h2>
+                                    </div>
+                                    <div class="card-text-second card-text-flex card-text-padder">
+                                    </div>
+                                    <div class="card-text-third card-text-flex card-text-padder">
+                                        <p class="card-description card-text">Description</p>
+                                    </div>
+                                    <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                        <h2 class="card-type card-text">TYPE</h2>
+                                        <div class="counter-wrapper push-right">
+                                            <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                                <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                                <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                                <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                                <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                            </svg>
+                                            <p class="card-comment-counter card-text card-counter">0</p>
+                                        </div>
+                                        <div class="counter-wrapper">
+                                            <svg class="vote-image counter-image" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path class="vote-image-path" d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
+                                            </svg>
+                                            <p class="card-volunteer-counter card-text card-counter">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="card card-spacing">
+                                <a class="card-link" href="#">
+                                <div class="card-image-wrapper">
+                                    <img src="./res/recycle-image.png">
+                                </div>
+                                <div class="card-text-wrapper">
+                                    <div class="card-text-top card-text-flex card-text-padder">
+                                        <h2 class="card-title card-text">Title</h2>
+                                        <h2 class="card-date card-text push-right">DATE</h2>
+                                    </div>
+                                    <div class="card-text-second card-text-flex card-text-padder">
+                                    </div>
+                                    <div class="card-text-third card-text-flex card-text-padder">
+                                        <p class="card-description card-text">Description</p>
+                                    </div>
+                                    <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                        <h2 class="card-type card-text">TYPE</h2>
+                                        <div class="counter-wrapper push-right">
+                                            <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                                <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                                <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                                <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                                <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                            </svg>
+                                            <p class="card-comment-counter card-text card-counter">0</p>
+                                        </div>
+                                        <div class="counter-wrapper">
+                                            <svg class="vote-image counter-image" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path class="vote-image-path" d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
+                                            </svg>
+                                            <p class="card-volunteer-counter card-text card-counter">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="./suggestions.html" class="view-all-link">View All Suggestions</a>
+                    </div>
+                    <div class="container-sidebar">
+                        <svg id="suggestions-up-button" class="arrow-buttons hide" width="41" height="25" viewBox="0 0 41 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path id="suggestions-up-path" d="M20.0444 -9.15996e-07L41 19.6429L35.5333 25L20.0444 9.82143L5.01111 24.5536L-8.58617e-07 19.6429L20.0444 -9.15996e-07Z" fill="#D9D9D9"/>
+                        </svg>
+                        <svg id="suggestions-down-button" class="arrow-buttons" width="41" height="25" viewBox="0 0 41 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path id="suggestions-down-path" d="M20.9556 25L-8.58617e-07 5.35714L5.46667 1.66839e-06L20.9556 15.1786L35.9889 0.446429L41 5.35714L20.9556 25Z" fill="#D9D9D9"/>
+                        </svg>                        
+                    </div>
+            </div>
+        </div>
+
+        <footer class="menu-default">
+            <p>Copyrighted by NaNKnights 2023</p>
+        </footer>
+    </main>
+    
 </body>
 </html>

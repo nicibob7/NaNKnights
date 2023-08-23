@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS information;
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS email_verify;
 DROP TABLE IF EXISTS administrator;
@@ -5,6 +6,7 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS suggestion;
 DROP TABLE IF EXISTS community_event;
 DROP TABLE IF EXISTS member;
+
 
 CREATE TABLE administrator (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -18,10 +20,10 @@ CREATE TABLE member (
     username VARCHAR(32) NOT NULL UNIQUE,
     password VARCHAR(64) NOT NULL,
     email VARCHAR(64) NOT NULL UNIQUE,
-    first_name VARCHAR(16) NOT NULL,
-    last_name VARCHAR(16) NOT NULL,
-    phone_number VARCHAR(16) NOT NULL,
-    postal_code VARCHAR(12) NOT NULL,
+    first_name VARCHAR(16),
+    last_name VARCHAR(16),
+    phone_number VARCHAR(16),
+    postal_code VARCHAR(12),
     is_activated BOOLEAN NOT NULL DEFAULT FALSE
 );
 
@@ -61,7 +63,7 @@ REVOKE UPDATE (date_posted, posted_by) ON suggestion FROM PUBLIC;
 
 CREATE TABLE comment (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    suggestion_id INT NOT NULL,
+    suggestion_id INT,
     comment VARCHAR(128) NOT NULL,
     date_posted TIMESTAMP DEFAULT NOW(),
     posted_by VARCHAR(32) NOT NULL,
@@ -76,9 +78,22 @@ CREATE TABLE community_event (
     description VARCHAR(512) NOT NULL,
     date_posted TIMESTAMP DEFAULT NOW(),
     posted_by VARCHAR(32) NOT NULL,
+    location VARCHAR(32) NOT NULL,
+    date DATE NOT NULL,
     CONSTRAINT fk_event_user FOREIGN KEY (posted_by) REFERENCES member(username)
 );
 REVOKE UPDATE (date_posted, posted_by) ON community_event FROM PUBLIC;
+
+CREATE TABLE information (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title VARCHAR(32) NOT NULL,
+    description VARCHAR(512) NOT NULL,
+    date_posted TIMESTAMP DEFAULT NOW(),
+    posted_by VARCHAR(32) NOT NULL,
+    type VARCHAR(32) NOT NULL,
+    image BYTEA NOT NULL,
+    CONSTRAINT fk_information_user FOREIGN KEY (posted_by) REFERENCES administrator(username)
+);
 
 -- delete expired session tokens
 CREATE OR REPLACE FUNCTION delete_expired_session_tokens() RETURNS void AS $$

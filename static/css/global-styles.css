@@ -230,6 +230,12 @@ footer > p {
     background-color: #f7f7f7;
 }
 
+textarea {
+    resize: none;
+    border-radius: 5px;
+    padding: 1%;
+}
+
 .flex-display {
     display: flex !important;
 }
@@ -245,4 +251,22 @@ footer > p {
 
 .hide {
     display: none !important;
+}
+
+.fade-hide {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+.stretch-hide {
+    overflow: hidden !important;
+    min-height: 0px !important;  
+    min-width: 0px !important;  
+}
+
+.hidden-button-style {
+    outline: none;
+    border: none !important;
+    background: transparent !important;
+    cursor: pointer;
 }

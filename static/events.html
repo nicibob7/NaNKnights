@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/global-styles.css" >
+    <link rel="stylesheet" href="./css/events.css" >
+    <script defer src="./js/global-script.js"></script>
+    <script defer src="./js/events.js"></script>
+    <title>Events | Day 'n' Day</title>
+</head>
+<body>
+    <nav class="menu-default">
+        <div id="nav-left">
+            <div id="logo-wrapper">
+                <a id="nav-home-button" href="./index.html">
+                    <img id="nav-logo" src="./res/logo1.png">
+                    <div id="logo-text-wrapper">
+                        <p id="logo-text-main">Day 'n' Day</p>
+                        <p id="logo-text-sub">Florin Country Community App</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div id="nav-button-wrapper">
+                <a href="/event" id="nav-news-button" class="nav-button">News</a>
+                <a href="/events" id="nav-events-button" class="nav-button">Events</a>
+                <a href="/suggestions" id="nav-suggestions-button" class="nav-button">Suggestions</a>
+                <a href="/about" id="nav-about-button" class="nav-button">About</a>
+            </div>
+
+        </div>
+        <div id="nav-right" class="hide-padding">
+            <div id="nav-right-button-wrapper">
+                <a href="/dashboard" id="nav-dashboard-button" class="nav-button hide">My Stuff</a>
+                <a href="/login" id="nav-login-button" class="nav-button">Login</a>
+            </div>
+            
+            <a href="/register" id="nav-signup-button">SIGN UP</a>
+
+            <div id="nav-account-wrapper" class="hide">
+                <img id="nav-account-icon" src="./res/account-icon.png">
+                <div id="nav-account-dropdown-list" class="menu-default hide">
+                    <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
+                    <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
+                    <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div id="event-container">
+            <div id="event-top-bar">
+                <h1 id="event-title">Event</h1>
+                <div id="event-top-buttons">
+                    <button id="add-event-button" class="hidden-button-style">
+                        Add Event
+                        <svg class="plus-image" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="plus-image-path" d="M13 0H7V7L0 7V13L7 13V20H13V13H20V7H13V0Z" fill="#D9D9D9"/>
+                        </svg>
+                    </button>
+                    <div class="filler"></div>
+                    <div id="search-container">
+                        <input type="text" id="search-box" class="input-text"/>
+                        <button id="search-button" class="hidden-button-style">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="14.0015" cy="9" r="7.5" stroke="#868686" stroke-width="3"/>
+                                <rect x="7.07129" y="14" width="4" height="10" rx="2" transform="rotate(45 7.07129 14)" fill="#868686"/>
+                            </svg>
+                                
+                        </button>
+                    </div>
+                    <button id="filter-button" class="hidden-button-style">
+                        Filter
+                        <svg class="filter-image" width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.5 13L0.138786 0.249999L14.8612 0.25L7.5 13Z" fill="#D9D9D9"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="top-dropdown-box" class="">
+
+                    <form id="filter-form">
+                        <div class="radio-wrapper filter-form-spacing">
+                            <label class="container">A-Z
+                                <input type="radio" checked="checked" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Z-A
+                                <input type="radio" checked="checked" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="date-wrapper filter-form-spacing">
+                            <label for="filter-start-date">Date</label>
+
+                            <input type="date" id="filter-start-date" class="input-text" name="filter-start-date" value=""  />
+                        </div>
+                        <input id="filter-form-button" class="filter-form-spacing" type="submit" value="Filter"/>
+                    </form>
+
+                </div>
+
+            </div>
+            <div id="event-main-content">
+
+                <div class="card card-spacing">
+                            <a class="card-link" href="#">
+                            <div class="card-image-wrapper">
+                                <img src="./res/tram-image.png">
+
+                                <div class="card-modify-buttons-wrapper hide">
+                                    <button class="card-edit-button hidden-button-style">
+                                        <svg width="46" height="44" viewBox="0 0 46 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g filter="url(#filter0_d_214_49)">
+                                            <path d="M8.99817 21.5952L25.1946 5.39876L35.9923 16.1964L19.7958 32.3929L14.397 26.994L8.99817 21.5952Z" fill="#FEED55"/>
+                                            <path d="M25.1945 5.39868L30.5932 -9.5446e-05L41.3909 10.7975L35.9921 16.1963L25.1945 5.39868Z" fill="#DE4C43"/>
+                                            <path d="M5.39865 35.9919L8.99786 21.5951L19.7955 32.3927L5.39865 35.9919Z" fill="#E7C89B"/>
+                                            <path d="M5.39874 35.9925L7.19834 28.7941L12.5972 34.1929L5.39874 35.9925Z" fill="#3D3D3D"/>
+                                            </g>
+                                            <defs>
+                                            <filter id="filter0_d_214_49" x="1.39868" y="0" width="43.9922" height="43.9924" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                            <feOffset dy="4"/>
+                                            <feGaussianBlur stdDeviation="2"/>
+                                            <feComposite in2="hardAlpha" operator="out"/>
+                                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_214_49"/>
+                                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_214_49" result="shape"/>
+                                            </filter>
+                                            </defs>
+                                            </svg>
+                                        </button>
+                                    <button class="card-delete-button hidden-button-style">
+                                        <svg width="34" height="42" viewBox="0 0 34 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g filter="url(#filter0_d_214_57)">
+                                            <rect x="5.39062" y="4.11377" width="23.5816" height="27.9486" fill="#D9D9D9"/>
+                                            <path d="M5.39062 32.0623H28.9723L27.2255 33.809H7.13741L5.39062 32.0623Z" fill="#D9D9D9"/>
+                                            <rect x="8.01074" y="6.73389" width="3.49358" height="24.455" fill="#A1A1A1"/>
+                                            <rect x="14.9979" y="6.73389" width="4.36697" height="24.455" fill="#A1A1A1"/>
+                                            <rect x="22.8585" y="6.73389" width="3.49358" height="24.455" fill="#A1A1A1"/>
+                                            <rect x="4.51721" y="0.620117" width="25.3284" height="3.49358" fill="#D9D9D9"/>
+                                            </g>
+                                            <defs>
+                                            <filter id="filter0_d_214_57" x="0.517212" y="0.620117" width="33.3284" height="41.189" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                            <feOffset dy="4"/>
+                                            <feGaussianBlur stdDeviation="2"/>
+                                            <feComposite in2="hardAlpha" operator="out"/>
+                                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_214_57"/>
+                                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_214_57" result="shape"/>
+                                            </filter>
+                                            </defs>
+                                            </svg>
+                                            
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-text-wrapper">
+                                <div class="card-text-top card-text-flex card-text-padder">
+                                    <h2 class="card-title card-text">Title</h2>
+                                    <h2 class="card-date card-text push-right">DATE</h2>
+                                </div>
+                                <div class="card-text-second card-text-flex card-text-padder">
+                                    <h2 class="card-location card-text">Location</h2>
+                                    <h2 class="card-host card-text push-right">HOST</h2>
+                                </div>
+                                <div class="card-text-third card-text-flex card-text-padder">
+                                    <p class="card-description card-text">Description</p>
+                                </div>
+                                <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
+                                    <h2 class="card-type card-text">TYPE</h2>
+                                    <div class="counter-wrapper push-right">
+                                        <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+                                            <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+                                            <path d="M7 6H27V9H7V6Z" fill="white"/>
+                                            <rect x="7" y="11" width="20" height="3" fill="white"/>
+                                            <rect x="7" y="16" width="20" height="3" fill="white"/>
+                                        </svg>
+                                        <p class="card-comment-counter card-text card-counter">0</p>
+                                    </div>
+                                    <div class="counter-wrapper">
+                                        <svg class="volunteer-image counter-image" width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect class="volunteer-image-rect" x="7.56226" y="2" width="4" height="15" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" y="17.8467" width="4.11361" height="11.8038" rx="1" transform="rotate(-43.7887 0 17.8467)" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="12.5623" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="17.5623" y="2" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="22.5623" y="5" width="4" height="14" rx="1" fill="#F5DE6A"/>
+                                            <rect class="volunteer-image-rect" x="7.56226" y="13" width="19" height="15" rx="3" fill="#F5DE6A"/>
+                                        </svg>
+                                        <p class="card-volunteer-counter card-text card-counter">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+
+            </div>
+        </div>
+
+        <div id="overlay" class="hide">
+            <form id="add-event-form" class="hide">
+                <button id="add-event-close-button" class="event-close-button hidden-button-style">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                    </svg>
+                </button>
+                <h2 id="add-event-form-title" class="event-form-title">Add Event</h2>
+                
+                
+                <div id="add-event-input-wrapper" class="flex-row event-input-wrapper">
+                <div id="add-event-form-left" class="flex-column form-column new-form-left">
+                        <label for="add-event-date" class="form-label">Date</label>
+                        <input type="date" id="add-event-date" class="input-text form-input-horizontal add-event-form-input event-date" name="add-event-date">
+                        <label for="add-event-location" class="form-label">Location</label>
+                        <input type="text" id="add-event-location" class="input-text form-input-horizontal add-event-form-input event-location" name="add-event-location">
+                        <label for="add-event-title" class="form-label">Title</label>
+                        <input type="text" id="add-event-title" class="input-text form-input-horizontal add-event-form-input event-title" name="add-event-title">
+                </div>
+                <div id="add-event-form-right" class="flex-column form-column event-form-right">
+                        <label for="add-event-type" class="form-label">Type</label>
+                        <select id="add-event-type" class="input-text form-input-horizontal add-event-form-input event-type" name="add-event-type">
+                            <option value="agriculture">Agriculture</option>
+                            <option value="sports">Sports</option>
+                            <option value="tech">Technology</option>
+                            <option value="nature">Nature</option>
+                            <option value="science">Science</option>
+                          </select>
+                        <label for="add-event-host" class="form-label">Host</label>
+                        <input type="text" id="add-event-host" class="form-input-horizontal add-event-form-input input-text event-host" name="add-event-host">
+                        <label for="add-event-upload" class="form-label">Images</label>
+                        <input type="file" accept=".png, .jpg, .gif" id="add-event-upload" class="form-input-horizontal add-event-form-input event-upload" name="add-event-upload" single>
+                        <p class="event-upload-description">Max size 10MB</p>
+                </div>
+                </div>
+                <label for="add-event-description" class="form-label">Description</label>
+                <textarea id="add-event-description" name="add-event-description" class="add-event-form-input event-description" autocomplete = "off"></textarea>
+                <div class="filler"></div>
+                <div class="form-button-wrapper push-right">
+                <button id="add-event-cancel-button" class="event-cancel-button">Cancel</button>
+                <input type="submit" id="add-event-submit-button" class="input-submit event-submit-button" value="Add" disabled=true>
+                </div>
+            </form>
+
+            <form id="update-event-form" class="hide">
+                <button id="update-event-close-button" class="hidden-button-style event-close-button">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                    </svg>
+                </button>
+                <h2 id="update-event-form-title">Update Event</h2>
+                
+                
+                <div id="update-event-input-wrapper" class="flex-row">
+                    <div id="update-event-form-left" class="flex-column form-column">
+                        <label for="update-event-date" class="form-label">Date</label>
+                        <input type="date" id="update-event-date" class="input-text form-input-horizontal event-date" name="update-event-date">
+                        <label for="update-event-location" class="form-label">Location</label>
+                        <input type="text" id="update-event-location" class="input-text form-input-horizontal update-event-form-input event-location" name="update-event-location">
+                        <label for="update-event-title" class="form-label">Title</label>
+                        <input type="text" id="update-event-title" class="input-text form-input-horizontal event-title" name="update-event-title">
+                    </div>
+
+                    <div id="update-event-form-right" class="flex-column form-column">
+                        <label for="update-event-type" class="form-label">Type</label>
+                        <select id="update-event-type" class="input-text form-input-horizontal event-type" name="add-event-type">
+                            <option value="agriculture">Agriculture</option>
+                            <option value="sports">Sports</option>
+                            <option value="tech">Technology</option>
+                            <option value="nature">Nature</option>
+                            <option value="science">Science</option>
+                          </select>
+                        <label for="update-event-upload" class="form-label">Images</label>
+                        <input type="file" accept=".png, .jpg, .gif" id="update-event-upload" class="form-input-horizontal event-upload" name="update-event-upload" single>
+                        <p class="event-upload-description">Max size 10MB</p>
+                    </div>
+                </div>
+                <label for="update-event-description" class="form-label">Description</label>
+                <textarea id="update-event-description" name="update-event-description" class="update-event-form-input event-description" autocomplete = "off"></textarea>
+                <div class="filler"></div>
+                <div class="form-button-wrapper push-right">
+                <button id="update-event-cancel-button" class="event-cancel-button">Cancel</button>
+                <input type="submit" id="update-event-submit-button" class="input-submit event-submit-button" value="Update">
+                </div>
+            </form>
+
+            <div id="delete-event-dialog" class="hide">
+                <p id="delete-event-text">Are sure you want to delete?</p>
+                <div class="form-button-wrapper">
+                <button id="delete-event-cancel-button" class="event-cancel-button">Cancel</button>
+                <button id="delete-event-button" class="input-submit event-submit-button">Delete</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="menu-default">
+        <p>Copyrighted by NaNKnights 2023</p>
+    </footer>
+</body>
+</html>

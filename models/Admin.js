@@ -1,7 +1,7 @@
 const db = require("../db/db");
 
 class Admin {
-    constructor(username, password) {
+    constructor({username, password}) {
         this.username = username;
         this.password = password;
     }
@@ -35,6 +35,7 @@ class Admin {
         if (response.rows.length !== 1) {
             throw new Error("Unable to locate user.");
         }
+
         return new Admin(response.rows[0]);
     }
 

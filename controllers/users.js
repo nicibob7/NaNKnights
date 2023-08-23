@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const Token = require("../models/Token");
 const EmailToken = require("../models/EmailToken");
-const Suggestion = require("../models/Suggestion");
 
 const BCRYPT_SALT_ROUNDS = parseInt(process.env.BCRYPT_SALT_ROUNDS);
 
@@ -90,22 +89,14 @@ const verify = async (req, res) => {
     }
 };
 
-// Post suggestions
-const postSuggestion = async (req, res) => {
+const updateDetails = async (req, res) => {
     try {
         const data = req.body;
+        const user = await User.getByUsername(res.locals.user);
 
-        if (!req.file) {
-            return res.status(400).send({error : "No image uploaded"});
-        }
+        const updatedUser = await user.updateBasicDetails(data);
 
-        const uploadedImage = req.file.buffer;
-        console.log(uploadedImage);
-
-        data.username = res.locals.user;
-
-        const suggestion = await Suggestion.create(data);
-        res.status(201).json(suggestion);
+        res.status(200).json({status: "success"});
     } catch (error) {
         res.status(400).json({error: error.message});
     }
@@ -117,5 +108,5 @@ module.exports = {
     logout,
     loggedInCheck,
     verify,
-    postSuggestion
+    updateDetails,
 };
