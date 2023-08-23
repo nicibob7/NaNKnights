@@ -42,12 +42,43 @@ describe("Token Models unit tests", () => {
                 jest.spyOn(db,'query').mockResolvedValueOnce({rows: [testToken1]});
 
                 const result = await Token.create(username);
+
                 expect(typeof(result)).toBe('object');
                 expect(Object.keys(result).length).toBe(5);
                 expect(Object.keys(result)).toEqual(Object.keys(testToken1));
                 expect(Object.values(result)).toEqual(Object.values(testToken1))
             })
         })
+
+        describe("Token.getOneById(id)", () => {
+
+            const id = 1;
+
+            it("returns new instance of Token after querying a given id", async () => {
+
+
+                jest.spyOn(db,'query').mockResolvedValueOnce({rows: [testToken1]});
+
+                const result = await Token.getOneById(id);
+
+                expect(result).toBeInstanceOf(Token);
+                expect(Object.values(result)).toEqual(Object.values(testToken1));
+            })
+            it("returns error if number of rows returned does not equal 1", async () => {
+
+                let error1 = new Error("Unable to locate token")
+
+                jest.spyOn(db, 'query').mockRejectedValueOnce(error1);
+
+                try {
+                    await Token.getOneById() 
+                } catch (error) {
+                    expect(error).toBeInstanceOf(Error)
+                    expect(error.message).toBe("Unable to locate token")
+                }
+            })
+        })
+
     })
 
     // describe("async isExpired() instance method", () => {
