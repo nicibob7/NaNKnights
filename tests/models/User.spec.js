@@ -170,25 +170,25 @@ describe("User Models unit tests", () => {
 
         })
 
-        // describe("User.getAllNonActivated()", () => {
+        describe("User.getAllNonActivated()", () => {
 
-        //     beforeEach(() => jest.clearAllMocks())
+            beforeEach(() => jest.clearAllMocks())
+            // To pass the data must return result.rows from db and have 9 keys per object
+            it('resolves the user on successful db query filtering is_activated=false', async () => {
+                const userData1 = {
+                    id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false
+                }
 
-        //     it('resolves the user on successful db delete by id query', async () => {
-        //         let userData1 = {
-        //             id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1"
-        //         }
+                mockData = jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: [userData1, userData1]});
 
-        //         let newUser = new User(userData1)
+                const result = await User.getAllNonActivated()
+                expect(Object.keys(result.rows).length).toBe(2)
+                expect(Object.keys(result.rows[0]).length).toBe(9)
+                expect(typeof(result)).toBe('object')
+            })
 
-        //         jest.spyOn(db, 'query')
-        //         .mockResolvedValueOnce({rows: userData1});
-
-        //         const result = await User.delete(newUser.id)
-        //         expect(result).toBeInstanceOf(Error)
-        //     })
-
-        // })
+        })
 
     })
 })
