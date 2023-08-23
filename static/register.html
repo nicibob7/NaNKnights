@@ -1,13 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA Frontend Example</title>
 </head>
 <body>
-    <p>Register is here</p>
+<div class="g-recaptcha" data-sitekey="6LfFmcsnAAAAAIxzLO5HlGhP8lONpoY9Z2r3Z2XU"></div>
+<button id="submitButton">Submit Form</button>
+
+<script>
+    const submitButton = document.getElementById('submitButton');
+    submitButton.addEventListener('click', async () => {
+        const recaptchaResponse = grecaptcha.getResponse(); // Get the reCAPTCHA response token
+
+        try {
+            const response = await fetch('/verify-recaptcha', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'g-recaptcha-response': recaptchaResponse
+                })
+            });
+
+            const responseData = await response.text();
+            console.log(responseData);
+
+            if (response.ok) {
+                // Success: reCAPTCHA validation succeeded
+            } else {
+                // Error: reCAPTCHA validation failed
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+</script>
+
+<!-- Include reCAPTCHA script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

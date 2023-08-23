@@ -5,9 +5,10 @@ const users = require("../controllers/users");
 const home = require("../controllers/home");
 const authenticator = require("../middleware/authenticator");
 const validateParameters = require("../middleware/validateParams");
+const captchaValidation = require("../middleware/captchaValidation");
 
 // public routes
-router.post("/login", validateParameters({
+router.post("/login", captchaValidation, validateParameters({
     username: {type: 'stringWithMaxLength', maxLength: 32},
     password: {type: 'stringWithMaxLength', maxLength: 64},
 }), users.login);

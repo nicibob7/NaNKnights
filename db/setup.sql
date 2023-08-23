@@ -17,8 +17,8 @@ CREATE TABLE administrator (
 
 CREATE TABLE member (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    username VARCHAR(32) NOT NULL UNIQUE,
-    password VARCHAR(64) NOT NULL,
+    username VARCHAR(512) NOT NULL UNIQUE,
+    password VARCHAR(512) NOT NULL,
     email VARCHAR(64) NOT NULL UNIQUE,
     first_name VARCHAR(16),
     last_name VARCHAR(16),

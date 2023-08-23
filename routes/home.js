@@ -3,7 +3,7 @@ const home = require("../controllers/home");
 const router = express.Router();
 
 /* public endpoints */
-// cant have get here, as it will conflict with the get /suggestions/all & /suggestions/:id
+// cant have get in this one, as it will conflict with the get /suggestions/all & /suggestions/:id
 router.post("/suggestions/:id", home.getSuggestionById);
 
 router.get("/news/popular", home.getNewsByPopularity)
@@ -11,7 +11,6 @@ router.get("/events/date", home.getEventsByPopularity)
 router.get("/suggestions/popular", home.getSuggestionsByPopularity)
 router.get("/suggestions/all", home.getSuggestions);
 router.post("/comments/:id", home.getCommentsBySuggestionId);
-
 
 // endpoint to html routes
 router.get("/login", home.login);
@@ -26,14 +25,17 @@ router.get("/news", home.news);
 router.get("/suggestions/:id", home.suggestion_page);
 router.get("/news/:id", home.news_page);
 
-// keep always last, handles all other unimplemented routes
-router.get("*", (req, res) => {
-    if(req.method === "HEAD"){
-        return res.status(404).end();
-    }
+// recaptcha
+// router.post("/verify-recaptcha", home.verify);
 
-    res.redirect("/");
-});
-router.all("*", home.notFound);
+// // keep always last, handles all other unimplemented routes
+// router.get("*", (req, res) => {
+//     if (req.method === "HEAD") {
+//         return res.status(404).end();
+//     }
+//
+//     res.redirect("/");
+// });
+// router.all("*", home.notFound);
 
 module.exports = router;

@@ -94,7 +94,7 @@ const updateDetails = async (req, res) => {
         const data = req.body;
         const user = await User.getByUsername(res.locals.user);
 
-        const updatedUser = await user.updateBasicDetails(data);
+        await user.updateBasicDetails(data);
 
         res.status(200).json({status: "success"});
     } catch (error) {
