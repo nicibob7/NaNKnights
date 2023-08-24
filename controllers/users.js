@@ -6,25 +6,38 @@ const EmailToken = require("../models/EmailToken");
 const mailer = require("../security/email");
 
 const BCRYPT_SALT_ROUNDS = parseInt(process.env.BCRYPT_SALT_ROUNDS);
+const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).{8,}$/;
+
 
 async function register(req, res) {
-    const data = req.body;
+    try {
+        const data = req.body;
 
-    // Generate a salt with a specific cost
-    const salt = await bcrypt.genSalt(BCRYPT_SALT_ROUNDS);
+        //check if password is valid
+        if (!PASSWORD_REGEX.test(data.password)) {
+            throw new Error("Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character.");
+        }
 
-    // Hash the password
-    data["password"] = await bcrypt.hash(data["password"], salt);
+        // Generate a salt with a specific cost
+        const salt = await bcrypt.genSalt(BCRYPT_SALT_ROUNDS);
 
-    // create a new user
-    const newUser = await User.create(data);
-    // create an activation link for the new user
-    const activationUrl = await EmailToken.create(newUser.username);
-    // send the link via email
-    await mailer(newUser.username, activationUrl, newUser.email);
+        // Hash the password
+        data["password"] = await bcrypt.hash(data["password"], salt);
 
-    return res.status(201).json({status: "success"});
+        // create a new user
+        const newUser = await User.create(data);
+        // create an activation link for the new user
+        const activationUrl = await EmailToken.create(newUser.username);
+        // send the link via email
+        await mailer(newUser.username, activationUrl, newUser.email);
 
+        return res.status(201).json({status: "success"});
+    } catch (error) {
+        if(error.detail){
+            return res.status(400).json({error: error.detail});
+        }
+        return res.status(400).json({error: error.message});
+    }
 }
 
 async function login(req, res) {

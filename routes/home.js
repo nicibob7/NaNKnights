@@ -9,10 +9,13 @@ router.post("/suggestions", validateParameters({
     id: {type: 'int'},
 }), home.getSuggestionById);
 router.get("/news/all", home.getNews);
-// router.get("/events/date", home.getEventsByPopularity);
+router.get("/news/top/:id", home.getNewsByLimit);
+
 router.get("/suggestions/popular", home.getSuggestionsByPopularity);
 router.get("/suggestions/all", home.getSuggestions);
+
 router.get("/events/all", home.getEvents);
+
 router.get("/comments/:id", home.getCommentsBySuggestionId);
 
 // endpoint to html routes

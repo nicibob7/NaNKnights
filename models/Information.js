@@ -17,6 +17,13 @@ class Information {
 
         // no need to return bytearray or base64 string
         result.rows[0].image = (data.image.length / 1024).toFixed(2) + " KB image file";
+
+        result.rows.forEach((information) => {
+            if(!information.image) return;
+            // convert to KB
+            information.image = information.image.toString();
+        });
+
         return result.rows[0];
     }
 
@@ -28,6 +35,17 @@ class Information {
             // convert to KB
             information.image = information.image.toString();
         });
+        return result.rows;
+    }
+
+    static async getNewsByNumber(number){
+        const result = await db.query("SELECT * FROM information ORDER BY date_posted DESC LIMIT $1", [number]);
+        result.rows.forEach((information) => {
+            if(!information.image) return;
+            // convert to KB
+            information.image = information.image.toString();
+        });
+
         return result.rows;
     }
 }
