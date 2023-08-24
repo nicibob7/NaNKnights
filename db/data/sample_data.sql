@@ -29,11 +29,11 @@ INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (5, 'bob', 'This 
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (6, 'bob', 'This is a comment 6');
 
 -- community_event data
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'sports');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'nature');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'amusements');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'community meeting');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'markets & commerce');
 
 -- information data
 INSERT INTO information (title, description, posted_by, type, image) VALUES ('Information 1', 'This is an information', 'admin', 'International news', 'image placeholder');

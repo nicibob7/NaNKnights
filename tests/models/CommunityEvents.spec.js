@@ -11,7 +11,8 @@ describe("'CommunityEvent' Model unit tests", () => {
         date_posted: "2023-08-24 12:52:02.669291",
         posted_by: "bob",
         location: "New York City",
-        date: "2021-01-01"
+        date: "2021-01-01",
+        type: "community meeting"
     }
 
     const event2 = {
@@ -21,7 +22,8 @@ describe("'CommunityEvent' Model unit tests", () => {
         date_posted: "2023-08-24 12:52:02.669291",
         posted_by: "jane",
         location: "Orange County",
-        date: "2021-02-01"
+        date: "2021-02-01",
+        type: "sports"
     }
 
     const frontEndEvent = {
@@ -29,7 +31,8 @@ describe("'CommunityEvent' Model unit tests", () => {
         description: "This is an event",
         posted_by: "bob",
         location: "New York City",
-        date: "2021-01-01"
+        date: "2021-01-01",
+        type: "community meeting"
     }
 
     beforeEach(() => jest.clearAllMocks())
@@ -55,8 +58,8 @@ describe("'CommunityEvent' Model unit tests", () => {
 
         it("The instance of CommunityEvent should only have one object and 6 values", () => {
             const newCommunityEvent = new CommunityEvent(event1)
-            expect(Object.keys(newCommunityEvent).length).toEqual(6);
-            expect(Object.values(newCommunityEvent).length).toEqual(6);
+            expect(Object.keys(newCommunityEvent).length).toEqual(7);
+            expect(Object.values(newCommunityEvent).length).toEqual(7);
         })
     })
 
@@ -102,16 +105,18 @@ describe("'CommunityEvent' Model unit tests", () => {
                     date_posted: "2023-08-24 12:52:02.669291",
                     posted_by: "bob",
                     location: "New York City",
-                    date: "2021-01-01"
+                    date: "2021-01-01",
+                    type: "community meeting"
                 },
                 {
-                    id: 2,
+                    id: 2 ,
                     title: "Event 2",
                     description: "This is an event",
                     date_posted: "2023-08-24 12:52:02.669291",
                     posted_by: "jane",
                     location: "Orange County",
-                    date: "2021-02-01"
+                    date: "2021-02-01",
+                    type: "sports"
                 }
             ]
 
