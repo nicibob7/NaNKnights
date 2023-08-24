@@ -55,6 +55,7 @@ const getNews = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
+
 const getEventsByPopularity = async (req, res) => {
     try {
         const news = await CommunityEvent.getEventsByPopularity();
@@ -172,7 +173,7 @@ module.exports = {
     notFound,
 
     getNews,
-    getEventsByPopularity,
+    getEvents,
+  
     getSuggestionsByPopularity
-
 };
