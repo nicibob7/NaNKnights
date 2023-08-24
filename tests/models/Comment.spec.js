@@ -37,7 +37,7 @@ describe("'Comment' Model unit tests", () => {
         it("should create an instance of Comment with corresponding values that match the data source", () => {
 
             const newComment = new Comment(frontEndComment);
-            console.log(newComment)
+
             expect(newComment).toBeInstanceOf(Comment);
             expect(newComment.comment).toEqual(comment1.comment);
             expect(newComment.suggestion_id).toEqual(comment1.suggestion_id);
@@ -67,8 +67,36 @@ describe("'Comment' Model unit tests", () => {
         })
     })
 
-    // describe("Comment.getAllBySuggestionId(id)", () => {
+    describe("Comment.getAllBySuggestionId(id)", () => {
 
-    // })
+        it("Should only return the data of all comments with a suggestion_id value equal to 1", async () => {
+
+            const commentsSuggestionId1 = [
+                {
+                    id: 1,
+                    suggestion_id: 1,
+                    comment: "this is a comment 1",
+                    date_posted: "2023-08-24 12:52:02.669291",
+                    posted_by: "bob"
+                },
+                {
+                    id: 2,
+                    suggestion_id: 1,
+                    comment: "this is a comment 2",
+                    date_posted: "2023-08-25 12:52:02.669291",
+                    posted_by: "bob"
+                }
+            ]
+
+            jest.spyOn(db,'query').mockResolvedValueOnce({rows: commentsSuggestionId1});
+
+            const result = await Comment.getAllBySuggestionId(frontEndComment.suggestion_id);
+
+            expect(typeof(result)).toBe('object');
+            expect(result[0].suggestion_id).toEqual(result[1].suggestion_id);
+            expect(result.length).toEqual(commentsSuggestionId1.length);
+
+        })
+    })
 
 })
