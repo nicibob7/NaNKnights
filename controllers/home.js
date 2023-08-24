@@ -55,6 +55,7 @@ const getNews = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
+
 const getNewsByLimit = async (req, res) => {
     try {
         const news = await Information.getNewsByNumber(req.params.id);
