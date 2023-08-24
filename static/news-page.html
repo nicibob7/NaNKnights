@@ -116,44 +116,6 @@
                     </div>
                 </div>
 
-                <div id="comment-section">
-                    <h2 id="comment-title"><span id="comments-number">1</span> Comments</h2>
-                    <button id="comment-add-button" class="hidden-button-style">Add Comment
-                        <svg class="plus-image" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="plus-image-path" d="M13 0H7V7L0 7V13L7 13V20H13V13H20V7H13V0Z" fill="#D9D9D9"/>
-                        </svg>
-                    </button>
-
-                    <form id="add-comment-form">
-                        <h2 id="add-comment-title" class="news-form-title">Add Comment</h2>
-                        <textarea id="add-comment-textarea" class="comment-text" name="comment-textarea" maxlength="300">
-                        </textarea>
-                        <div class="form-button-wrapper push-right">
-                            <button id="add-comment-cancel-button" class="news-cancel-button">Cancel</button>
-                            <input type="submit" id="add-comment-submit-button" class="input-submit news-submit-button" value="Submit">
-                            </div>
-                    </form>
-                    <div id="comments-container">
-                        <div class="comment">
-                            <div class="comment-left">
-                                <div class="comment-profile-wrapper">
-                                    <div class="comment-avatar"></div>
-                                    <p class="comment-author">
-                                        VanDamn
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="comment-right">
-                                <p class="comment-date push-right">18-09-2023</p>
-                                <textarea class="comment-text" maxlength="300" disabled=true>Some text about this comment which is great aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </textarea>
-                                <!-- <div class="filler"></div> -->
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -168,32 +130,32 @@
                 
                 
                 <div id="add-news-input-wrapper" class="flex-row news-input-wrapper">
-                <div id="add-news-form-left" class="flex-column form-column new-form-left">
-                        <label for="add-news-date" class="form-label">Date</label>
-                        <input type="date" id="add-news-date" class="input-text form-input-horizontal add-news-form-input news-date" name="add-news-date">
-                        <label for="add-news-title" class="form-label">Title</label>
-                        <input type="text" id="add-news-title" class="input-text form-input-horizontal add-news-form-input news-title" name="add-news-title">
-                </div>
-                <div id="add-news-form-right" class="flex-column form-column news-form-right">
-                        <label for="add-news-type" class="form-label">Type</label>
-                        <select id="add-news-type" class="input-text form-input-horizontal add-news-form-input news-type" name="add-news-type">
-                            <option value="agriculture">Agriculture</option>
-                            <option value="sports">Sports</option>
-                            <option value="tech">Technology</option>
-                            <option value="nature">Nature</option>
-                            <option value="science">Science</option>
-                          </select>
-                        <label for="add-news-upload" class="form-label">Images</label>
-                        <input type="file" accept=".png, .jpg, .gif" id="add-news-upload" class="form-input-horizontal add-news-form-input news-upload" name="add-news-upload" single>
-                        <p class="news-upload-description">Max size 10MB</p>
-                </div>
-                </div>
-                <label for="add-news-description" class="form-label">Description</label>
-                <textarea id="add-news-description" name="add-news-description" class="add-news-form-input news-description" autocomplete = "off"></textarea>
-                <div class="filler"></div>
-                <div class="form-button-wrapper push-right">
-                <button id="add-news-cancel-button" class="news-cancel-button">Cancel</button>
-                <input type="submit" id="add-news-submit-button" class="input-submit news-submit-button" value="Add" disabled=true>
+                    <div id="add-news-form-left" class="flex-column form-column new-form-left">
+                            <label for="add-news-date" class="form-label">Date</label>
+                            <input type="date" id="add-news-date" class="input-text form-input-horizontal add-news-form-input news-date" name="add-news-date">
+                            <label for="add-news-title" class="form-label">Title</label>
+                            <input type="text" id="add-news-title" class="input-text form-input-horizontal add-news-form-input news-title" name="add-news-title">
+                    </div>
+                    <div id="add-news-form-right" class="flex-column form-column news-form-right">
+                            <label for="add-news-type" class="form-label">Type</label>
+                            <select id="add-news-type" class="input-text form-input-horizontal add-news-form-input news-type" name="add-news-type">
+                                <option value="agriculture">Agriculture</option>
+                                <option value="sports">Sports</option>
+                                <option value="tech">Technology</option>
+                                <option value="nature">Nature</option>
+                                <option value="science">Science</option>
+                            </select>
+                            <label for="add-news-upload" class="form-label">Images</label>
+                            <input type="file" accept=".png, .jpg, .gif" id="add-news-upload" class="form-input-horizontal add-news-form-input news-upload" name="add-news-upload" single>
+                            <p class="news-upload-description">Max size 10MB</p>
+                    </div>
+                    <label for="add-news-description" class="form-label">Description</label>
+                    <textarea id="add-news-description" name="add-news-description" class="add-news-form-input news-description" autocomplete = "off"></textarea>
+                    <div class="filler"></div>
+                    <div class="form-button-wrapper push-right">
+                        <button id="add-news-cancel-button" class="news-cancel-button">Cancel</button>
+                        <input type="submit" id="add-news-submit-button" class="input-submit news-submit-button" value="Add" disabled=true>
+                    </div>
                 </div>
             </form>
 
@@ -228,12 +190,14 @@
                         <p class="news-upload-description">Max size 10MB</p>
                     </div>
                 </div>
+
                 <label for="update-news-description" class="form-label">Description</label>
                 <textarea id="update-news-description" name="add-news-description" class="add-news-form-input news-description" autocomplete = "off"></textarea>
                 <div class="filler"></div>
+
                 <div class="form-button-wrapper push-right">
-                <button id="update-news-cancel-button" class="news-cancel-button">Cancel</button>
-                <input type="submit" id="update-news-submit-button" class="input-submit news-submit-button" value="Update">
+                    <button id="update-news-cancel-button" class="news-cancel-button">Cancel</button>
+                    <input type="submit" id="update-news-submit-button" class="input-submit news-submit-button" value="Update">
                 </div>
             </form>
 

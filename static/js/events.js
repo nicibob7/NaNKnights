@@ -19,6 +19,10 @@ const deleteEventButton = document.querySelector('#delete-event-button');
 const deleteEventDialog = document.querySelector('#delete-event-dialog');
 const cardsList = document.querySelectorAll('.card');
 
+const eventMainContent = document.querySelector('#event-main-content');
+const template = document.querySelector('template');
+
+
 let selectedID = 0;
 
 function overlayShow() {
@@ -85,9 +89,9 @@ addEventCancelButton.addEventListener('click', (e) => {
     
 });
 
-addEventSubmitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-});
+// addEventSubmitButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+// });
 
 updateEventCloseButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -103,9 +107,9 @@ updateEventCancelButton.addEventListener('click', (e) => {
     
 });
 
-updateEventSubmitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-});
+// updateEventSubmitButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+// });
 
 deleteEventCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -152,45 +156,142 @@ addEventForm.addEventListener('submit', (e) => {
 });
 
 
-for (let i = 0; i < cardsList.length; i++) {
-    cardsList[i].addEventListener('click', (e) => {
+addEventForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    // Add event to database POST Request
+
+    const form = new FormData(e.target);
+
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            title: form.get("add-event-title"),
+            description: form.get("add-event-description"),
+            posted_by: form.get("add-event-host"),
+            location: form.get("add-event-location"),
+            date: form.get("add-event-date"),
+            // type: form.get("add-event-type"),
+            // image: form.get("add-event-upload")
+        })
+    };
+    
+    await fetch("/users/events/new", options)
+        .then(response => response.json())
+        .then(data => {
+            
+            console.log(data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+});
+
+
+
+const createEvent = (event) => {
+    const { id, title, description, date_posted, posted_by, location, date, image } = event;
+    let eventElement = null;
+    console.log(title);
+    
+    switch (userType) {
+        case "guest":
+            eventElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "user":
+            eventElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "admin":
+            eventElement = template.content.querySelector('.editable-card').cloneNode(true);
+            eventElement.querySelector('.card-edit-button').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // let idArray = (cardsList[i].id).split('-');
+                // selectedID = idArray[idArray.length-1];
+        
+                
+        
+                updateEventForm.classList.remove('hide');
+                overlayFadeIn();
+                overlay.classList.remove('hide');
+                // hideOverlay();
+            });
+            eventElement.querySelector('.card-delete-button').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // let idArray = (cardsList[i].id).split('-');
+                // selectedID = idArray[idArray.length-1];
+        
+                deleteEventDialog.classList.remove('hide');
+                overlayFadeIn();
+                overlay.classList.remove('hide');
+                // hideOverlay();
+            });
+        
+            eventElement.addEventListener('mousemove', () => {
+                eventElement.querySelector('.card-edit-button').classList.remove('hide');
+                eventElement.querySelector('.card-delete-button').classList.remove('hide');
+            });
+        
+            eventElement.addEventListener('mouseleave', () => {
+                eventElement.querySelector('.card-edit-button').classList.add('hide');
+                eventElement.querySelector('.card-delete-button').classList.add('hide');
+            });
+        break;
+        default:
+            eventElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+    }
+
+    let tempDate = new Date(date);
+
+    eventElement.id = "event-" + id; 
+    eventElement.querySelector('.card-title').textContent = title;
+    eventElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+    eventElement.querySelector('.card-location').textContent = location;
+    eventElement.querySelector('.card-host').textContent = posted_by;
+    eventElement.querySelector('.card-description').textContent = description;
+    // eventElement.querySelector('.card-image-wrapper > img').src = String();
+
+    eventElement.addEventListener('click', (e) => {
         e.preventDefault();
         // console.log('Triggered');
         
+        window.location.assign(`/event/${id}`);
 
         // open event page ->
         // 
     });
-    cardsList[i].querySelector('.card-edit-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        // let idArray = (cardsList[i].id).split('-');
-        // selectedID = idArray[idArray.length-1];
 
+    return eventElement;
+    // event.
+}
+
+
+const fetchEvents = async () => {
+    await fetch('/events/all')
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        try {
+            eventMainContent.textContent = "";
+            data.forEach(event => {
+                // console.log(event);
+                let elem = createEvent(event);
+                
+                console.log(elem);
+                eventMainContent.appendChild(elem);
+            })
+        } catch (error) {
+            console.log(error);
+        }
         
+    })
+    .catch((error) => console.log(error.error));
+}
 
-        updateEventForm.classList.remove('hide');
-        overlayFadeIn();
-        overlay.classList.remove('hide');
-        // hideOverlay();
-    });
-    cardsList[i].querySelector('.card-delete-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        // let idArray = (cardsList[i].id).split('-');
-        // selectedID = idArray[idArray.length-1];
+fetchEvents();
 
-        deleteEventDialog.classList.remove('hide');
-        overlayFadeIn();
-        overlay.classList.remove('hide');
-        // hideOverlay();
-    });
-
-    cardsList[i].addEventListener('mousemove', () => {
-        cardsList[i].querySelector('.card-modify-buttons-wrapper').classList.remove('hide');
-    });
-
-    cardsList[i].addEventListener('mouseleave', () => {
-        cardsList[i].querySelector('.card-modify-buttons-wrapper').classList.add('hide');
-    });
+if (userType != "admin") {
+    // addEventButton.remove();
 }

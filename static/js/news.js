@@ -18,6 +18,7 @@ const deleteNewsCancelButton = document.querySelector('#delete-news-cancel-butto
 const deleteNewsButton = document.querySelector('#delete-news-button');
 const deleteNewsDialog = document.querySelector('#delete-news-dialog');
 const cardsList = document.querySelectorAll('.card');
+
 const newsMainContent = document.querySelector('#news-main-content');
 const template = document.querySelector('template');
 
@@ -87,9 +88,9 @@ addNewsCancelButton.addEventListener('click', (e) => {
     
 });
 
-addNewsSubmitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-});
+// addNewsSubmitButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+// });
 
 updateNewsCloseButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -105,9 +106,9 @@ updateNewsCancelButton.addEventListener('click', (e) => {
     
 });
 
-updateNewsSubmitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-});
+// updateNewsSubmitButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+// });
 
 deleteNewsCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -159,7 +160,7 @@ addNewsForm.addEventListener('submit', async (e) => {
             title: form.get("add-news-title"),
             description: form.get("add-news-description"),
             type: form.get("add-news-type"),
-            image: form.get("add-news-image")
+            image: form.get("add-news-upload")
         })
     };
     
@@ -196,8 +197,6 @@ const createNews = (news) => {
                 e.stopPropagation();
                 // let idArray = (cardsList[i].id).split('-');
                 // selectedID = idArray[idArray.length-1];
-        
-                
         
                 updateNewsForm.classList.remove('hide');
                 overlayFadeIn();
@@ -281,7 +280,7 @@ const fetchNews = async () => {
 fetchNews();
 
 if (userType != "admin") {
-    //addNewsButton.remove();
+    addNewsButton.remove();
 }
 // checkUserType();
 

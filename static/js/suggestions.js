@@ -19,6 +19,10 @@ const deleteSuggestionButton = document.querySelector('#delete-suggestion-button
 const deleteSuggestionDialog = document.querySelector('#delete-suggestion-dialog');
 const cardsList = document.querySelectorAll('.card');
 
+const suggestionMainContent = document.querySelector('#suggestion-main-content');
+const template = document.querySelector('template');
+
+
 let selectedID = 0;
 
 function overlayShow() {
@@ -85,9 +89,9 @@ addSuggestionCancelButton.addEventListener('click', (e) => {
     
 });
 
-addSuggestionSubmitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-});
+// addSuggestionSubmitButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+// });
 
 updateSuggestionCloseButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -103,9 +107,9 @@ updateSuggestionCancelButton.addEventListener('click', (e) => {
     
 });
 
-updateSuggestionSubmitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-});
+// updateSuggestionSubmitButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+// });
 
 deleteSuggestionCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -145,72 +149,139 @@ addSuggestionForm.addEventListener('input', (e) => {
         }
 });
 
-addSuggestionForm.addEventListener('submit', (e) => {
+addSuggestionForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // Add suggestion to database POST Request
-    console.log('Fired');
+    // Add event to database POST Request
+
+    const form = new FormData(e.target);
+
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            title: form.get("add-suggestion-title"),
+            description: form.get("add-suggestion-description"),
+            posted_by: form.get("add-suggestion-host"),
+            location: form.get("add-suggestion-location"),
+            date: form.get("add-suggestion-date"),
+            // type: form.get("add-suggestion-type"),
+            // image: form.get("add-suggestion-upload")
+        })
+    };
+    
+    await fetch("/users/suggestions/new", options)
+        .then(response => response.json())
+        .then(data => {
+            
+            console.log(data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
 });
 
 
-for (let i = 0; i < cardsList.length; i++) {
-    cardsList[i].addEventListener('click', (e) => {
+
+const createSuggestion = (suggestion) => {
+    const { id, title, description, date_posted, posted_by, votes, is_resolved, is_activated, image, urgency_level} = suggestion;
+    let suggestionElement = null;
+    console.log(title);
+    
+    switch (userType) {
+        case "guest":
+            suggestionElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "user":
+            suggestionElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "admin":
+            suggestionElement = template.content.querySelector('.editable-card').cloneNode(true);
+            suggestionElement.querySelector('.card-edit-button').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // let idArray = (cardsList[i].id).split('-');
+                // selectedID = idArray[idArray.length-1];
+        
+                
+        
+                updateSuggestionForm.classList.remove('hide');
+                overlayFadeIn();
+                overlay.classList.remove('hide');
+                // hideOverlay();
+            });
+            suggestionElement.querySelector('.card-delete-button').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // let idArray = (cardsList[i].id).split('-');
+                // selectedID = idArray[idArray.length-1];
+        
+                deleteSuggestionDialog.classList.remove('hide');
+                overlayFadeIn();
+                overlay.classList.remove('hide');
+                // hideOverlay();
+            });
+        
+            suggestionElement.addEventListener('mousemove', () => {
+                suggestionElement.querySelector('.card-edit-button').classList.remove('hide');
+                suggestionElement.querySelector('.card-delete-button').classList.remove('hide');
+            });
+        
+            suggestionElement.addEventListener('mouseleave', () => {
+                suggestionElement.querySelector('.card-edit-button').classList.add('hide');
+                suggestionElement.querySelector('.card-delete-button').classList.add('hide');
+            });
+        break;
+        default:
+            suggestionElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+    }
+
+    let tempDate = new Date(date_posted);
+
+    suggestionElement.id = "suggestion-" + id; 
+    suggestionElement.querySelector('.card-title').textContent = title;
+    suggestionElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+    // suggestionElement.querySelector('.card-host').textContent = posted_by;
+    suggestionElement.querySelector('.card-vote-counter').textContent = votes;
+    suggestionElement.querySelector('.card-description').textContent = description;
+    // suggestionElement.querySelector('.card-image-wrapper > img').src = String();
+
+    suggestionElement.addEventListener('click', (e) => {
         e.preventDefault();
         // console.log('Triggered');
         
-
-        // open suggestions page ->
-        // 
-    });
-    cardsList[i].querySelector('.up-vote-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        // let idArray = (cardsList[i].id).split('-');
-        // selectedID = idArray[idArray.length-1];
-
-        // up vote post ->
+        window.location.assign(`/suggestions/${id}`);
 
     });
 
-    cardsList[i].querySelector('.down-vote-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        // let idArray = (cardsList[i].id).split('-');
-        // selectedID = idArray[idArray.length-1];
+    return suggestionElement;
+}
 
-        // down vote post ->
 
-    });
-
-    cardsList[i].querySelector('.card-edit-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        // let idArray = (cardsList[i].id).split('-');
-        // selectedID = idArray[idArray.length-1];
-
+const fetchSuggestions = async () => {
+    await fetch('/suggestions/all')
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        try {
+            suggestionMainContent.textContent = "";
+            data.forEach(suggestion => {
+                // console.log(suggestion);
+                let elem = createSuggestion(suggestion);
+                
+                console.log(elem);
+                suggestionMainContent.appendChild(elem);
+            })
+        } catch (error) {
+            console.log(error);
+        }
         
+    })
+    .catch((error) => console.log(error.error));
+}
 
-        updateSuggestionForm.classList.remove('hide');
-        overlayFadeIn();
-        overlay.classList.remove('hide');
-        // hideOverlay();
-    });
-    cardsList[i].querySelector('.card-delete-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        // let idArray = (cardsList[i].id).split('-');
-        // selectedID = idArray[idArray.length-1];
+fetchSuggestions();
 
-        deleteSuggestionDialog.classList.remove('hide');
-        overlayFadeIn();
-        overlay.classList.remove('hide');
-        // hideOverlay();
-    });
-
-    cardsList[i].addEventListener('mousemove', () => {
-        cardsList[i].querySelector('.card-modify-buttons-wrapper').classList.remove('hide');
-    });
-
-    cardsList[i].addEventListener('mouseleave', () => {
-        cardsList[i].querySelector('.card-modify-buttons-wrapper').classList.add('hide');
-    });
+if (userType != "admin") {
+    // addSuggestionButton.remove();
 }

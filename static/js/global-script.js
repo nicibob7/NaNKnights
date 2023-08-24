@@ -79,6 +79,13 @@ const checkUserPermission = async () => {
                 const navAccountIcon = document.querySelector('#nav-account-icon');
                 const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
                 
+                console.log();
+                navWrapper.querySelector('#nav-account-logout').addEventListener('click',  (e) => {
+                    e.preventDefault();
+
+                    // console.log("Therer");
+                });
+
                 navAccountIcon.addEventListener('click', (e) => {
                     e.preventDefault();
                     if (navAccountDropdownList.classList.contains('hide')) {
