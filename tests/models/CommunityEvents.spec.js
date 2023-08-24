@@ -126,5 +126,18 @@ describe("CommunityEvent Model unit tests", () => {
             
         })
     })
+    
+    describe("CommunityEvent.create(data)", () => {
+
+        it("Returns the full community event details from newly created entry in database", async () => {
+
+
+            jest.spyOn(db,'query').mockResolvedValueOnce({rows: [event2]});
+
+            const result = await CommunityEvent.create(frontEndEvent);
+            expect(typeof(result)).toBe('object')
+            expect(Object.keys(result)).toEqual(Object.keys(suggestion1));
+            expect(Object.values(result)).toEqual(Object.values(suggestion1));
+        })
 
 })

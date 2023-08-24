@@ -98,7 +98,7 @@ describe("Suggestion Models unit tests", () => {
 
     describe("Suggestion.getSuggestionByPopularity()", () => {
 
-        it("Should return an array representing rows of suggestions in descending order of popularity", async () => {
+        it("Should return an array object representing rows of suggestions in descending order of popularity", async () => {
             
             const suggestion2 = {
                 id: 3,
