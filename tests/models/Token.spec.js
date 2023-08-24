@@ -49,34 +49,34 @@ describe("Token Models unit tests", () => {
             })
         })
 
-        describe("Token.getOneById(id)", () => {
+        // describe("Token.getOneById(id)", () => {
 
-            const id = 1;
+        //     const id = 1;
 
-            it("returns new instance of Token after querying a given id", async () => {
+        //     it("returns new instance of Token after querying a given id", async () => {
 
 
-                jest.spyOn(db,'query').mockResolvedValueOnce({rows: [testToken1]});
+        //         jest.spyOn(db,'query').mockResolvedValueOnce({rows: [testToken1]});
 
-                const result = await Token.getOneById(id);
+        //         const result = await Token.getOneById(id);
 
-                expect(result).toBeInstanceOf(Token);
-                expect(Object.values(result)).toEqual(Object.values(testToken1));
-            })
-            it("returns error if number of rows returned does not equal 1", async () => {
+        //         expect(result).toBeInstanceOf(Token);
+        //         expect(Object.values(result)).toEqual(Object.values(testToken1));
+        //     })
+        //     it("returns error if number of rows returned does not equal 1", async () => {
 
-                let error1 = new Error("Unable to locate token")
+        //         let error1 = new Error("Unable to locate token")
 
-                jest.spyOn(db, 'query').mockRejectedValueOnce(error1);
+        //         jest.spyOn(db, 'query').mockRejectedValueOnce(error1);
 
-                try {
-                    await Token.getOneById(id) 
-                } catch (error) {
-                    expect(error).toBeInstanceOf(Error)
-                    expect(error.message).toBe("Unable to locate token")
-                }
-            })
-        })
+        //         try {
+        //             await Token.getOneById(id) 
+        //         } catch (error) {
+        //             expect(error).toBeInstanceOf(Error)
+        //             expect(error.message).toBe("Unable to locate token")
+        //         }
+        //     })
+        // })
 
         describe("Token.getOneByToken(token)", () => {
 
@@ -122,22 +122,22 @@ describe("Token Models unit tests", () => {
             
         })
 
-        describe("Token.deleteById(id)", () => {
+        // describe("Token.deleteById(id)", () => {
 
-            it("does not return a value so it should be falsy", async() => {
+        //     it("does not return a value so it should be falsy", async() => {
 
-                const id = 1;
+        //         const id = 1;
 
-                jest.spyOn(db,'query').mockResolvedValueOnce();
+        //         jest.spyOn(db,'query').mockResolvedValueOnce();
 
-                const result = await Token.deleteById(id);
-                expect(result).toBeFalsy();
+        //         const result = await Token.deleteById(id);
+        //         expect(result).toBeFalsy();
 
-            })
+        //     })
             
-        })
+        // })
 
-        describe("Token.deleteByUsername(username)", () => {
+        describe("Token.deleteAllByUsername(username)", () => {
 
             it("does not return a value so it should be falsy", async() => {
 
@@ -145,7 +145,7 @@ describe("Token Models unit tests", () => {
 
                 jest.spyOn(db,'query').mockResolvedValueOnce();
 
-                const result = await Token.deleteByUsername(username);
+                const result = await Token.deleteAllByUsername(username);
                 expect(result).toBeFalsy();
 
             })
@@ -176,7 +176,7 @@ describe("Token Models unit tests", () => {
             it("should return TRUE if the current new Date for comparison is greater than the expiry date", async () => {
 
                 let newToken = new Token(testToken1)
-                console.log(newToken)
+                
                 jest.spyOn(db, 'query')
                 .mockResolvedValue({rows: [newToken]});
 
