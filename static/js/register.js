@@ -1,3 +1,4 @@
+
 const passwordInput = document.querySelector('#password');
 const passwordInput2 = document.querySelector('#password2');
 
@@ -5,6 +6,8 @@ const toggleIcon = document.querySelector('.password-container #toggleIcon');
 const toggleIcon2 = document.querySelector('.password-container-2 #toggleIcon');
 const passwordRequirements = document.querySelector('#password-requirements');
 const requirementIcons = document.querySelectorAll('.requirements i');
+
+
 
 const matchMessage = document.querySelector('#match-message');
 
@@ -60,5 +63,29 @@ passwordInput.addEventListener('input', () => {
     })
   }
   passwordMatcher()
+// Get the popup
+const popup = document.querySelector("#myPopup");
 
+// Get the <span> element that closes the popup
+const span = document.querySelectorAll(".close")[0];
+
+  document.querySelector(".registration-form").addEventListener('submit', e => {
+    e.preventDefault();
+    // joe2257K!
+    popup.style.display = "block";
+    // const email = document.querySelector("#email").value;
+    // console.log(email)
+    // localStorage.setItem("userEmail", email);
+    // window.location.href = "first-time-reg.html"
+  })
+  // When the user clicks on <span> (x), close the modal
+    span.onclick = () => {
+        popup.style.display = "none";
+    }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = event => {
+    if (event.target == popup) {
+      popup.style.display = "none";
+    }
+  }
 
