@@ -16,6 +16,10 @@ let eventsLimit = 5;
 let currentSuggestion = 0;
 let suggestionsLimit = 5;
 
+fetch("account_type", {method:"POST"})
+    .then(response => response.json())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 
 const generateCarouselButtons = (amount=3) => {
     carouselButtons.textContent = '';

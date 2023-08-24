@@ -81,6 +81,37 @@ loginForm.addEventListener('submit', async (e) => {
     }
 });
 
+adminForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    console.log("admin login")
+    const form = new FormData(e.target);
+
+    const options = {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: form.get("username"),
+            password: form.get("password"),
+            "g-recaptcha-response": grecaptcha.getResponse()
+        })
+    };
+
+    await fetch("/admins/login", options)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            //window.location.assign("/")
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+    grecaptcha.reset();
+});
+
 loginAccountButton.addEventListener('click', (e) => {
     e.preventDefault();
     const tie = document.querySelector('.tie');
@@ -93,6 +124,8 @@ loginAccountButton.addEventListener('click', (e) => {
         loginForm.classList.add('hide');
         adminForm.classList.remove('hide');
     }
+
+    grecaptcha.reset();
 });
 
 document.querySelector("#google-icon").addEventListener("click", () => {
