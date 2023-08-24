@@ -348,6 +348,72 @@ main {
     margin: 12px 6px;
 }
 
+.card-edit-button:hover {
+    animation: edit-hover .8s linear infinite;  
+    /* animation-play-state: running; */
+}
+
+.card-delete-button:hover {
+    animation: delete-hover .8s linear infinite;  
+    /* animation-play-state: running; */
+}
+
+@keyframes edit-hover {
+    0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(20deg);
+      }
+      50% {
+        transform: rotate(0deg);
+      }
+      75% {
+        transform: rotate(-20deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+}
+
+@keyframes delete-hover {
+    0% {
+        transform: rotate(0deg);
+        transform-origin: 50% 80%;
+      }
+      12.5% {
+        transform: rotate(10deg);
+      }
+      20% {
+        transform: rotate(0deg);
+      }
+      37.5% {
+        transform: rotate(-15deg);
+      }
+      45% {
+        transform: rotate(0deg);
+      }
+      55% {
+        transform: rotate(15deg);
+      }
+      62.5% {
+        transform: rotate(0deg);
+      }
+      75% {
+        transform: rotate(-10deg);
+      }
+      80% {
+        transform: rotate(0deg);
+      }
+      92.5% {
+        transform: rotate(5deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+
+}
+
 #overlay {
     position: fixed;
     top: 0;
@@ -530,4 +596,3 @@ main {
 .filter-stretch {
     height: 150px !important;
 }
-
