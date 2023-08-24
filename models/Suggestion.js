@@ -1,8 +1,8 @@
 const db = require("../db/db");
 
 class Suggestion {
-    constructor({username, title, description, image, urgency_level}) {
-        this.username = username;
+    constructor({posted_by, title, description, image, urgency_level}) {
+        this.username = posted_by;
         this.title = title;
         this.description = description;
         this.image = image;
@@ -43,9 +43,10 @@ class Suggestion {
         const result = await db.query('SELECT * FROM suggestion WHERE id = $1', [id]);
         return result.rows[0];
     }
-
+// ATTENTION Do you want this to return undefined?
     static async delete(id) {
-        const result = await db.query('DELETE FROM suggestion WHERE id = $1', [id]);
+        const result = await db.query('DELETE FROM suggestion WHERE id = $1', [id])
+
         return result.rows[0];
     }
 
