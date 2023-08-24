@@ -83,7 +83,7 @@ loginForm.addEventListener('submit', async (e) => {
 
 adminForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log("admin login")
+
     const form = new FormData(e.target);
 
     const options = {
@@ -93,11 +93,12 @@ adminForm.addEventListener('submit', async (e) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username: form.get("username"),
-            password: form.get("password"),
-            "g-recaptcha-response": grecaptcha.getResponse()
+            username: form.get("admin-username"),
+            password: form.get("admin-password")
         })
     };
+
+    console.log(options)
 
     await fetch("/admins/login", options)
         .then(response => response.json())
