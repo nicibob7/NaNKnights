@@ -48,8 +48,8 @@ loginForm.addEventListener('submit', async (e) => {
 
         fetch("/users/reset", requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+            .then(result => notifyUser(result, 'success'))
+            .catch(error => notifyUser(error, 'error'));
 
         grecaptcha.reset();
         // display notification or something

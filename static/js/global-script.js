@@ -20,7 +20,7 @@ navAccountIcon.addEventListener('click', toggleDropdown);
 
 navAccountDropdownList.addEventListener('mouseleave', hideDropdown);
 
-const createNotificationWithImage = async (message, status) => {
+const notifyUser = async (message, status) => {
     const notificationBox = document.getElementById('notification_box');
 
     const alertData = {
@@ -70,4 +70,3 @@ const createNotificationWithImage = async (message, status) => {
 
     notificationBox.appendChild(alertDiv);
 }
-createNotificationWithImage('This is a success message', 'error');

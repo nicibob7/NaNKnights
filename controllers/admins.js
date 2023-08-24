@@ -80,9 +80,18 @@ const postSuggestion = async (req, res) => {
     }
 }
 
+const ping = async (req, res) => {
+    try {
+        res.status(200).json({pong: true});
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 module.exports = {
     login,
     logout,
     postNews,
-    postSuggestion
+    postSuggestion,
+    ping
 }
