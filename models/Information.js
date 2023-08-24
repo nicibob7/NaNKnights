@@ -22,11 +22,12 @@ class Information {
 
     static async getAll() {
         const result = await db.query('SELECT * FROM information');
-        return result.rows;
-    }
-
-    static async getByPopularity() {
-        const result = await db.query('SELECT * FROM information ORDER BY popularity DESC');
+        // convert image from buffer to base64
+        result.rows.forEach((information) => {
+            if(!information.image) return;
+            // convert to KB
+            information.image = information.image.toString();
+        });
         return result.rows;
     }
 }

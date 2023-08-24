@@ -76,12 +76,15 @@
                 <input type="text" id="username" class="input-text login-el" name="username" placeholder="Username">
                 <input type="password" id="password" autocomplete="password" class="input-text login-el" name="password" placeholder="Password">
                 <a href="#" id="forgot-password" class="form-text login-el">Forgot Password?</a>
-                
-                <input type="submit" class="input-submit login-el" value="Login">
+
+                <!--reCAPTCHA v2-->
+                <div class="g-recaptcha" data-sitekey="6LfFmcsnAAAAAIxzLO5HlGhP8lONpoY9Z2r3Z2XU"></div>
+
+                <input id="login_reset-btn" type="submit" class="input-submit login-el" value="Login">
             </div>
             <p class="form-text login-el">or</p>
             <div id="social-buttons-wrapper">
-                <a href="#" id="google-icon" class="social-button"></a>
+                <a id="google-icon" class="social-button"></a>
                 <a href="#" id="facebook-icon" class="social-button"></a>
             </div>
         </form>
@@ -102,5 +105,8 @@
     <footer>
         <p> &copy; Copyrighted by NaNKnights 2023</p>
     </footer>
+
+    <!-- Include reCAPTCHA script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

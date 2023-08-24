@@ -1,8 +1,5 @@
 const os = require('os');
 
-// Get the hostname
-const hostname = os.hostname();
-
 // Determine the protocol (http or https)
 const protocol = process.env.ENV === 'production' ? 'https' : 'http';
 
@@ -10,6 +7,6 @@ const protocol = process.env.ENV === 'production' ? 'https' : 'http';
 const port = process.env.PORT || 8080;
 
 // Construct the full URL
-const serverUrl = new URL(`${protocol}://${hostname}:${port}`);
+const serverUrl = new URL(`${protocol}://localhost:${port}`);
 
 module.exports = serverUrl;

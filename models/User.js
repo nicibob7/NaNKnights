@@ -53,6 +53,18 @@ class User {
         if (response.rows.length !== 1) {
             throw new Error("Unable to locate user.");
         }
+        return new User(response.rows[0]);
+    }
+
+    static async getByUsernameOrEmail(username, email) {
+        const response = await db.query(
+            "SELECT * FROM member WHERE username = $1 OR email = $2",
+            [username, email]
+        );
+
+        if (response.rows.length !== 1) {
+            return "Unable to locate user."
+        }
 
         return new User(response.rows[0]);
     }
@@ -69,14 +81,17 @@ class User {
         return new User(response.rows[0]);
     }
 
-    // TODO: test this
+    // TODO: test this *PASSED UNIT TEST (User.spec.js line 276) IN THIS STATE*
     static async getAllNonActivated() {
-        return await db.query("SELECT * FROM member WHERE is_activated = false;");
+        const result = await db.query("SELECT * FROM member WHERE is_activated = false;");
+        return result.rows
     }
 
     async isActivated() {
         const response = await db.query(
-            "SELECT is_activated FROM member WHERE username = $1",
+            /*"SELECT is_activated FROM member WHERE username = $1",
+            [this.username]*/
+            "SELECT * FROM member WHERE username = $1",
             [this.username]
         );
         if (response.rows.length !== 1) {
@@ -93,7 +108,7 @@ class User {
     }
 
     async updateBasicDetails(data) {
-        const {username, first_name, last_name, phone_number, postal_code} = data;
+        const {first_name, last_name, phone_number, postal_code} = data;
         const response = await db.query(
             "UPDATE member SET first_name = $1, last_name = $2, phone_number = $3, postal_code = $4 WHERE username = $5 RETURNING *;",
             [first_name, last_name, phone_number, postal_code, this.username]
@@ -115,6 +130,13 @@ class User {
             [this.username]);
 
         return response.rows[0].result;
+    }
+
+    async updatePassword(password) {
+        await db.query(
+            "UPDATE member SET password = $1 WHERE username = $2;",
+            [password, this.username]
+        );
     }
 }
 

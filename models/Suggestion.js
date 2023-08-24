@@ -1,8 +1,8 @@
 const db = require("../db/db");
 
 class Suggestion {
-    constructor({username, title, description, image, urgency_level}) {
-        this.username = username;
+    constructor({posted_by, title, description, image, urgency_level}) {
+        this.username = posted_by;
         this.title = title;
         this.description = description;
         this.image = image;
@@ -41,19 +41,28 @@ class Suggestion {
 
     static async getById(id) {
         const result = await db.query('SELECT * FROM suggestion WHERE id = $1', [id]);
+        if(result.rows.length !== 1) {
+            throw new Error("Unable to locate suggestion.");
+        }
+
         return result.rows[0];
     }
 
     static async delete(id) {
         const result = await db.query('DELETE FROM suggestion WHERE id = $1', [id]);
+        if(result.rows.length !== 1) {
+            throw new Error("Unable to locate suggestion.");
+        }
+
         return result.rows[0];
     }
 
-    static async update(id, data) {
-        const result = await db.query(
-            'UPDATE suggestion SET title = $1, description = $2, image = $3, urgency_level = $4 WHERE id = $5 RETURNING *',
-            [data.title, data.description, data.image, data.urgency_level, id]
-        );
+    async activate() {
+        const result = await db.query('UPDATE suggestion SET is_activated = true WHERE id = $1 RETURNING *', [this.id]);
+        if(result.rows.length !== 1) {
+            throw new Error("Unable to locate suggestion.");
+        }
+
         return result.rows[0];
     }
 }

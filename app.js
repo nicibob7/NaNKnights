@@ -10,6 +10,8 @@ const home = require("./routes/home");
 const admins = require("./routes/admins");
 const hardenedSecurityConfig = require("./security/hardenedSecurityConfig");
 
+const ENV = process.env.ENV;
+
 // parse as json
 app.use(express.json());
 
@@ -26,17 +28,24 @@ app.use((err, req, res, next) => {
 
 
 // set static files
-app.use(express.static("static",
-    ));
+app.use(express.static("static"));
 // filter out direct requests to *.(html,htm) files
 app.use(filter);
 // routes mapping
 app.use("/users", users);
 app.use("/admins", admins);
-app.use("/", home);// should always be last
+
+// TODO: enable later on, with a valid domain
+if (ENV === "production") {
+    app.use("/", require("./routes/google"));
+    app.use("/", require("./routes/facebook"));
+}
+
+// should always be last
+app.use("/", home);
 
 /* istanbul ignore next */
-if (process.env.ENV === "production") {
+if (ENV === "production") {
     // Schedule the token delete task to run every 1 minute
     cron.schedule('*/30 * * * *', () => {
         // delete expired session tokens

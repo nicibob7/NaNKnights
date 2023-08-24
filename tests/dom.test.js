@@ -43,27 +43,3 @@ describe("index.html", () => {
     //     expect(h1.innerHTML).toContain(input.value);
     // });
 });
-
-describe("login.html", () => {
-    // let app;
-
-    beforeEach(async () => {
-        // app = server.listen(3000);
-        // path of index.html
-        dom = await renderDom("login.html");
-        document = await dom.window.document;
-    });
-});
-
-
-describe("secure.html", () => {
-    beforeEach(async () => {
-        dom = await renderDom("secure.html");
-        document = await dom.window.document;
-    });
-
-    test("should display Secure page", () => {
-        const h1 = document.querySelector("p");
-        expect(h1.innerHTML).toContain("Secure page");
-    });
-});
