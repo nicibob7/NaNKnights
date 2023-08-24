@@ -53,4 +53,22 @@ describe("'Comment' Model unit tests", () => {
         })
     })
 
+    describe("Comment.create(data)", () => {
+
+        it("Should return all database entry values from the newly created Comment", async () => {
+
+            jest.spyOn(db,'query').mockResolvedValueOnce({rows: [comment1]});
+
+            const result = await Comment.create(frontEndComment);
+
+            expect(typeof(result)).toBe('object');
+            expect(result).toEqual(comment1);
+
+        })
+    })
+
+    // describe("Comment.getAllBySuggestionId(id)", () => {
+
+    // })
+
 })
