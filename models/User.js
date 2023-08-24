@@ -129,6 +129,13 @@ class User {
 
         return response.rows[0].result;
     }
+
+    async updatePassword(password) {
+        await db.query(
+            "UPDATE member SET password = $1 WHERE username = $2;",
+            [password, this.username]
+        );
+    }
 }
 
 module.exports = User;

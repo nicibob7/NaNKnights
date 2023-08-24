@@ -35,6 +35,7 @@ app.use(filter);
 app.use("/users", users);
 app.use("/admins", admins);
 
+// TODO: enable later on, with a valid domain
 if (ENV === "production") {
     app.use("/", require("./routes/google"));
     app.use("/", require("./routes/facebook"));

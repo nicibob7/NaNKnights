@@ -17,7 +17,6 @@ class Token {
         return response.rows[0];
     }
 
-
     static async getOneByToken(token) {
         const response = await db.query("SELECT * FROM token WHERE token = $1", [token,]);
 

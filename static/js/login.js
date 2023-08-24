@@ -1,39 +1,84 @@
 const loginForm = document.querySelector('#login-form');
 const adminForm = document.querySelector('#admin-form');
-
+const resetPassword = document.querySelector('#forgot-password');
 
 const loginAccountButton = document.querySelector('#login-account-button');
+let resetFlag = false;
 
+resetPassword.addEventListener('click', (e) => {
+    resetFlag = !resetFlag;
+
+    if (resetFlag) {
+        document.querySelector('#password').classList.add('hide');
+        document.querySelector('#username').placeholder = "Email";
+        document.querySelector('#username').name = "email";
+        document.querySelector('#login_reset-btn').value = "Reset Password";
+        e.target.textContent = "Go Back";
+        grecaptcha.reset();
+    } else {
+        document.querySelector('#password').classList.remove('hide');
+        document.querySelector('#username').placeholder = "Username";
+        document.querySelector('#username').name = "username";
+        document.querySelector('#login_reset-btn').value = "Login";
+        e.target.textContent = "Forgot Password?";
+        grecaptcha.reset();
+    }
+});
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const form = new FormData(e.target);
 
-    const options = {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: form.get("username"),
-            password: form.get("password"),
-            "g-recaptcha-response": grecaptcha.getResponse()
-        })
-    };
-
-    await fetch("/users/login", options)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            window.location.assign("/")
-        })
-        .catch(error => {
-            console.log(error);
+    if (resetFlag) {
+        let raw = JSON.stringify({
+            "email": document.querySelector('#username').value,
+            "g-recaptcha-response": grecaptcha.getResponse(),
         });
 
-    grecaptcha.reset();
+        let requestOptions = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("/users/reset", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+        grecaptcha.reset();
+        // display notification or something
+    } else {
+        const options = {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: form.get("username"),
+                password: form.get("password"),
+                "g-recaptcha-response": grecaptcha.getResponse()
+            })
+        };
+
+        await fetch("/users/login", options)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                window.location.assign("/")
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        grecaptcha.reset();
+    }
 });
 
 loginAccountButton.addEventListener('click', (e) => {

@@ -22,8 +22,9 @@ const postSuggestion = async (req, res) => {
     }
 }
 const getSuggestionById = async (req, res) => {
+    console.log("asdasdasd")
     try {
-        const suggestion = await Suggestion.getById(req.params.id);
+        const suggestion = await Suggestion.getById(req.body.id);
         res.status(200).json(suggestion);
     } catch (error) {
         res.status(400).json({error: error.message});
@@ -46,9 +47,9 @@ const getSuggestionsByPopularity = async (req, res) => {
     }
 }
 
-const getNewsByPopularity = async (req, res) => {
+const getNews = async (req, res) => {
     try {
-        const news = await Information.getByPopularity();
+        const news = await Information.getAll();
         res.status(200).json(news);
     } catch (error) {
         res.status(400).json({error: error.message});
@@ -84,6 +85,26 @@ const getCommentsBySuggestionId = async (req, res) => {
     }
 }
 
+const postEvent = async (req, res) => {
+    try {
+        const data = req.body;
+
+        data.username = res.locals.user;
+
+        const event = await CommunityEvent.create(data);
+        res.status(201).json(event);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+const getEvents = async (req, res) => {
+    try {
+        const events = await CommunityEvent.getAll();
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
 
 // explicit mapping of all html files in /static
 // index page is handled automatically
@@ -134,6 +155,9 @@ module.exports = {
     postComment,
     getCommentsBySuggestionId,
 
+    postEvent,
+    getEvents,
+
     login,
     events,
     suggestions,
@@ -147,7 +171,7 @@ module.exports = {
     news_page,
     notFound,
 
-    getNewsByPopularity,
+    getNews,
     getEventsByPopularity,
     getSuggestionsByPopularity
 

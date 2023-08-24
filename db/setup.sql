@@ -42,6 +42,7 @@ CREATE TABLE email_verify (
     token VARCHAR(128) NOT NULL UNIQUE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     expires_at TIMESTAMP NOT NULL DEFAULT NOW() + INTERVAL '10 minutes',
+    is_reset BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT fk_email_verify_user FOREIGN KEY (username) REFERENCES member(username)
 );
 REVOKE UPDATE (username, created_at, expires_at) ON email_verify FROM PUBLIC;
