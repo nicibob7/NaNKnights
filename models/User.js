@@ -138,6 +138,23 @@ class User {
             [password, this.username]
         );
     }
+
+    static async getUserCount() {
+        const response = await db.query(
+            "SELECT COUNT(*) FROM member;"
+        );
+        return response.rows[0].count;
+    }
+
+    static async getPercentageNonRegisteredUsers() {
+        const response = await db.query(
+            "SELECT COUNT(*) FROM member WHERE is_activated = false;"
+        );
+        const nonRegisteredUsers = response.rows[0].count;
+        const totalUsers = await this.getUserCount();
+        return parseInt(nonRegisteredUsers / totalUsers * 100) + "%" || "0%";
+    }
+
 }
 
 module.exports = User;

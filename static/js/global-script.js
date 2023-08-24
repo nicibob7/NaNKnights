@@ -55,23 +55,24 @@ const notifyUser = async (message, status) => {
     alertDiv.appendChild(iconImage2);
 
     notificationBox.appendChild(alertDiv);
+
+    setTimeout(() => {
+        notificationBox.removeChild(alertDiv);
+    }, 2200);
 }
 
 const checkUserPermission = async () => {
     await fetch('/account_type', { method: "POST" })
-    .then((response) => {
-        const res =  response.json()
-        return res;
-    })
+    .then((response) =>  response.json())
     .then((data) => {
         try {
             
-            if (data['account'] == "guest") {
+            if (data['account'] === "guest") {
                 // console.log("Guest");
                 userType = 'guest';
                 navWrapper.appendChild(templates.content.querySelector('.nav-right-guest').cloneNode(true));
             }
-            else if (Object.keys(data['account']).length == 5) {
+            else if (Object.keys(data['account']).length === 5) {
                 // user
                 // console.log("User");
                 userType = 'user';
@@ -108,7 +109,12 @@ const checkUserPermission = async () => {
                 navWrapper.appendChild(templates.content.querySelector('.nav-right-admin').cloneNode(true));
                 const navAccountIcon = document.querySelector('#nav-account-icon');
                 const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
-                
+
+                navWrapper.querySelector('#nav-account-logout').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    adminLogout();
+                });
+
                 navAccountDropdownList.querySelector('#nav-account-admin-panel').addEventListener('click', (e) => {
                     e.preventDefault();
                     window.location.assign('/admin-panel');
@@ -136,6 +142,27 @@ const checkUserPermission = async () => {
     })
     .catch((error) => console.log(error));
 }
+
+const adminLogout = async () => {
+    await fetch('/admins/logout', { method: "POST" })
+        .then((response) => response.json())
+        .then(() => {
+            window.location.assign('/');
+        })
+        .catch(() => window.location.assign('/'));
+};
+
+
+const userLogout = async () => {
+    await fetch('/users/logout', { method: "POST" })
+        .then((response) => response.json())
+        .then(() => {
+            window.location.assign('/');
+        })
+        .catch(() => window.location.assign('/'));
+};
+
+
 
 // notifyUser('This is a success message', 'success');
 checkUserPermission();

@@ -47,6 +47,7 @@ router.post("/events/new", authenticator, validateParameters({
     description: {type: 'stringWithMaxLength', maxLength: 512},
     date: {type: 'date'},
     image: {type: 'image'},
+    type: {type: 'stringWithMaxLength', maxLength: 32},
     }), home.postEvent);
 
 module.exports = router;

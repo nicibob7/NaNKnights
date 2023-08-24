@@ -31,6 +31,10 @@ loginForm.addEventListener('submit', async (e) => {
     const form = new FormData(e.target);
 
     if (resetFlag) {
+        if(!document.querySelector('#username').value) {
+            return notifyUser("Please enter your email", 'error');
+        }
+
         let raw = JSON.stringify({
             "email": document.querySelector('#username').value,
             "g-recaptcha-response": grecaptcha.getResponse(),
@@ -47,8 +51,15 @@ loginForm.addEventListener('submit', async (e) => {
         };
 
         fetch("/users/reset", requestOptions)
-            .then(response => response.text())
-            .then(result => notifyUser(result, 'success'))
+            .then(response => response.json())
+            .then(result => {
+                if(result.error) {
+                    return notifyUser(result.error, 'error');
+                }
+
+                notifyUser('Email verification sent to: ' + document.querySelector('#username').value, 'success' );
+                document.querySelector('#username').value = "";
+            })
             .catch(error => notifyUser(error, 'error'));
 
         grecaptcha.reset();
@@ -70,13 +81,18 @@ loginForm.addEventListener('submit', async (e) => {
         await fetch("/users/login", options)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                window.location.assign("/")
+                if (data.authorized === true) {
+                    return window.location.assign("/");
+                }
+                notifyUser(data.error, 'error')
             })
             .catch(error => {
                 console.log(error);
+               notifyUser(error, 'error');
             });
 
+        document.querySelector('#username').value = "";
+        document.querySelector('#password').value = "";
         grecaptcha.reset();
     }
 });
@@ -98,19 +114,19 @@ adminForm.addEventListener('submit', async (e) => {
         })
     };
 
-    console.log(options)
-
     await fetch("/admins/login", options)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            //window.location.assign("/")
-        })
-        .catch(error => {
-            console.log(error);
-        });
+        .then(async response => {
+            try {
+                if (response.status === 403) {
+                    return notifyUser((await response.json()).error, 'error');
+                }
+                window.location.assign("/admin-panel")
+            } catch (error) {
+                console.log(error);
+            }
 
-    grecaptcha.reset();
+        })
+        .catch(error => notifyUser(error, 'error'));
 });
 
 loginAccountButton.addEventListener('click', (e) => {

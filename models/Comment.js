@@ -19,7 +19,17 @@ class Comment {
 
     static async getAllBySuggestionId(id) {
         const result = await db.query('SELECT * FROM comment WHERE suggestion_id = $1', [id]);
+
+        if(result.rows.length === 0) {
+            throw new Error("Unable to locate comments.");
+        }
+
         return result.rows;
+    }
+
+    static async delete(id) {
+        const result = await db.query('DELETE FROM comment WHERE id = $1 RETURNING *', [id]);
+        return result.rows[0];
     }
 
 }
