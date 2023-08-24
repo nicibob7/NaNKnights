@@ -37,11 +37,11 @@ describe("Informaion Model unit tests", () => {
 
     describe("Information class base tests", () => {
 
-        it("Suggestion class exists", () => {
+        it("Information class exists", () => {
             expect(Information).toBeDefined()
         })
 
-        it("should create an instance of Token when initated", () => {
+        it("should create an instance of Information when initated", () => {
             const newInformation = new Information(fullInfo)
             expect(newInformation).toBeInstanceOf(Information)
         })
@@ -85,8 +85,6 @@ describe("Informaion Model unit tests", () => {
             const result = await Information.getAll()
             expect(typeof(result[1].image)).toBe('string')
             expect(result.length).toBe(2)
-            console.log(result)
-
         })
 
         it("database query results with bytearray data-type image values are converted to base64 with KB conversion (e.g. '0.03 KB image file')", async () => {

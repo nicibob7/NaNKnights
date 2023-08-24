@@ -42,6 +42,7 @@ class Suggestion {
     static async getById(id) {
         const result = await db.query('SELECT * FROM suggestion WHERE id = $1', [id]);
         if(result.rows.length !== 1) {
+            //this is the successful outcome, maybe this shouldn't throw an error?
             throw new Error("Unable to locate suggestion.");
         }
 
