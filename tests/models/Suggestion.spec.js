@@ -99,7 +99,6 @@ describe("Suggestion Models unit tests", () => {
             jest.spyOn(db,'query').mockResolvedValueOnce({rows: [suggestion2, suggestion1]});
 
             const result = await Suggestion.getSuggestionsByPopularity();
-            console.log(result)
             expect(result).toHaveLength(2);
             expect(typeof(result)).toBe('object');
             expect(Object.keys(result[0])).toEqual(Object.keys(suggestion1));
@@ -109,5 +108,26 @@ describe("Suggestion Models unit tests", () => {
     })
 
     // THREE METHODS LEFT
+    describe("Suggestion.getById(id)", () => {
+
+        it("Should return all data from one suggestion that matches the id provided", async () => {
+
+            const id = 1
+
+            const mockQueryRes = jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({ 
+                    rows: [suggestion1]
+                });
+
+            const result = await Suggestion.getById(id)
+
+            // expect(Object.keys(result).length).toBe(10);
+            // expect(result.id).toEqual(id);
+            // expect(typeof(result)).toBe('object');
+            // expect(Object.keys(result)).toEqual(Object.keys(suggestion1));
+            // expect(Object.values(result)).toEqual(Object.values(suggestion1));
+            expect(mockQueryRes).toBeCalledTimes(1)
+        })
+    })
 
 })
