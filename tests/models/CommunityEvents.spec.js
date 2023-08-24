@@ -60,7 +60,7 @@ describe("'CommunityEvent' Model unit tests", () => {
         })
     })
 
-    describe("CommunityEvents.getEventsByDate()", () => {
+    describe("CommunityEvent.getEventsByDate()", () => {
 
         it("Should return an array object representing rows of events in ascending order by date", async () => {
 
@@ -75,7 +75,7 @@ describe("'CommunityEvent' Model unit tests", () => {
         })
     })
 
-    describe("CommunityEvents.getEventsByTitle()", () => {
+    describe("CommunityEvent.getEventsByTitle()", () => {
 
         it("Should return an array object representing rows of events in ascending order by title", async () => {
 
@@ -90,7 +90,7 @@ describe("'CommunityEvent' Model unit tests", () => {
         })
     })
 
-    describe("CommunityEvents.getEventsAll()", () => {
+    describe("CommunityEvent.getEventsAll()", () => {
 
         it("Should return all entries from the community_event database", async () => {
 

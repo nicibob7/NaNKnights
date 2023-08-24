@@ -1,6 +1,6 @@
 const Comment = require("../../models/Comment")
 
-const db = require('../../db/db')
+const db = require('../../db/db') 
 
 describe("'Comment' Model unit tests", () => {
 
@@ -14,7 +14,7 @@ describe("'Comment' Model unit tests", () => {
 
     const comment2 = {
         id: 2,
-        suggestion_id: 2,
+        suggestion_id: 1,
         comment: "this is a comment 2",
         date_posted: "2023-08-25 12:52:02.669291",
         posted_by: "bob"
@@ -22,7 +22,7 @@ describe("'Comment' Model unit tests", () => {
 
     const frontEndComment = {
         comment: "this is a comment 1",
-        date_posted: "2023-08-24 12:52:02.669291",
+        suggestion_id: 1,
         posted_by: "bob"
     }
 
@@ -35,17 +35,19 @@ describe("'Comment' Model unit tests", () => {
         })
     
         it("should create an instance of Comment with corresponding values that match the data source", () => {
-            const newCommemnt = new Comment(comment1);
-    
+
+            const newComment = new Comment(frontEndComment);
+            console.log(newComment)
             expect(newComment).toBeInstanceOf(Comment);
-            expect(newComment.date_posted).toEqual(comment1.date_posted);
             expect(newComment.comment).toEqual(comment1.comment);
+            expect(newComment.suggestion_id).toEqual(comment1.suggestion_id);
             expect(newComment.posted_by).toEqual(comment1.posted_by);
     
         })
     
-        it("The instance of CommunityEvent should only have one object and 6 values", () => {
-            const newComment = new CommunityEvent(comment1)
+        it("The instance of Comment should only have one object and 3 items", () => {
+
+            const newComment = new Comment(frontEndComment)
             expect(Object.keys(newComment).length).toEqual(3);
             expect(Object.values(newComment).length).toEqual(3);
         })
