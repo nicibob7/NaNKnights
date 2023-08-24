@@ -3,95 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link type="text/css" rel="stylesheet" href="css/register.css">
-    <script defer type="application/javascript" src="js/register.js"></script>
+    <!-- files from login -->
     <link rel="stylesheet" href="./css/global-styles.css" >
+    <link rel="stylesheet" href="./css/login.css" >
+    <script defer src="./js/global-script.js"></script>
+    <!-- <script defer src="./js/login.js"></script> -->
+    <!--  files for register -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
     <link rel="icon" type="image/x-icon" href="res/logo.png">
+    <!-- new file -->
+    <link type="text/css" rel="stylesheet" href="css/register.css">
+    <script defer src="./js/register.js"></script>
+
     <title>Register | Day 'n' Day</title>
+
 </head>
 <body>
     <!-- navbar -->
-    <nav class="menu-default">
-        <div id="nav-wrapper">
+        <nav class="menu-default">
             <div id="nav-left">
                 <div id="logo-wrapper">
-                    <a id="nav-home-button" href="./index.html">
+                    <a id="nav-home-button" href="./home.html">
                         <img id="nav-logo" src="./res/logo1.png">
                         <div id="logo-text-wrapper">
                             <p id="logo-text-main">Day 'n' Day</p>
-                            <p id="logo-text-sub">Florin County Community App</p>
+                            <p id="logo-text-sub">Florin Country Community App</p>
                         </div>
                     </a>
                 </div>
                 
                 <div id="nav-button-wrapper">
-                    <a href="/news" id="nav-news-button" class="nav-button">News</a>
-                    <a href="/events" id="nav-events-button" class="nav-button">Events</a>
-                    <a href="/suggestions" id="nav-suggestions-button" class="nav-button">Suggestions</a>
-                    <a href="/about" id="nav-about-button" class="nav-button">About</a>
+                    <a href="./news.html" id="nav-news-button" class="nav-button">News</a>
+                    <a href="./events.html" id="nav-events-button" class="nav-button">Events</a>
+                    <a href="./suggestions.html" id="nav-suggestions-button" class="nav-button">Suggestions</a>
+                    <a href="./about.html" id="nav-about-button" class="nav-button">About</a>
                 </div>
-
+    
             </div>
-            
         </div>
     </nav>
-     <!-- sign up modal -->
-     <main>
-     <div class="modal">
-        <h1>Sign Up</h1>
-            <p id="registration-link" class="form-text login-el">Already have an account? <a href="./login.html" class="text-link">Login</a></p>
-            <!-- <p>Already have an account? <a class= "login-link" href="login.html"></a>Login</p> -->
-        <form id="registration-form">
-            
-            <!-- <input type="text" id="username" class="input-text login-el" name="username" placeholder="Username">
-            <input type="password" id="password" class="input-text login-el" name="password" placeholder="Password"> -->
-            <div class = "email-container">
-                <label for="email">Email:</label> <br/>
-                <input type="email" id="email" class="input-text login-el" name="email" value ="jdoe@email.com" required><br/>
-            </div>
-            <div class = "username-container">
-                <label for="username">Username:</label> <br/>
-                <input type="text" id="username" class="input-text login-el" name="username" value ="jdoe77" required><br/>
-            </div>
-            <!-- New Password -->
-            <div class="password-container">
-                <label for="password">New Password:</label><br/>
-              <input type="password" id="password" class="input-text login-el" name="password" required>
-              <span class="toggle-password" id="togglePassword">
-                <i class="fas fa-eye" id="toggleIcon"></i>
-              </span>
-            </div>
-              <!-- confirm Password -->
-            
+    <main>
+        <div id="login-container">
+        <form id="login-form" class="registration-form" method="POST">
+            <h1 id="login-title">Register</h1>
+            <div id="login-wrapper">
+                <p id="registration-link" class="form-text login-el">Already have an account? <a href="/register" class="text-link">Login</a></p>
+                <div class="input-container">
+                    <input type="email" id="email" class="input-text login-el" name="email" placeholder="Email">
+                </div>
+                <div class="input-container">
+                    <input type="text" id="username" class="input-text login-el" name="username" placeholder="Username">
+                </div>
+                 <!-- New Password -->
+                <div class="password-container">
+                    <input type="password" id="password" autocomplete="password" class="input-text login-el" name="password" placeholder="New Password">
+                    <span class="toggle-password" id="togglePassword">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </span>
+                </div>
+                <!-- confirm Password -->
             <div class="password-container-2">
-                <label for="password">Confirm Password:</label><br/>
-                <input type="password" id="password2" class="input-text login-el" name="password" required>
+                <input type="password" id="password2" autocomplete="password" class="input-text login-el" name="password" placeholder="Confirm Password">
                 <span class="toggle-password" id="togglePassword2">
                     <i class="fas fa-eye" id="toggleIcon"></i>
                 </span>
-            </div> 
-            <!-- <br/> -->
+                <!-- Submit button -->
+            </div>                 
+                <input type="submit" class="input-submit login-el" value="Register">
+            </div>
+            <!-- Match message for passwords -->
             <p id="match-message"></p>
             <p id="password-requirements"></p>
+            <!-- Password requirements -->
             <div class="password-req-grid requirements">
                 <div class="grid-item"> <i class="fas fa-times" aria-hidden="true"></i> 1 uppercase character</div>
                 <div class="grid-item"> <i class="fas fa-times" aria-hidden="true"></i> 1 number</div>
                 <div class="grid-item"> <i class="fas fa-times" aria-hidden="true"></i> 1 special character</div>
                 <div class="grid-item"> <i class="fas fa-times" aria-hidden="true"></i> 8 characters minimum</div>
-              </div>
-              <input type="submit" class="input-submit login-el" value="Register">
-              <!-- Oauth2 buttons -->
+            </div>
+
             <p class="form-text login-el">or</p>
             <div id="social-buttons-wrapper">
                 <a href="#" id="google-icon" class="social-button"></a>
                 <a href="#" id="facebook-icon" class="social-button"></a>
             </div>
         </form>
-     </div>
+    </div>
+    <!-- The Popup -->
+    <div id="myPopup" class="popup">
+        <!-- Popup content -->
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <div id="to-centre">
+                <image src="./res/verification-illustration.svg" width ="30%">
+                    
+                    <h1 id="login-title">Verify your email address</h1>
+                    <p>Please verify your email by opening the link we have sent to your address</p>
+                    <p>Make sure to check your spam folder just in case</p>
+            </div>
+            
+        </div>
+    </div>
     </main>
-     <footer>
+    <footer>
         <p> &copy; Copyrighted by NaNKnights 2023</p>
     </footer>
 </body>
