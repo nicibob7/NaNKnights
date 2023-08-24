@@ -33,7 +33,7 @@ describe("EmailToken Model unit tests", () => {
 
     describe("EmailToken class base tests", () => {
 
-        it("Suggestion class exists", () => {
+        it("EmailToken class exists", () => {
             expect(EmailToken).toBeDefined();
         })
 
@@ -121,7 +121,7 @@ describe("EmailToken Model unit tests", () => {
                     }
                 })
 
-                const result = await EmailToken.deleteByToken(username);
+                const result = await EmailToken.deleteByUsername(username);
                 expect(result).toBeFalsy();
             })
             
