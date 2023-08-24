@@ -64,22 +64,74 @@ describe("'Admin' Model unit tests", () => {
             expect(result.password).toEqual(frontEndAdmin.password);
 
         })
+
     })
 
-    // describe("Admin.getAllBySuggestionId(id)", () => {
 
-    //     it("Should only return the data of all Admins with a id value equal to 1", async () => {
+    describe("Admin.getById(id)", () => {
+        //TO PASS the admin's id must be made available outside the database. currently no returns provide the id to the controller. 
+        // ONCE DONE the frontEndAdmin must be changed to reflect the change
+        it("Should only return the data of all admins with an id value equal to the one being queried", async () => {
 
 
-    //         jest.spyOn(db,'query').mockResolvedValueOnce({rows: AdminsSuggestionId1});
+            jest.spyOn(db,'query').mockResolvedValueOnce({rows: [adminUser1]});
 
-    //         const result = await Admin.getAllBySuggestionId(frontEndAdmin.id);
+            const result = await Admin.getById(frontEndAdmin.id);
 
-    //         expect(typeof(result)).toBe('object');
-    //         expect(result[0].id).toEqual(result[1].id);
-    //         expect(result.length).toEqual(AdminsSuggestionId1.length);
+            // expect(typeof(result)).toBe('object');
+            expect(result.id).toEqual(adminUser1.id);
+            // expect(result.length).toEqual(frontEndAdmin.length);
 
-    //     })
-    // })
+        })
+
+        it("Should throw new Error if number of rows for admins does not equal 1", async () => {
+
+
+            let error1 = new Error("Unable to locate user")
+
+                jest.spyOn(db, 'query').mockRejectedValue(error1)
+
+                try {
+                    const response = await Admin.getById(frontEndAdmin.id)
+                } catch (error) {
+                    expect(error).toBeTruthy()
+                    expect(error).toBeInstanceOf(Error)
+                    expect(error.message).toBe("Unable to locate user")
+                }
+        })
+    })
+
+    describe("Admin.getByUsername(username)", () => {
+
+        it("Should only return the data of all admins with a username value equal to the one being queried", async () => {
+
+
+            jest.spyOn(db,'query').mockResolvedValueOnce({rows: [adminUser1]});
+
+            const result = await Admin.getByUsername(frontEndAdmin.username);
+
+            expect(typeof(result)).toBe('object');
+            expect(result.username).toEqual(adminUser1.username);
+
+
+        })
+
+        it("Should throw new Error if number of rows for admins does not equal 1", async () => {
+
+
+            let error1 = new Error("Unable to locate user")
+
+                jest.spyOn(db, 'query').mockRejectedValue(error1)
+
+                try {
+                    const response = await Admin.getByUsername(frontEndAdmin.username)
+                } catch (error) {
+                    expect(error).toBeTruthy()
+                    expect(error).toBeInstanceOf(Error)
+                    expect(error.message).toBe("Unable to locate user")
+                }
+        })
+    })
+
 
 })

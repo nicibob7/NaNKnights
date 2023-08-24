@@ -28,7 +28,7 @@ INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (4, 'bob', 'This 
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (5, 'bob', 'This is a comment 5');
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (6, 'bob', 'This is a comment 6');
 
--- community_event data
+-- community_event data THROWS ERROR CODE 23503
 INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'sports');
 INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'nature');
 INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'amusements');
