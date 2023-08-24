@@ -29,6 +29,7 @@ router.get("/about", home.about);
 router.get("/register", home.register);
 router.get("/dashboard", home.dashboard);
 router.get("/event-page", home.event_page);
+router.get("/admin-panel", home.admin_panel);
 router.get("/news", home.news);
 router.get("/suggestions/:id", home.suggestion_page);
 router.get("/news/:id", home.news_page);

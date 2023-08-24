@@ -6,7 +6,6 @@ module.exports = async (req, res) => {
     let validToken;
     try {
         const token = req.headers.cookie.split("=")[1];
-        console.log(token);
         if (token.length === 0) {
             // token is empty? guest user
             throw new Error("Empty Token");
@@ -45,7 +44,6 @@ module.exports = async (req, res) => {
                 throw new Error("No token");
             }
         } catch (err) {
-            console.log(err)
             res.clearCookie("authorization");
             return res.status(200).json({account: "guest"});
         }

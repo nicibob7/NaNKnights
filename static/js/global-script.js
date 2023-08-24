@@ -53,48 +53,6 @@ const notifyUser = async (message, status) => {
 }
 
 const checkUserPermission = async () => {
-    // if (response.status === "200") {
-    //     // admin
-    //     console.log("Admin");
-    //     navWrapper.appendChild(templates.content.querySelector('.nav-right-admin').cloneNode(true));
-    //     const navAccountIcon = document.querySelector('#nav-account-icon');
-    //     const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
-        
-    //     navAccountIcon.addEventListener('click', (e) => {
-    //         e.preventDefault();
-    //         if (navAccountDropdownList.classList.contains('hide')) {
-    //             navAccountDropdownList.classList.remove('hide');
-    //         } else {
-    //             navAccountDropdownList.classList.add('hide');
-    //         }
-    //     });
-
-    //     navAccountDropdownList.addEventListener('mouseleave', (e) => {
-    //         e.preventDefault();
-    //         navAccountDropdownList.classList.add('hide');
-    //     });
-    // }
-    // else {
-    //     // user
-    //     console.log("User");
-    //     navWrapper.appendChild(templates.content.querySelector('.nav-right-user').cloneNode(true));
-    //     const navAccountIcon = document.querySelector('#nav-account-icon');
-    //     const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
-        
-    //     navAccountIcon.addEventListener('click', (e) => {
-    //         e.preventDefault();
-    //         if (navAccountDropdownList.classList.contains('hide')) {
-    //             navAccountDropdownList.classList.remove('hide');
-    //         } else {
-    //             navAccountDropdownList.classList.add('hide');
-    //         }
-    //     });
-
-    //     navAccountDropdownList.addEventListener('mouseleave', (e) => {
-    //         e.preventDefault();
-    //         navAccountDropdownList.classList.add('hide');
-    //     });
-    // }
     await fetch('/account_type', { method: "POST" })
     .then((response) => {
         const res =  response.json()
@@ -105,12 +63,55 @@ const checkUserPermission = async () => {
             
             if (data['account'] == "guest") {
                 console.log("guest");
+                navWrapper.appendChild(templates.content.querySelector('.nav-right-guest').cloneNode(true));
             }
             else if (Object.keys(data['account']).length == 5) {
-                console.log("user");
+                // user
+                console.log("User");
+                navWrapper.appendChild(templates.content.querySelector('.nav-right-user').cloneNode(true));
+                const navAccountIcon = document.querySelector('#nav-account-icon');
+                const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
+                
+                navAccountIcon.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (navAccountDropdownList.classList.contains('hide')) {
+                        navAccountDropdownList.classList.remove('hide');
+                    } else {
+                        navAccountDropdownList.classList.add('hide');
+                    }
+                });
+
+                navAccountDropdownList.addEventListener('mouseleave', (e) => {
+                    e.preventDefault();
+                    navAccountDropdownList.classList.add('hide');
+                });
+
             }
             else {
-                console.log('admin');
+                // admin
+                console.log("Admin");
+                navWrapper.appendChild(templates.content.querySelector('.nav-right-admin').cloneNode(true));
+                const navAccountIcon = document.querySelector('#nav-account-icon');
+                const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
+                
+                navAccountDropdownList.querySelector('#nav-account-admin-panel').addEventListener('click', (e) => {
+                    window.location.assign('/admin-panel');
+                });
+                
+
+                navAccountIcon.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (navAccountDropdownList.classList.contains('hide')) {
+                        navAccountDropdownList.classList.remove('hide');
+                    } else {
+                        navAccountDropdownList.classList.add('hide');
+                    }
+                });
+
+                navAccountDropdownList.addEventListener('mouseleave', (e) => {
+                    e.preventDefault();
+                    navAccountDropdownList.classList.add('hide');
+                });
             }
         } catch (error) {
             
