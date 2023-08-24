@@ -121,13 +121,41 @@ describe("Suggestion Models unit tests", () => {
 
             const result = await Suggestion.getById(id)
 
-            // expect(Object.keys(result).length).toBe(10);
-            // expect(result.id).toEqual(id);
-            // expect(typeof(result)).toBe('object');
-            // expect(Object.keys(result)).toEqual(Object.keys(suggestion1));
-            // expect(Object.values(result)).toEqual(Object.values(suggestion1));
+            expect(Object.keys(result).length).toBe(10);
+            expect(result.id).toEqual(id);
+            expect(typeof(result)).toBe('object');
+            expect(Object.keys(result)).toEqual(Object.keys(suggestion1));
+            expect(Object.values(result)).toEqual(Object.values(suggestion1));
             expect(mockQueryRes).toBeCalledTimes(1)
         })
     })
+
+    
+    describe("Suggestion.delete(id)", () => {
+
+        it("If data deletion is successful, it should return undefined", async () => {
+
+            const id = 1
+
+            const mockQueryRes = jest.spyOn(db, 'query')
+                .mockResolvedValue({
+                    command: 'DELETE',
+                    rowCount: 0,
+                    oid: null,
+                    rows: [],
+                    fields: [],
+                    _parsers: undefined,
+                    RowCtor: null,
+                    rowAsArray: false
+                  });
+
+            const result = await Suggestion.delete(id)
+
+            expect(result).toBe(undefined);
+            expect(typeof(result)).not.toBe('object');
+        })
+    })
+
+
 
 })

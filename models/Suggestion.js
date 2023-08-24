@@ -43,9 +43,10 @@ class Suggestion {
         const result = await db.query('SELECT * FROM suggestion WHERE id = $1', [id]);
         return result.rows[0];
     }
-
+// ATTENTION Do you want this to return undefined?
     static async delete(id) {
-        const result = await db.query('DELETE FROM suggestion WHERE id = $1', [id]);
+        const result = await db.query('DELETE FROM suggestion WHERE id = $1', [id])
+
         return result.rows[0];
     }
 
