@@ -22,9 +22,13 @@ class CommunityEvent {
     }
 
     static async create(data) {
-        return db.query(
+        const result = await db.query(
             "INSERT INTO community_event (title, description, posted_by, location, date) VALUES ($1, $2, $3, $4, $5)",
-            [data.title, data.description, data.posted_by, data.location, data.date]);
+            [data.title, data.description, data.posted_by, data.location, data.date]
+        );
+
+        return result.rows[0];
+
     }
 
 

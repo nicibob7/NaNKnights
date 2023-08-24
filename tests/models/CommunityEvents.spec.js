@@ -2,7 +2,7 @@ const CommunityEvent = require("../../models/CommunityEvent")
 
 const db = require('../../db/db')
 
-describe("CommunityEvent Model unit tests", () => {
+describe("'CommunityEvent' Model unit tests", () => {
 
     const event1 = {
         id: 1 ,
@@ -135,12 +135,11 @@ describe("CommunityEvent Model unit tests", () => {
             jest.spyOn(db,'query').mockResolvedValueOnce({rows: [event2]});
 
             const result = await CommunityEvent.create(frontEndEvent);
-            console.log(result.rows[0])
 
             expect(typeof(result)).toBe('object')
-            expect(Object.keys(result.rows[0])).toEqual(Object.keys(event2));
-            expect(Object.values(result.rows[0])).toEqual(Object.values(event2));
+            expect(Object.keys(result)).toEqual(Object.keys(event2));
+            expect(Object.values(result)).toEqual(Object.values(event2));
         })
-    })    
+    })
 
 })
