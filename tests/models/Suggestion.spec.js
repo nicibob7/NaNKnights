@@ -156,6 +156,13 @@ describe("Suggestion Models unit tests", () => {
         })
     })
 
+    // describe("Suggestion.update(id,data)", () => {
+
+    //     it("Should return all of rows of data from the updated dataset", () => {
+
+
+    //     })
+    // })
 
 
 })
