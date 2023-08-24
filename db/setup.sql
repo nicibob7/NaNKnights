@@ -20,10 +20,10 @@ CREATE TABLE member (
     username VARCHAR(32) NOT NULL UNIQUE,
     password VARCHAR(64) NOT NULL,
     email VARCHAR(64) NOT NULL UNIQUE,
-    first_name VARCHAR(16) NOT NULL,
-    last_name VARCHAR(16) NOT NULL,
-    phone_number VARCHAR(16) NOT NULL,
-    postal_code VARCHAR(12) NOT NULL,
+    first_name VARCHAR(16),
+    last_name VARCHAR(16),
+    phone_number VARCHAR(16),
+    postal_code VARCHAR(12),
     is_activated BOOLEAN NOT NULL DEFAULT FALSE
 );
 
@@ -90,7 +90,7 @@ CREATE TABLE information (
     description VARCHAR(512) NOT NULL,
     date_posted TIMESTAMP DEFAULT NOW(),
     posted_by VARCHAR(32) NOT NULL,
-    type VARCHAR(16) NOT NULL,
+    type VARCHAR(32) NOT NULL,
     image BYTEA NOT NULL,
     CONSTRAINT fk_information_user FOREIGN KEY (posted_by) REFERENCES administrator(username)
 );

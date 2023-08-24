@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 
 const Admin = require("../models/Admin");
 const Token = require("../models/Token");
+const Information = require("../models/Information");
 const User = require("../models/User");
 const Suggestion = require("../models/Suggestion");
 
@@ -11,6 +12,7 @@ async function login(req, res) {
 
     try {
         const foundAdmin = await Admin.getByUsername(data.username);
+        console.log(foundAdmin);
         if (!foundAdmin) {
             throw new Error("Unable to locate admin.");
         }
@@ -46,11 +48,24 @@ const logout = async (req, res) => {
         res.clearCookie("authorization");
         // TODO: serve an admin login page to /admins
         res.status(302).redirect("/admins");
-    } catch (error) {}
+    } catch (error) {
+    }
 }
 
+const postNews = async (req, res) => {
+    try {
+        const news = req.body;
+        news.posted_by = res.locals.admin;
+
+        const result = await Information.create(news);
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
 
 module.exports = {
     login,
-    logout
+    logout,
+    postNews,
 }

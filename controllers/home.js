@@ -40,18 +40,18 @@ const getSuggestions = async (req, res) => {
     }
 }
 
-const getNewsByPopularity = async (req, res) => {
+const getNews = async (req, res) => {
     try {
-        const news = await Information.getNewsByPopularity();
+        const news = await Information.getAll();
         res.status(200).json(news);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
 }
 
-const getEventsByPopularity = async (req, res) => {
+const getEvents = async (req, res) => {
     try {
-        const news = await CommunityEvent.getEventsByPopularity();
+        const news = await CommunityEvent.getAll();
         res.status(200).json(news);
     } catch (error) {
         res.status(400).json({error: error.message});
@@ -164,8 +164,8 @@ module.exports = {
     news_page,
     notFound,
 
-    getNewsByPopularity,
-    getEventsByPopularity,
+    getNews,
+    getEvents,
     getSuggestionsByPopularity
 
 };

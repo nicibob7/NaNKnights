@@ -7,6 +7,7 @@ const db = require("./db/db");
 const filter = require("./middleware/filter");
 const users = require("./routes/users");
 const home = require("./routes/home");
+const admins = require("./routes/admins");
 const hardenedSecurityConfig = require("./security/hardenedSecurityConfig");
 
 // parse as json
@@ -31,6 +32,7 @@ app.use(express.static("static",
 app.use(filter);
 // routes mapping
 app.use("/users", users);
+app.use("/admins", admins);
 app.use("/", home);// should always be last
 
 /* istanbul ignore next */
