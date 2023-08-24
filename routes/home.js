@@ -1,24 +1,23 @@
 const express = require("express");
-const home = require("../controllers/home");
+
 const router = express.Router();
 
-const validateParameters = require("../middleware/validateParams");
+const home = require("../controllers/home");
+const validateUrlParams = require("../middleware/validateUrlParams");
 const userType = require("../middleware/userType");
 
 /* public endpoints */
 // cant have get in this one, as it will conflict with the get /suggestions/all & /suggestions/:id
-router.post("/suggestions", validateParameters({
-    id: {type: 'int'},
-}), home.getSuggestionById);
+router.get("/suggestion/:id", validateUrlParams("int"), home.getSuggestionById);
 router.get("/news/all", home.getNews);
-router.get("/news/top/:id", home.getNewsByLimit);
+router.get("/news/top/:id", validateUrlParams("int"), home.getNewsByLimit);
 
 router.get("/suggestions/popular", home.getSuggestionsByPopularity);
 router.get("/suggestions/all", home.getSuggestions);
 
 router.get("/events/all", home.getEvents);
 
-router.get("/comments/:id", home.getCommentsBySuggestionId);
+router.get("/comment/:id", validateUrlParams("int"), home.getCommentsBySuggestionId);
 
 // endpoint to html routes
 router.get("/login", home.login);
@@ -44,6 +43,6 @@ router.get("*", (req, res) => {
 
     res.redirect("/");
 });
-router.all("*", );
+router.all("*",);
 
 module.exports = router;

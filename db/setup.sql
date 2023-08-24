@@ -81,6 +81,7 @@ CREATE TABLE community_event (
     posted_by VARCHAR(32) NOT NULL,
     location VARCHAR(32) NOT NULL,
     date DATE NOT NULL,
+    type VARCHAR(32) NOT NULL,
     CONSTRAINT fk_event_user FOREIGN KEY (posted_by) REFERENCES member(username)
 );
 REVOKE UPDATE (date_posted, posted_by) ON community_event FROM PUBLIC;

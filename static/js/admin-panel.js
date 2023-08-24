@@ -90,7 +90,7 @@ const generatePendingTable = (data) => {
     if (data.length == 0) return;
     const headerLength = Object.keys(data[0]).length;
     // console.log(modifyButtonsTemplate);
-    
+
     const table = document.createElement('table');
     table.classList.add('data-table');
 
@@ -107,7 +107,7 @@ const generatePendingTable = (data) => {
     trHeader.appendChild(approveButtonHeader);
 
     table.appendChild(trHeader);
-    
+
     // console.log('stopping');
     // console.log(data.length);
     for (let i = 0; i < data.length; i++) {
@@ -146,21 +146,21 @@ const generatePendingTable = (data) => {
 
         approveButtons.querySelector('.accept-button').addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             const strArray = String(e.target.closest('tr').id).split('-');
-            
+
             selectedId = parseInt(strArray[1]);
-            
+
             // Approve Stuff
         });
 
         approveButtons.querySelector('.reject-button').addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             const strArray = String(e.target.closest('tr').id).split('-');
-            
+
             selectedId = parseInt(strArray[1]);
-            
+
             // Reject Stuff
 
         });
@@ -168,7 +168,7 @@ const generatePendingTable = (data) => {
         for (let j = 0; j < headerLength; j++) {
             // console.log(headerLength);
             let td1 = document.createElement('td');
-            
+
             let key = String(Object.keys(data[i])[j]);
 
             // console.log(data[i][key]);
@@ -197,12 +197,12 @@ const generateTables = (data) => {
     if (data.length == 0) return;
     const headerLength = Object.keys(data[0]).length;
     // console.log(modifyButtonsTemplate);
-    
+
     const table = document.createElement('table');
     table.classList.add('data-table');
 
     const trHeader = document.createElement('tr');
-    
+
 
     for (let i = 0; i < headerLength; i++) {
         let header = document.createElement('th');
@@ -215,7 +215,7 @@ const generateTables = (data) => {
     trHeader.appendChild(modifyButtonHeader);
 
     table.appendChild(trHeader);
-    
+
     // console.log('stopping');
     // console.log(data.length);
     for (let i = 0; i < data.length; i++) {
@@ -254,11 +254,11 @@ const generateTables = (data) => {
 
         modifyButtons.querySelector('.card-edit-button').addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             const strArray = String(e.target.closest('tr').id).split('-');
-            
+
             selectedId = parseInt(strArray[1]);
-            
+
             switch(strArray[0]) {
                 case "news":
                     updateNewsForm.classList.remove('hide');
@@ -275,11 +275,11 @@ const generateTables = (data) => {
 
         modifyButtons.querySelector('.card-delete-button').addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             const strArray = String(e.target.closest('tr').id).split('-');
-            
+
             selectedId = parseInt(strArray[1]);
-            
+
             switch(strArray[0]) {
                 case "news":
                     // delete news function
@@ -301,7 +301,7 @@ const generateTables = (data) => {
         for (let j = 0; j < headerLength; j++) {
             // console.log(headerLength);
             let td1 = document.createElement('td');
-            
+
             let key = String(Object.keys(data[i])[j]);
 
             // console.log(data[i][key]);
@@ -357,8 +357,8 @@ const init = () => {
     for (let i = 0; i < firstButtons.length; i++) {
         firstButtons[i].addEventListener('click', (e) => {
             e.preventDefault();
-            
-    
+
+
             if (firstButtons[i].id == 'side-bar-news') {
                 if (sideBarNewsList.classList.contains('side-bar-list-expanded')) {
                     sideBarNewsList.classList.remove('side-bar-list-expanded');
@@ -397,13 +397,13 @@ const init = () => {
 
         });
     }
-    
+
     for (let i = 0; i < secondButtons.length; i++) {
         secondButtons[i].addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             deselectTabs();
-            
+
             secondButtons[i].classList.add('tab-selected');
             secondButtons[i].classList.add('second-button-selected');
         });
@@ -420,7 +420,7 @@ const init = () => {
 
     for (let i = 0; i < sidebarButtons.length; i++) {
         sidebarButtons[i].addEventListener('click', () => {
-           
+
 
             switch(sidebarButtons[i].id) {
                 case "side-bar-home":
@@ -444,7 +444,7 @@ const init = () => {
                     pendingPanel.classList.remove('hide');
                 break;
             }
-            
+
         });
     }
 
@@ -479,22 +479,70 @@ const init = () => {
     });
 }
 
+const getServerStats = async () => {
+    return fetch("/admins/health", { method: "POST" })
+        .then((response) => response.json())
+        .then((response) => {
+            if (response.status === 403) {
+                return window.location.assign('/');
+            }
+            return response;
+        })
+        .catch(() => window.location.assign('/'));
+}
+
+const loadStatsGauges = () => {
+    fetch("/admins/health", { method: "POST" })
+        .then((response) => response.json())
+        .then((data) => {
+            google.charts.load('current', {'packages':['gauge']});
+            google.charts.setOnLoadCallback(() => {
+                let stats = data.data;
+                let chartData = google.visualization.arrayToDataTable(stats);
+
+                // set so that values go up and down from value - 10 to value + 10 based on the stats
+                let options = {
+                    width: 600, height: 300,
+                    redFrom: 85, redTo: 100,
+                    yellowFrom: 70, yellowTo: 85,
+                    greenFrom: 10, greenTo: 70,
+                    minorTicks: 15
+                };
+
+                let chart = new google.visualization.Gauge(document.getElementById('server_stats'));
+                chart.draw(chartData, options);
+
+                setInterval(async function () {
+                    const stats = await getServerStats();
+
+                    chartData.setValue(0, 1, stats.data[1][1]);
+                    chartData.setValue(1, 1, stats.data[2][1]);
+                    chartData.setValue(2, 1, stats.data[3][1]);
+                    chart.draw(chartData, options);
+                }, 500);
+            });
+
+        }).catch((error) => console.log(error));
+};
+
+// get data and load charts
+document.addEventListener('DOMContentLoaded', () => {
+    loadStatsGauges();
+});
+
 init();
 
-// generatePendingTable (
-//     [{
-//         id: "1",
-//         title: "rest",
-//         date: "rest",
-//         image: "rest",
-//         description: "rest"
-//     },
-//     {
-//         id: "2",
-//         title: "rest",
-//         date: "rest",
-//         image: "rest",
-//         description: "rest"
-//     }
-//     ]
-// );
+// set admin username
+fetch("/account_type", { method: "POST" })
+.then((response) =>  response.json())
+.then((data) => {
+    if (data.status === 403) {
+        window.location.assign('/');
+        return;
+    }
+    document.querySelector('#welcome-admin-name').textContent = data.account.username
+})
+.catch(() => window.location.assign('/'));
+
+
+

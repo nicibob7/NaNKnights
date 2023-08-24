@@ -49,7 +49,20 @@ class Suggestion {
     }
 
     static async delete(id) {
-        const result = await db.query('DELETE FROM suggestion WHERE id = $1', [id]);
+        const result = await db.query('DELETE FROM suggestion WHERE id = $1 RETURNING *', [id]);
+        if(result.rows.length !== 1) {
+            throw new Error("Unable to locate suggestion.");
+        }
+
+        return result.rows[0];
+    }
+
+    static async update(data) {
+        const suggestion = new Suggestion(data);
+        const result = await db.query(
+            'UPDATE suggestion SET title = $1, description = $2, image = $3, urgency_level = $4 WHERE id = $5 RETURNING *',
+            [suggestion.title, suggestion.description, suggestion.image, suggestion.urgency_level, suggestion.id]);
+
         if(result.rows.length !== 1) {
             throw new Error("Unable to locate suggestion.");
         }
