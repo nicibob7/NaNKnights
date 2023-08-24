@@ -22,5 +22,5 @@ router.post("/suggestion", adminSecureAuth, validate({
     type: {type: 'stringWithMaxLength', maxLength: 32},
     image: {type: 'image'},
 }), admins.postSuggestion);
-
+router.post("/ping", adminSecureAuth, admins.ping);
 module.exports = router;

@@ -1,24 +1,5 @@
-const navAccountIcon = document.querySelector('#nav-account-icon');
-const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
-
-const toggleDropdown = (e) => {
-    e.preventDefault();
-    if (navAccountDropdownList.classList.contains('hide')) {
-        navAccountDropdownList.classList.remove('hide');
-    } else {
-        navAccountDropdownList.classList.add('hide');
-    }
-
-}
-
-const hideDropdown = (e) => {
-    e.preventDefault();
-    navAccountDropdownList.classList.add('hide');
-}
-
-navAccountIcon.addEventListener('click', toggleDropdown);
-
-navAccountDropdownList.addEventListener('mouseleave', hideDropdown);
+const navWrapper = document.querySelector('#nav-wrapper');
+const templates = document.querySelector('template');
 
 const createNotificationWithImage = async (message, status) => {
     const notificationBox = document.getElementById('notification_box');
@@ -70,4 +51,63 @@ const createNotificationWithImage = async (message, status) => {
 
     notificationBox.appendChild(alertDiv);
 }
-createNotificationWithImage('This is a success message', 'error');
+
+const checkUserPermission = async () => {
+
+    await fetch('/admins/ping', { method: "POST" })
+    .then((response) => {
+        const res =  response.json()
+        
+        if (response.status === "200") {
+            // admin
+            console.log("Admin");
+            navWrapper.appendChild(templates.content.querySelector('.nav-right-admin').cloneNode(true));
+            const navAccountIcon = document.querySelector('#nav-account-icon');
+            const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
+            
+            navAccountIcon.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (navAccountDropdownList.classList.contains('hide')) {
+                    navAccountDropdownList.classList.remove('hide');
+                } else {
+                    navAccountDropdownList.classList.add('hide');
+                }
+            });
+
+            navAccountDropdownList.addEventListener('mouseleave', (e) => {
+                e.preventDefault();
+                navAccountDropdownList.classList.add('hide');
+            });
+        }
+        else {
+            // user
+            console.log("User");
+            navWrapper.appendChild(templates.content.querySelector('.nav-right-user').cloneNode(true));
+            const navAccountIcon = document.querySelector('#nav-account-icon');
+            const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
+            
+            navAccountIcon.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (navAccountDropdownList.classList.contains('hide')) {
+                    navAccountDropdownList.classList.remove('hide');
+                } else {
+                    navAccountDropdownList.classList.add('hide');
+                }
+            });
+
+            navAccountDropdownList.addEventListener('mouseleave', (e) => {
+                e.preventDefault();
+                navAccountDropdownList.classList.add('hide');
+            });
+        }
+
+    })
+    .then((data) => {
+        
+        
+    })
+    .catch((error) => console.log(error));
+}
+
+// createNotificationWithImage('This is a success message', 'error');
+checkUserPermission();
