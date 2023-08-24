@@ -188,6 +188,8 @@ const loadNews = async () => {
 const populateEvents = (item) => {
 
     const { title, date_posted, location, description, type, host } = item
+    
+    let tempDate = new Date(date_posted);
 
     const eventSpacing = document.createElement("div")
     eventSpacing.classList.add("card")
@@ -219,7 +221,8 @@ const populateEvents = (item) => {
     const eventDate = document.createElement("div")
     eventDate.classList.add("card-date")
     eventDate.classList.add("card-text")
-    eventDate.textContent = date_posted
+    eventDate.classList.add("push-right")
+    eventDate.textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear()
 
     const secondText = document.createElement("div")
     secondText.classList.add("card-text-second")
@@ -346,6 +349,8 @@ const populateSuggestions = (item) => {
 
     const { title, date_posted, location, description, type, host } = item
 
+    let tempDate = new Date(date_posted);
+
     const suggestionSpacing = document.createElement("div")
     suggestionSpacing.classList.add("card")
     suggestionSpacing.classList.add("card-spacing")
@@ -376,7 +381,8 @@ const populateSuggestions = (item) => {
     const suggestionDate = document.createElement("div")
     suggestionDate.classList.add("card-date")
     suggestionDate.classList.add("card-text")
-    suggestionDate.textContent = date_posted
+    suggestionDate.classList.add("push-right")
+    suggestionDate.textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear()
 
     const secondText = document.createElement("div")
     secondText.classList.add("card-text-second")
