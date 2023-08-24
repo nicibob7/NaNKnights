@@ -35,11 +35,12 @@ describe("User Models unit tests", () => {
 
             const user = new User(testUser)
             expect(user).toBeInstanceOf(User)
+
             expect(Object.keys(user)).toEqual(Object.keys(testUser))
         })
 
         it('correctly structured input data should return be returned in instance format', () => {
-            const testUser = {id: 1, username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1", is_activated: false}
+            const testUser = {username: "username1", password: "password1", email: "username1@email.com", first_name: "user1", last_name: "userlast1", phone_number: "+123user1", postal_code: "US ER1"}
 
             const user = new User({testUser})
             expect(Object.keys(user)).toEqual(Object.keys(userNoId))

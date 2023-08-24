@@ -17,8 +17,8 @@ CREATE TABLE administrator (
 
 CREATE TABLE member (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    username VARCHAR(32) NOT NULL UNIQUE,
-    password VARCHAR(64) NOT NULL,
+    username VARCHAR(512) NOT NULL UNIQUE,
+    password VARCHAR(512) NOT NULL,
     email VARCHAR(64) NOT NULL UNIQUE,
     first_name VARCHAR(16),
     last_name VARCHAR(16),
@@ -42,6 +42,7 @@ CREATE TABLE email_verify (
     token VARCHAR(128) NOT NULL UNIQUE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     expires_at TIMESTAMP NOT NULL DEFAULT NOW() + INTERVAL '10 minutes',
+    is_reset BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT fk_email_verify_user FOREIGN KEY (username) REFERENCES member(username)
 );
 REVOKE UPDATE (username, created_at, expires_at) ON email_verify FROM PUBLIC;
