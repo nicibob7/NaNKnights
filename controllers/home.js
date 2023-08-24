@@ -22,7 +22,6 @@ const postSuggestion = async (req, res) => {
     }
 }
 const getSuggestionById = async (req, res) => {
-    console.log("asdasdasd")
     try {
         const suggestion = await Suggestion.getById(req.body.id);
         res.status(200).json(suggestion);
@@ -144,9 +143,14 @@ const suggestion_page = async (req, res) => {
     // TODO: handle the id and return the actual suggestion id
     res.sendFile(path.join(static_path, "suggestion-page.html"));
 }
+const admin_panel = async (req, res) => {
+    res.sendFile(path.join(static_path, "admin-panel.html"));
+}
 const notFound = async (req, res) => {
     res.status(404).end();
 };
+
+
 
 module.exports = {
     postSuggestion,
@@ -172,6 +176,7 @@ module.exports = {
     suggestion_page,
     news_page,
     notFound,
+    admin_panel,
 
     getNews,
     getNewsByLimit,

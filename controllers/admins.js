@@ -12,7 +12,7 @@ async function login(req, res) {
 
     try {
         const foundAdmin = await Admin.getByUsername(data.username);
-        console.log(foundAdmin);
+
         if (!foundAdmin) {
             throw new Error("Unable to locate admin.");
         }
@@ -24,8 +24,7 @@ async function login(req, res) {
         } else {
             const token = await Token.create(foundAdmin.username);
 
-            res
-                .cookie("authorization", token.token, {
+            res.cookie("authorization", token.token, {
                     httpOnly: true,
                     secure: true,
                     sameSite: "strict",

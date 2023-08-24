@@ -95,8 +95,6 @@ const generatePendingTable = (data) => {
     table.classList.add('data-table');
 
     const trHeader = document.createElement('tr');
-    
-
     for (let i = 0; i < headerLength; i++) {
         let header = document.createElement('th');
         // header.textContent = String(Object.keys(data)[i]);

@@ -152,6 +152,18 @@ addNewsForm.addEventListener('submit', (e) => {
 });
 
 
+const fetchNews = async () => {
+    await fetch('/news/all')
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((error) => console.log(error.error));
+}
+
+fetchNews();
+
+/*
 for (let i = 0; i < cardsList.length; i++) {
     cardsList[i].addEventListener('click', (e) => {
         e.preventDefault();
@@ -196,3 +208,5 @@ for (let i = 0; i < cardsList.length; i++) {
         cardsList[i].querySelector('.card-delete-button').classList.add('hide');
     });
 }
+
+*/
