@@ -16,6 +16,10 @@ let eventsLimit = 5;
 let currentSuggestion = 0;
 let suggestionsLimit = 5;
 
+fetch("account_type", {method:"POST"})
+    .then(response => response.json())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 
 const generateCarouselButtons = (amount=3) => {
     carouselButtons.textContent = '';
@@ -92,16 +96,188 @@ const checkCurrentSuggestion = () => {
     }
 }
 
-const populateNewsCarousel = () => {
+const populateNewsCarousel = async () => {
+    const news = await fetch("/news/all")
+    const newsItems = await news.json()
 
+    const newsCard1Title = document.getElementById("news-card1-title")
+    const newsCard1Date = document.getElementById("news-card1-date")
+    const newsCard1Description = document.getElementById("news-card1-description")
+    const newsCard1Type = document.getElementById("news-card1-type")
+
+    const newsCard1 = [newsCard1Title, newsCard1Date, newsCard1Description, newsCard1Type]
+
+    const newsCard2Title = document.getElementById("news-card2-title")
+    const newsCard2Date = document.getElementById("news-card2-date")
+    const newsCard2Description = document.getElementById("news-card2-description")
+    const newsCard2Type = document.getElementById("news-card2-type")
+
+    const newsCard2 = [newsCard2Title, newsCard2Date, newsCard2Description, newsCard2Type]
+
+    const newsCard3Title = document.getElementById("news-card3-title")
+    const newsCard3Date = document.getElementById("news-card3-date")
+    const newsCard3Description = document.getElementById("news-card3-description")
+    const newsCard3Type = document.getElementById("news-card3-type")
+
+    const newsCard3 = [newsCard3Title, newsCard3Date, newsCard3Description, newsCard3Type]
+
+    const newsCard4Title = document.getElementById("news-card4-title")
+    const newsCard4Date = document.getElementById("news-card4-date")
+    const newsCard4Description = document.getElementById("news-card4-description")
+    const newsCard4Type = document.getElementById("news-card4-type")
+
+    const newsCard4 = [newsCard4Title, newsCard4Date, newsCard4Description, newsCard4Type]
+
+    const newsCard5Title = document.getElementById("news-card5-title")
+    const newsCard5Date = document.getElementById("news-card5-date")
+    const newsCard5Description = document.getElementById("news-card5-description")
+    const newsCard5Type = document.getElementById("news-card5-type")
+
+    const newsCard5 = [newsCard5Title, newsCard5Date, newsCard5Description, newsCard5Type]
+
+    const newsCard6Title = document.getElementById("news-card6-title")
+    const newsCard6Date = document.getElementById("news-card6-date")
+    const newsCard6Description = document.getElementById("news-card6-description")
+    const newsCard6Type = document.getElementById("news-card6-type")
+
+    const newsCard6 = [newsCard6Title, newsCard6Date, newsCard6Description, newsCard6Type]
+
+    const newsCard7Title = document.getElementById("news-card7-title")
+    const newsCard7Date = document.getElementById("news-card7-date")
+    const newsCard7Description = document.getElementById("news-card7-description")
+    const newsCard7Type = document.getElementById("news-card7-type")
+
+    const newsCard7 = [newsCard7Title, newsCard7Date, newsCard7Description, newsCard7Type]
+
+    const newsCard8Title = document.getElementById("news-card8-title")
+    const newsCard8Date = document.getElementById("news-card8-date")
+    const newsCard8Description = document.getElementById("news-card8-description")
+    const newsCard8Type = document.getElementById("news-card8-type")
+
+    const newsCard8 = [newsCard8Title, newsCard8Date, newsCard8Description, newsCard8Type]
+
+    const newsCards = [newsCard1, newsCard2, newsCard3, newsCard4, newsCard5, newsCard6, newsCard7, newsCard8]
+
+
+    for(let i = 0; i < newsItems.length; i++){
+        newsCards[i][0].innerHTML = newsItems[i].title
+        newsCards[i][1].innerHTML = newsItems[i].date_posted
+        newsCards[i][2].innerHTML = newsItems[i].description
+        newsCards[i][3].innerHTML = newsItems[i].type
+    }
 }
 
-const populateEvents = () => {
+const populateEvents = async () => {
+    const events = await fetch("/events/all")
+    const eventItems = await events.json()
+    console.log(eventItems)
 
+    const eventCard1Title = document.getElementById("event-card1-title")
+    const eventCard1Date = document.getElementById("event-card1-date")
+    const eventCard1Location = document.getElementById("event-card1-location")
+    const eventCard1Host = document.getElementById("event-card1-host")
+    const eventCard1Description = document.getElementById("event-card1-description")
+    const eventCard1Type = document.getElementById("event-card1-type")
+
+    const eventCard1 = [eventCard1Title, eventCard1Date, eventCard1Location, eventCard1Host, eventCard1Description, eventCard1Type]
+
+    const eventCard2Title = document.getElementById("event-card2-title")
+    const eventCard2Date = document.getElementById("event-card2-date")
+    const eventCard2Location = document.getElementById("event-card2-location")
+    const eventCard2Host = document.getElementById("event-card2-host")
+    const eventCard2Description = document.getElementById("event-card2-description")
+    const eventCard2Type = document.getElementById("event-card2-type")
+
+    const eventCard2 = [eventCard2Title, eventCard2Date, eventCard2Location, eventCard2Host, eventCard2Description, eventCard2Type]
+
+    const eventCard3Title = document.getElementById("event-card3-title")
+    const eventCard3Date = document.getElementById("event-card3-date")
+    const eventCard3Location = document.getElementById("event-card3-location")
+    const eventCard3Host = document.getElementById("event-card3-host")
+    const eventCard3Description = document.getElementById("event-card3-description")
+    const eventCard3Type = document.getElementById("event-card3-type")
+
+    const eventCard3 = [eventCard3Title, eventCard3Date, eventCard3Location, eventCard3Host, eventCard3Description, eventCard3Type]
+
+    const eventCard4Title = document.getElementById("event-card4-title")
+    const eventCard4Date = document.getElementById("event-card4-date")
+    const eventCard4Location = document.getElementById("event-card4-location")
+    const eventCard4Host = document.getElementById("event-card4-host")
+    const eventCard4Description = document.getElementById("event-card4-description")
+    const eventCard4Type = document.getElementById("event-card4-type")
+
+    const eventCard4 = [eventCard4Title, eventCard4Date, eventCard4Location, eventCard4Host, eventCard4Description, eventCard4Type]
+
+    const eventCard5Title = document.getElementById("event-card5-title")
+    const eventCard5Date = document.getElementById("event-card5-date")
+    const eventCard5Location = document.getElementById("event-card5-location")
+    const eventCard5Host = document.getElementById("event-card5-host")
+    const eventCard5Description = document.getElementById("event-card5-description")
+    const eventCard5Type = document.getElementById("event-card5-type")
+
+    const eventCard5 = [eventCard5Title, eventCard5Date, eventCard5Location, eventCard5Host, eventCard5Description, eventCard5Type]
+
+    const eventCards = [eventCard1, eventCard2, eventCard3, eventCard4, eventCard5]
+    console.log(eventCards)
+
+    for(let i = 0; i < eventItems.length; i++){
+        eventCards[i][0].innerHTML = eventItems[i].title
+        eventCards[i][1].innerHTML = eventItems[i].date_posted
+        eventCards[i][2].innerHTML = eventItems[i].location
+        eventCards[i][3].innerHTML = eventItems[i].host
+        eventCards[i][4].innerHTML = eventItems[i].description
+        eventCards[i][5].innerHTML = eventItems[i].type
+    }
 }
 
-const populateSuggestions = () => {
+const populateSuggestions = async () => {
+    const suggestions = await fetch("/suggestions/popular")
+    const suggestionItems = await suggestions.json()
+    console.log(suggestionItems)
 
+    const suggestionCard1Title = document.getElementById("suggestion-card1-title")
+    const suggestionCard1Date = document.getElementById("suggestion-card1-date")
+    const suggestionCard1Description = document.getElementById("suggestion-card1-description")
+    const suggestionCard1Type = document.getElementById("suggestion-card1-type")
+
+    const suggestionCard1 = [suggestionCard1Title, suggestionCard1Date, suggestionCard1Description, suggestionCard1Type]
+
+    const suggestionCard2Title = document.getElementById("suggestion-card2-title")
+    const suggestionCard2Date = document.getElementById("suggestion-card2-date")
+    const suggestionCard2Description = document.getElementById("suggestion-card2-description")
+    const suggestionCard2Type = document.getElementById("suggestion-card2-type")
+
+    const suggestionCard2 = [suggestionCard2Title, suggestionCard2Date, suggestionCard2Description, suggestionCard2Type]
+
+    const suggestionCard3Title = document.getElementById("suggestion-card3-title")
+    const suggestionCard3Date = document.getElementById("suggestion-card3-date")
+    const suggestionCard3Description = document.getElementById("suggestion-card3-description")
+    const suggestionCard3Type = document.getElementById("suggestion-card3-type")
+
+    const suggestionCard3 = [suggestionCard3Title, suggestionCard3Date, suggestionCard3Description, suggestionCard3Type]
+
+    const suggestionCard4Title = document.getElementById("suggestion-card4-title")
+    const suggestionCard4Date = document.getElementById("suggestion-card4-date")
+    const suggestionCard4Description = document.getElementById("suggestion-card4-description")
+    const suggestionCard4Type = document.getElementById("suggestion-card4-type")
+
+    const suggestionCard4 = [suggestionCard4Title, suggestionCard4Date, suggestionCard4Description, suggestionCard4Type]
+
+    const suggestionCard5Title = document.getElementById("suggestion-card5-title")
+    const suggestionCard5Date = document.getElementById("suggestion-card5-date")
+    const suggestionCard5Description = document.getElementById("suggestion-card5-description")
+    const suggestionCard5Type = document.getElementById("suggestion-card5-type")
+
+    const suggestionCard5 = [suggestionCard5Title, suggestionCard5Date, suggestionCard5Description, suggestionCard5Type]
+
+    const suggestionCards = [suggestionCard1, suggestionCard2, suggestionCard3, suggestionCard4, suggestionCard5]
+
+    for(let i = 0; i < suggestionItems.length; i++){
+        suggestionCards[i][0].innerHTML = suggestionItems[i].title
+        suggestionCards[i][1].innerHTML = suggestionItems[i].date_posted
+        suggestionCards[i][2].innerHTML = suggestionItems[i].description
+        suggestionCards[i][3].innerHTML = suggestionItems[i].type
+    }
 }
 
 carouselLeftButton.addEventListener('click', (e) => {
@@ -170,6 +346,9 @@ const init = () => {
     generateCarouselButtons(slideLimit);
     checkCurrentEvent();
     checkCurrentSuggestion();
+    populateNewsCarousel();
+    populateEvents();
+    populateSuggestions();
     
 }
 

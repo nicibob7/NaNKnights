@@ -64,8 +64,34 @@ const postNews = async (req, res) => {
     }
 }
 
+const postSuggestion = async (req, res) => {
+    try {
+        const suggestion = req.body;
+        suggestion.posted_by = res.locals.admin;
+
+        const result = await Suggestion.create(suggestion);
+
+        // activate suggestion immediately
+        await result.activate();
+        // send ok
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const ping = async (req, res) => {
+    try {
+        res.status(200).json({pong: true});
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 module.exports = {
     login,
     logout,
     postNews,
+    postSuggestion,
+    ping
 }

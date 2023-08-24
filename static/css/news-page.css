@@ -26,7 +26,7 @@ main {
 
 #news-main-content {
     width: 96%;
-    height: 80%;
+    /* height: 80%; */
     background-color: antiquewhite;
     display: flex;
     flex-direction: row;
@@ -146,7 +146,7 @@ main {
 
 .card {
     width: 60%;
-    height: 600px;
+    min-height: 400px;
     border-radius: 5px;
     /* box-shadow: 0px 5px 10px 0px #c0c0c0; */
     flex-shrink: 0;
@@ -165,7 +165,7 @@ main {
     border-top-right-radius: 5px;
     background-color: #fff;
     position: relative;
-    box-shadow: 0px 5px 10px 0px #c0c0c0;
+    /* box-shadow: 0px 5px 10px 0px #c0c0c0; */
 }
 
 .card-image-wrapper > img {
@@ -291,6 +291,73 @@ main {
 
 .card-spacing {
     margin: 12px 6px;
+}
+
+.card-edit-button:hover {
+    animation: edit-hover .8s linear infinite;  
+    /* animation-play-state: running; */
+}
+
+.card-delete-button:hover {
+    animation: delete-hover .8s linear infinite;  
+    /* animation-play-state: running; */
+}
+
+@keyframes edit-hover {
+    0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(20deg);
+      }
+      50% {
+        transform: rotate(0deg);
+      }
+      75% {
+        transform: rotate(-20deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+}
+
+@keyframes delete-hover {
+    0% {
+        transform: rotate(0deg);
+        transform-origin: 50% 80%;
+      }
+      12.5% {
+        transform: rotate(10deg);
+      }
+      20% {
+        transform: rotate(0deg);
+      }
+      37.5% {
+        transform: rotate(-15deg);
+      }
+      45% {
+        transform: rotate(0deg);
+      }
+      55% {
+        transform: rotate(15deg);
+        transform-origin: 50% 40%;
+      }
+      62.5% {
+        transform: rotate(0deg);
+      }
+      75% {
+        transform: rotate(-10deg);
+      }
+      80% {
+        transform: rotate(0deg);
+      }
+      92.5% {
+        transform: rotate(5deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+
 }
 
 #overlay {

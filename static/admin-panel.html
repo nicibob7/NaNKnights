@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/global-styles.css" >
+    <link rel="stylesheet" href="./css/admin-panel.css" >
+    <script defer src="./js/global-script.js"></script>
+    <script defer src="./js/admin-panel.js"></script>
+    <title>Admin Panel | Day 'n' Day</title>
+</head>
+<body>
+    <nav class="menu-default">
+        <div id="nav-wrapper">
+            <div id="nav-left">
+                <div id="logo-wrapper">
+                    <a id="nav-home-button" href="./index.html">
+                        <img id="nav-logo" src="./res/logo1.png">
+                        <div id="logo-text-wrapper">
+                            <p id="logo-text-main">Day 'n' Day</p>
+                            <p id="logo-text-sub">Florin County Community App</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div id="nav-button-wrapper">
+                    <a href="/news" id="nav-news-button" class="nav-button">News</a>
+                    <a href="/events" id="nav-events-button" class="nav-button">Events</a>
+                    <a href="/suggestions" id="nav-suggestions-button" class="nav-button">Suggestions</a>
+                    <a href="/about" id="nav-about-button" class="nav-button">About</a>
+                </div>
+
+            </div>
+            <div id="nav-right" class="hide-padding">
+                <div id="nav-right-button-wrapper">
+                    <a href="/admin-panel" id="nav-admin-panel-button" class="nav-button hide">Admin Panel</a>
+                    <a href="/dashboard" id="nav-dashboard-button" class="nav-button hide">My Stuff</a>
+                    <a href="/login" id="nav-login-button" class="nav-button">Login</a>
+                </div>
+                
+                <a href="/register" id="nav-signup-button">SIGN UP</a>
+
+                <div id="nav-account-wrapper" class="hide">
+                    <img id="nav-account-icon" src="./res/account-icon.png">
+                    <div id="nav-account-dropdown-list" class="menu-default hide">
+                        <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
+                        <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
+                        <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div id="side-bar" class="hidden-scroll">
+            <div id="title-box">
+                Admin Panel
+            </div>
+                <button id="side-bar-home" class="side-bar-button first-button first-button-selected tab-selected">Home</button>
+                <button id="side-bar-news" class="side-bar-button first-button">News
+                    <svg class="push-right" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="tab-path" d="M7.5 20.5L12.5 20.5L12.5 12.5L12.5 7.5L12.5 0.5L7.5 0.5L7.5 7.5L7.5 12.5L7.5 20.5Z" fill="#FBB348"/>
+                        <path d="M20 13V8H12H7H0V13H7H12L20 13Z" fill="#FBB348"/>
+                        </svg>
+                        
+                        
+                </button>
+                <div id="side-bar-news-list" class="side-bar-list">
+                    <button id="side-bar-news-top-10" class="side-bar-button second-button">Top 10</button>
+                    <button class="side-bar-button second-button">All News</button>
+                    <button class="side-bar-button second-button">News By ID</button>
+                    <button class="side-bar-button second-button">News By Name</button>
+                </div>
+                <button id="side-bar-events" class="side-bar-button first-button">Events
+                    <svg class="push-right" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="tab-path" d="M7.5 20.5L12.5 20.5L12.5 12.5L12.5 7.5L12.5 0.5L7.5 0.5L7.5 7.5L7.5 12.5L7.5 20.5Z" fill="#FBB348"/>
+                        <path d="M20 13V8H12H7H0V13H7H12L20 13Z" fill="#FBB348"/>
+                        </svg>
+                        
+                        
+                </button>
+                <div id="side-bar-events-list" class="side-bar-list">
+                    <button id="side-bar-events-top-10" class="side-bar-button second-button">Top 10</button>
+                    <button class="side-bar-button second-button">All Events</button>
+                    <button class="side-bar-button second-button">Events By ID</button>
+                    <button class="side-bar-button second-button">Events By Name</button>
+                </div>
+                <button id="side-bar-suggestions" class="side-bar-button first-button">Suggestions
+                    <svg class="push-right" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="tab-path" d="M7.5 20.5L12.5 20.5L12.5 12.5L12.5 7.5L12.5 0.5L7.5 0.5L7.5 7.5L7.5 12.5L7.5 20.5Z" fill="#FBB348"/>
+                        <path d="M20 13V8H12H7H0V13H7H12L20 13Z" fill="#FBB348"/>
+                        </svg>
+                                               
+                </button>
+                <div id="side-bar-suggestions-list" class="side-bar-list">
+                    <button id="side-bar-suggestions-top-10" class="side-bar-button second-button">Top 10</button>
+                    <button class="side-bar-button second-button">All Suggestions</button>
+                    <button class="side-bar-button second-button">Suggestions By ID</button>
+                    <button class="side-bar-button second-button">Suggestions By Name</button>
+                </div>
+                <button id="side-bar-pending" class="side-bar-button first-button">Pending
+                    <svg id="pending-alert-image" class="push-right hide" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="17" cy="17" r="17" fill="#F25555"/>
+                        <path d="M18.5458 8.27273L18.2273 19.9851H15.2379L14.9112 8.27273H18.5458ZM16.7326 25.2124C16.1935 25.2124 15.7307 25.0218 15.3441 24.6406C14.9575 24.254 14.7669 23.7912 14.7724 23.2521C14.7669 22.7185 14.9575 22.2611 15.3441 21.88C15.7307 21.4988 16.1935 21.3082 16.7326 21.3082C17.2499 21.3082 17.7045 21.4988 18.0966 21.88C18.4886 22.2611 18.6874 22.7185 18.6928 23.2521C18.6874 23.6115 18.5921 23.9409 18.407 24.2404C18.2273 24.5344 17.9904 24.7713 17.6964 24.951C17.4023 25.1252 17.0811 25.2124 16.7326 25.2124Z" fill="white"/>
+                    </svg>
+                        
+                </button>
+                <button id="side-bar-server-logs" class="side-bar-button first-button">Server Logs</button>
+                <button id="side-bar-custom-query" class="side-bar-button first-button">Custom Query</button>
+
+                <footer class="push-bottom">
+                    <p>Copyrighted by NaNKnights 2023</p>
+                </footer>
+        </div>
+        <div id="main-content">
+            <div id="main-top-bar">
+                <button id="add-content-button" class="hidden-button-style add-button">
+                    Add
+                    <svg class="plus-image" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="plus-image-path" d="M13 0H7V7L0 7V13L7 13V20H13V13H20V7H13V0Z" fill="#D9D9D9"/>
+                    </svg>
+                </button>
+
+                <div id="top-bar-add-wrapper">
+                    <button id="add-news-button" class="hidden-button-style add-button">
+                        <span class="add-button-text">News</span>
+                    </button>
+                    <button id="add-event-button" class="hidden-button-style add-button">
+                        <span class="add-button-text">Event</span>
+                    </button>
+                    <button id="add-suggestion-button" class="hidden-button-style add-button">
+                        <span class="add-button-text">Suggestion</span>
+                    </button>
+                </div>
+            </div>
+            <div id="admin-panel-home" class="admin-panel-container">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">Welcome to the Admin Panel, <span id="welcome-admin-name">Bobsmith</span>!</h2>
+                    <div id="home-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
+            <div id="admin-panel-news-top-10" class="admin-panel-container hide">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">News</h2>
+                    <h2 class="admin-panel-title">Top 10</h2>
+                    <div id="news-top-10-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
+            <div id="admin-panel-events-top-10" class="admin-panel-container hide">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">Events</h2>
+                    <h2 class="admin-panel-title">Top 10</h2>
+                    <div id="events-top-10-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
+            <div id="admin-panel-suggestions-top-10" class="admin-panel-container hide">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">Suggestions</h2>
+                    <h2 class="admin-panel-title">Top 10</h2>
+                    <div id="suggestions-top-10-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
+            <div id="admin-panel-pending" class="admin-panel-container hide">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">Pending</h2>
+                    <div id="pending-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="overlay" class="hide">
+        
+        <form id="add-news-form" class="form-style overlay-form hide">
+            <button id="add-news-close-button" class="form-close-button hidden-button-style">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                </svg>
+            </button>
+            <h2 id="add-news-form-title" class="form-main-title">Add News</h2>
+            
+            
+            <div id="add-news-input-wrapper" class="flex-row form-input-wrapper">
+            <div id="add-news-form-left" class="flex-column form-column form-left">
+                    <label for="add-news-date" class="form-label">Date</label>
+                    <input type="date" id="add-news-date" class="input-text form-input-horizontal add-news-form-input news-date" name="add-news-date">
+                    <label for="add-news-title" class="form-label">Title</label>
+                    <input type="text" id="add-news-title" class="input-text form-input-horizontal add-news-form-input news-title" name="add-news-title">
+            </div>
+            <div id="add-news-form-right" class="flex-column form-column form-right">
+                    <label for="add-news-type" class="form-label">Type</label>
+                    <select id="add-news-type" class="input-text form-input-horizontal add-news-form-input form-type" name="add-news-type">
+                        <option value="agriculture">Agriculture</option>
+                        <option value="sports">Sports</option>
+                        <option value="tech">Technology</option>
+                        <option value="nature">Nature</option>
+                        <option value="science">Science</option>
+                      </select>
+                    <label for="add-news-upload" class="form-label">Images</label>
+                    <input type="file" accept=".png, .jpg, .gif" id="add-news-upload" class="form-input-horizontal add-news-form-input form-upload" name="add-news-upload" single>
+                    <p class="form-upload-description">Max size 10MB</p>
+            </div>
+            </div>
+            <label for="add-news-description" class="form-label">Description</label>
+            <textarea id="add-news-description" name="add-news-description" class="add-news-form-input form-description" autocomplete = "off"></textarea>
+            <div class="filler"></div>
+            <div class="form-button-wrapper push-right">
+            <button id="add-news-cancel-button" class="form-cancel-button">Cancel</button>
+            <input type="submit" id="add-news-submit-button" class="input-submit form-submit-button" value="Add" disabled=true>
+            </div>
+        </form>
+
+        <form id="update-news-form" class="form-style overlay-form hide">
+            <button id="update-news-close-button" class="hidden-button-style form-close-button">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                </svg>
+            </button>
+            <h2 id="update-news-form-title" class="form-main-title">Update News</h2>
+            
+            <div id="update-news-input-wrapper" class="flex-row">
+                <div id="update-news-form-left" class="flex-column form-column">
+                    <label for="update-news-date" class="form-label">Date</label>
+                    <input type="date" id="update-news-date" class="input-text form-input-horizontal form-date" name="update-news-date">
+                    <label for="update-news-title" class="form-label">Title</label>
+                    <input type="text" id="update-news-title" class="input-text form-input-horizontal form-title" name="update-news-title">
+                </div>
+
+                <div id="update-news-form-right" class="flex-column form-column">
+                    <label for="update-news-type" class="form-label">Type</label>
+                    <select id="update-news-type" class="input-text form-input-horizontal form-type" name="update-news-type">
+                        <option value="agriculture">Agriculture</option>
+                        <option value="sports">Sports</option>
+                        <option value="tech">Technology</option>
+                        <option value="nature">Nature</option>
+                        <option value="science">Science</option>
+                      </select>
+                    <label for="update-news-upload" class="form-label">Images</label>
+                    <input type="file" accept=".png, .jpg, .gif" id="update-news-upload" class="form-input-horizontal form-upload" name="update-news-upload" single>
+                    <p class="form-upload-description">Max size 10MB</p>
+                </div>
+            </div>
+            <label for="update-news-description" class="form-label">Description</label>
+            <textarea id="update-news-description" name="update-news-description" class="update-news-form-input form-description" autocomplete = "off"></textarea>
+            <div class="filler"></div>
+            <div class="form-button-wrapper push-right">
+            <button id="update-news-cancel-button" class="form-cancel-button">Cancel</button>
+            <input type="submit" id="update-news-submit-button" class="input-submit form-submit-button" value="Update">
+            </div>
+        </form>
+
+        <form id="add-event-form" class="form-style overlay-form hide">
+            <button id="add-event-close-button" class="form-close-button hidden-button-style">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                </svg>
+            </button>
+            <h2 id="add-event-form-title" class="form-main-title">Add Event</h2>
+            
+            
+            <div id="add-form-input-wrapper" class="flex-row form-input-wrapper">
+            <div id="add-event-form-left" class="flex-column form-column new-form-left">
+                    <label for="add-event-date" class="form-label">Date</label>
+                    <input type="date" id="add-event-date" class="input-text form-input-horizontal add-event-form-input form-date" name="add-event-date">
+                    <label for="add-event-location" class="form-label">Location</label>
+                    <input type="text" id="add-event-location" class="input-text form-input-horizontal add-event-form-input form-location" name="add-event-location">
+                    <label for="add-event-title" class="form-label">Title</label>
+                    <input type="text" id="add-event-title" class="input-text form-input-horizontal add-event-form-input form-title" name="add-event-title">
+            </div>
+            <div id="add-event-form-right" class="flex-column form-column form-right">
+                    <label for="add-event-type" class="form-label">Type</label>
+                    <select id="add-event-type" class="input-text form-input-horizontal add-event-form-input form-type" name="add-event-type">
+                        <option value="agriculture">Agriculture</option>
+                        <option value="sports">Sports</option>
+                        <option value="tech">Technology</option>
+                        <option value="nature">Nature</option>
+                        <option value="science">Science</option>
+                      </select>
+                    <label for="add-event-host" class="form-label">Host</label>
+                    <input type="text" id="add-event-host" class="form-input-horizontal add-event-form-input input-text form-host" name="add-event-host">
+                    <label for="add-event-upload" class="form-label">Images</label>
+                    <input type="file" accept=".png, .jpg, .gif" id="add-event-upload" class="form-input-horizontal add-event-form-input form-upload" name="add-event-upload" single>
+                    <p class="form-upload-description">Max size 10MB</p>
+            </div>
+            </div>
+            <label for="add-event-description" class="form-label">Description</label>
+            <textarea id="add-event-description" name="add-event-description" class="add-event-form-input form-description" autocomplete = "off"></textarea>
+            <div class="filler"></div>
+            <div class="form-button-wrapper push-right">
+            <button id="add-event-cancel-button" class="form-cancel-button">Cancel</button>
+            <input type="submit" id="add-event-submit-button" class="input-submit form-submit-button" value="Add" disabled=true>
+            </div>
+        </form>
+
+        <form id="update-event-form" class="form-style overlay-form hide">
+            <button id="update-event-close-button" class="hidden-button-style form-close-button">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                </svg>
+            </button>
+            <h2 id="update-event-form-title" class="form-main-title">Update Event</h2>
+            
+            
+            <div id="update-event-input-wrapper" class="flex-row">
+                <div id="update-event-form-left" class="flex-column form-column">
+                    <label for="update-event-date" class="form-label">Date</label>
+                    <input type="date" id="update-event-date" class="input-text form-input-horizontal form-date" name="update-event-date">
+                    <label for="update-event-location" class="form-label">Location</label>
+                    <input type="text" id="update-event-location" class="input-text form-input-horizontal update-event-form-input form-location" name="update-event-location">
+                    <label for="update-event-title" class="form-label">Title</label>
+                    <input type="text" id="update-event-title" class="input-text form-input-horizontal form-title" name="update-event-title">
+                </div>
+
+                <div id="update-event-form-right" class="flex-column form-column">
+                    <label for="update-event-type" class="form-label">Type</label>
+                    <select id="update-event-type" class="input-text form-input-horizontal form-type" name="add-event-type">
+                        <option value="agriculture">Agriculture</option>
+                        <option value="sports">Sports</option>
+                        <option value="tech">Technology</option>
+                        <option value="nature">Nature</option>
+                        <option value="science">Science</option>
+                      </select>
+                    <label for="update-event-host" class="form-label">Host</label>
+                    <input type="text" id="update-event-host" class="form-input-horizontal update-event-form-input input-text form-host" name="update-event-host">
+                    <label for="update-event-upload" class="form-label">Images</label>
+                    <input type="file" accept=".png, .jpg, .gif" id="update-event-upload" class="form-input-horizontal form-upload" name="update-event-upload" single>
+                    <p class="form-upload-description">Max size 10MB</p>
+                </div>
+            </div>
+            <label for="update-event-description" class="form-label">Description</label>
+            <textarea id="update-event-description" name="update-event-description" class="update-event-form-input form-description" autocomplete = "off"></textarea>
+            <div class="filler"></div>
+            <div class="form-button-wrapper push-right">
+            <button id="update-event-cancel-button" class="form-cancel-button">Cancel</button>
+            <input type="submit" id="update-event-submit-button" class="input-submit form-submit-button" value="Update">
+            </div>
+        </form>
+
+        <form id="add-suggestion-form" class="form-style overlay-form hide">
+            <button id="add-suggestion-close-button" class="form-close-button hidden-button-style">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                </svg>
+            </button>
+            <h2 id="add-suggestion-form-title" class="form-main-title">Add Suggestion</h2>
+            
+            
+            <div id="add-suggestion-input-wrapper" class="flex-row form-input-wrapper">
+            <div id="add-suggestion-form-left" class="flex-column form-column form-left">
+                    <label for="add-suggestion-type" class="form-label">Type</label>
+                    <select id="add-suggestion-type" class="input-text form-input-horizontal add-suggestion-form-input form-type" name="add-suggestion-type">
+                        <option value="agriculture">Agriculture</option>
+                        <option value="sports">Sports</option>
+                        <option value="tech">Technology</option>
+                        <option value="nature">Nature</option>
+                        <option value="science">Science</option>
+                      </select>
+                    <label for="add-suggestion-title" class="form-label">Title</label>
+                    <input type="text" id="add-suggestion-title" class="input-text form-input-horizontal add-suggestion-form-input form-title" name="add-suggestion-title">
+            </div>
+            <div id="add-suggestion-form-right" class="flex-column form-column form-right">
+                    
+                    <label for="add-suggestion-upload" class="form-label">Images</label>
+                    <input type="file" accept=".png, .jpg, .gif" id="add-suggestion-upload" class="form-input-horizontal add-suggestion-form-input form-upload" name="add-suggestion-upload" single>
+                    <p class="form-upload-description">Max size 10MB</p>
+            </div>
+            </div>
+            <label for="add-suggestion-description" class="form-label">Description</label>
+            <textarea id="add-suggestion-description" name="add-suggestion-description" class="add-suggestion-form-input form-description" autocomplete = "off"></textarea>
+            <div class="filler"></div>
+            <div class="form-button-wrapper push-right">
+            <button id="add-suggestion-cancel-button" class="form-cancel-button">Cancel</button>
+            <input type="submit" id="add-suggestion-submit-button" class="input-submit form-submit-button" value="Add" disabled=true>
+            </div>
+        </form>
+
+        <form id="update-suggestion-form" class="form-style overlay-form hide">
+            <button id="update-suggestion-close-button" class="hidden-button-style form-close-button">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25.1923 29.0209L29.435 24.7783L18.9454 14.2887L28.9914 4.24264L24.7487 0L14.7027 10.046L4.68624 0.029541L0.443596 4.27218L10.4601 14.2887L0 24.7487L4.24264 28.9914L14.7027 18.5313L25.1923 29.0209Z" fill="black"/>
+                </svg>
+            </button>
+            <h2 id="update-suggestion-form-title" class="form-main-title">Update Suggestion</h2>
+            
+            
+            <div id="update-suggestion-input-wrapper" class="flex-row">
+                <div id="update-suggestion-form-left" class="flex-column form-column">
+                    <label for="update-suggestion-type" class="form-label">Type</label>
+                    <select id="update-suggestion-type" class="input-text form-input-horizontal form-type" name="add-suggestion-type">
+                        <option value="agriculture">Agriculture</option>
+                        <option value="sports">Sports</option>
+                        <option value="tech">Technology</option>
+                        <option value="nature">Nature</option>
+                        <option value="science">Science</option>
+                      </select>
+                    <label for="update-suggestion-title" class="form-label">Title</label>
+                    <input type="text" id="update-suggestion-title" class="input-text form-input-horizontal form-title" name="update-suggestion-title">
+                </div>
+
+                <div id="update-suggestion-form-right" class="flex-column form-column">
+                    <label for="update-suggestion-upload" class="form-label">Images</label>
+                    <input type="file" accept=".png, .jpg, .gif" id="update-suggestion-upload" class="form-input-horizontal form-upload" name="update-suggestion-upload" single>
+                    <p class="form-upload-description">Max size 10MB</p>
+                </div>
+            </div>
+            <label for="update-suggestion-description" class="form-label">Description</label>
+            <textarea id="update-suggestion-description" name="update-suggestion-description" class="update-suggestion-form-input form-description" autocomplete = "off"></textarea>
+            <div class="filler"></div>
+            <div class="form-button-wrapper push-right">
+            <button id="update-suggestion-cancel-button" class="form-cancel-button">Cancel</button>
+            <input type="submit" id="update-suggestion-submit-button" class="input-submit form-submit-button" value="Update">
+            </div>
+        </form>
+
+        <div id="delete-form-dialog" class="overlay-form hide">
+            <p id="delete-form-text">Are sure you want to delete?</p>
+            <div class="form-button-wrapper">
+            <button id="delete-form-cancel-button" class="form-cancel-button">Cancel</button>
+            <button id="delete-form-button" class="input-submit form-submit-button">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <template id="modify-buttons-template">
+        <div class="card-modify-buttons-wrapper">
+            <button class="card-edit-button hidden-button-style">
+                <svg width="46" height="44" viewBox="0 0 46 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d_214_49)">
+                    <path d="M8.99817 21.5952L25.1946 5.39876L35.9923 16.1964L19.7958 32.3929L14.397 26.994L8.99817 21.5952Z" fill="#FEED55"/>
+                    <path d="M25.1945 5.39868L30.5932 -9.5446e-05L41.3909 10.7975L35.9921 16.1963L25.1945 5.39868Z" fill="#DE4C43"/>
+                    <path d="M5.39865 35.9919L8.99786 21.5951L19.7955 32.3927L5.39865 35.9919Z" fill="#E7C89B"/>
+                    <path d="M5.39874 35.9925L7.19834 28.7941L12.5972 34.1929L5.39874 35.9925Z" fill="#3D3D3D"/>
+                    </g>
+                    <defs>
+                    <filter id="filter0_d_214_49" x="1.39868" y="0" width="43.9922" height="43.9924" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="4"/>
+                    <feGaussianBlur stdDeviation="2"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_214_49"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_214_49" result="shape"/>
+                    </filter>
+                    </defs>
+                    </svg>
+                </button>
+            <button class="card-delete-button hidden-button-style">
+                <svg width="34" height="42" viewBox="0 0 34 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d_214_57)">
+                    <rect x="5.39062" y="4.11377" width="23.5816" height="27.9486" fill="#D9D9D9"/>
+                    <path d="M5.39062 32.0623H28.9723L27.2255 33.809H7.13741L5.39062 32.0623Z" fill="#D9D9D9"/>
+                    <rect x="8.01074" y="6.73389" width="3.49358" height="24.455" fill="#A1A1A1"/>
+                    <rect x="14.9979" y="6.73389" width="4.36697" height="24.455" fill="#A1A1A1"/>
+                    <rect x="22.8585" y="6.73389" width="3.49358" height="24.455" fill="#A1A1A1"/>
+                    <rect x="4.51721" y="0.620117" width="25.3284" height="3.49358" fill="#D9D9D9"/>
+                    </g>
+                    <defs>
+                    <filter id="filter0_d_214_57" x="0.517212" y="0.620117" width="33.3284" height="41.189" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="4"/>
+                    <feGaussianBlur stdDeviation="2"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_214_57"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_214_57" result="shape"/>
+                    </filter>
+                    </defs>
+                </svg>
+                    
+            </button>
+        </div>
+
+        <div class="approve-buttons-wrapper">
+            <button class="accept-button hidden-button-style">
+                <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
+                    </svg>
+                    
+                </button>
+            <button class="reject-button hidden-button-style">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.4056 18L18 15.3685L11.5854 8.86243L17.7287 2.63147L15.1343 0L8.99097 6.23097L2.86572 0.0183226L0.271267 2.64979L6.39652 8.86243L0 15.3502L2.59445 17.9817L8.99097 11.4939L15.4056 18Z" fill="#F25555"/>
+                    </svg>
+                    
+                    
+            </button>
+        </div>
+    </template>
+</body>
+</html>

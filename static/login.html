@@ -12,40 +12,45 @@
 
 </head>
 <body>
+    <div id="notification_box"></div>
+
     <nav class="menu-default">
-        <div id="nav-left">
-            <div id="logo-wrapper">
-                <a id="nav-home-button" href="./index.html">
-                    <img id="nav-logo" src="./res/logo1.png">
-                    <div id="logo-text-wrapper">
-                        <p id="logo-text-main">Day 'n' Day</p>
-                        <p id="logo-text-sub">Florin Country Community App</p>
+        <div id="nav-wrapper">
+            <div id="nav-left">
+                <div id="logo-wrapper">
+                    <a id="nav-home-button" href="./index.html">
+                        <img id="nav-logo" src="./res/logo1.png">
+                        <div id="logo-text-wrapper">
+                            <p id="logo-text-main">Day 'n' Day</p>
+                            <p id="logo-text-sub">Florin County Community App</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div id="nav-button-wrapper">
+                    <a href="/news" id="nav-news-button" class="nav-button">News</a>
+                    <a href="/events" id="nav-events-button" class="nav-button">Events</a>
+                    <a href="/suggestions" id="nav-suggestions-button" class="nav-button">Suggestions</a>
+                    <a href="/about" id="nav-about-button" class="nav-button">About</a>
+                </div>
+
+            </div>
+            <div id="nav-right" class="hide-padding">
+                <div id="nav-right-button-wrapper">
+                    <a href="/admin-panel" id="nav-admin-panel-button" class="nav-button hide">Admin Panel</a>
+                    <a href="/dashboard" id="nav-dashboard-button" class="nav-button hide">My Stuff</a>
+                    <a href="/login" id="nav-login-button" class="nav-button">Login</a>
+                </div>
+                
+                <a href="/register" id="nav-signup-button">SIGN UP</a>
+
+                <div id="nav-account-wrapper" class="hide">
+                    <img id="nav-account-icon" src="./res/account-icon.png">
+                    <div id="nav-account-dropdown-list" class="menu-default hide">
+                        <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
+                        <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
+                        <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
                     </div>
-                </a>
-            </div>
-            
-            <div id="nav-button-wrapper">
-                <a href="/news" id="nav-news-button" class="nav-button">News</a>
-                <a href="/events" id="nav-events-button" class="nav-button">Events</a>
-                <a href="/suggestions" id="nav-suggestions-button" class="nav-button">Suggestions</a>
-                <a href="/about" id="nav-about-button" class="nav-button">About</a>
-            </div>
-
-        </div>
-        <div id="nav-right" class="hide-padding">
-            <div id="nav-right-button-wrapper">
-                <a href="/dashboard" id="nav-news-button" class="nav-button hide">My Stuff</a>
-                <a href="/login" id="nav-login-button" class="nav-button">Login</a>
-            </div>
-            
-            <a href="/register" id="nav-signup-button">SIGN UP</a>
-
-            <div id="nav-account-wrapper" class="hide">
-                <img id="nav-account-icon" src="./res/account-icon.png">
-                <div id="nav-account-dropdown-list" class="menu-default hide">
-                    <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
-                    <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
-                    <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
                 </div>
             </div>
         </div>
@@ -73,12 +78,15 @@
                 <input type="text" id="username" class="input-text login-el" name="username" placeholder="Username">
                 <input type="password" id="password" autocomplete="password" class="input-text login-el" name="password" placeholder="Password">
                 <a href="#" id="forgot-password" class="form-text login-el">Forgot Password?</a>
-                
-                <input type="submit" class="input-submit login-el" value="Login">
+
+                <!--reCAPTCHA v2-->
+                <div class="g-recaptcha" data-sitekey="6LfFmcsnAAAAAIxzLO5HlGhP8lONpoY9Z2r3Z2XU"></div>
+
+                <input id="login_reset-btn" type="submit" class="input-submit login-el" value="Login">
             </div>
             <p class="form-text login-el">or</p>
             <div id="social-buttons-wrapper">
-                <a href="#" id="google-icon" class="social-button"></a>
+                <a id="google-icon" class="social-button"></a>
                 <a href="#" id="facebook-icon" class="social-button"></a>
             </div>
         </form>
@@ -89,7 +97,10 @@
                 <input type="text" id="admin-email" class="input-text login-el" name="admin-email" placeholder="Email">
                 <input type="password" id="admin-password" class="input-text login-el" name="admin-password" placeholder="Password">
                 <a href="#" id="admin-forgot-password" class="form-text login-el">Forgot Password?</a>
-                
+
+                <!--reCAPTCHA v2-->
+                <div class="g-recaptcha" data-sitekey="6LfFmcsnAAAAAIxzLO5HlGhP8lONpoY9Z2r3Z2XU"></div>
+
                 <input type="submit" class="input-submit login-el" value="Login">
             </div>
         </form>
@@ -99,5 +110,8 @@
     <footer>
         <p> &copy; Copyrighted by NaNKnights 2023</p>
     </footer>
+
+    <!-- Include reCAPTCHA script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 const path = require("path");
+
 const static_path = path.join(__dirname, "../static");
 
 const Suggestion = require("../models/Suggestion");
@@ -20,17 +21,15 @@ const postSuggestion = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
-
 const getSuggestionById = async (req, res) => {
+    console.log("asdasdasd")
     try {
-        const suggestion = await Suggestion.getById(req.params.id);
+        const suggestion = await Suggestion.getById(req.body.id);
         res.status(200).json(suggestion);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
 }
-
-
 const getSuggestions = async (req, res) => {
     try {
         const suggestions = await Suggestion.getAll();
@@ -39,28 +38,27 @@ const getSuggestions = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
-
-const getNewsByPopularity = async (req, res) => {
-    try {
-        const news = await Information.getByPopularity();
-        res.status(200).json(news);
-    } catch (error) {
-        res.status(400).json({error: error.message});
-    }
-}
-
-const getEventsByPopularity = async (req, res) => {
-    try {
-        const news = await CommunityEvent.getEventsByPopularity();
-        res.status(200).json(news);
-    } catch (error) {
-        res.status(400).json({error: error.message});
-    }
-}
-
 const getSuggestionsByPopularity = async (req, res) => {
     try {
         const news = await Suggestion.getSuggestionsByPopularity();
+        res.status(200).json(news);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const getNews = async (req, res) => {
+    try {
+        const news = await Information.getAll();
+        res.status(200).json(news);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const getNewsByLimit = async (req, res) => {
+    try {
+        const news = await Information.getNewsByNumber(req.params.id);
         res.status(200).json(news);
     } catch (error) {
         res.status(400).json({error: error.message});
@@ -79,7 +77,6 @@ const postComment = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
-
 const getCommentsBySuggestionId = async (req, res) => {
     try {
         const comments = await Comment.getAllBySuggestionId(req.params.id);
@@ -89,56 +86,64 @@ const getCommentsBySuggestionId = async (req, res) => {
     }
 }
 
+const postEvent = async (req, res) => {
+    try {
+        const data = req.body;
+
+        data.username = res.locals.user;
+
+        const event = await CommunityEvent.create(data);
+        res.status(201).json(event);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+const getEvents = async (req, res) => {
+    try {
+        const events = await CommunityEvent.getAll();
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
 
 // explicit mapping of all html files in /static
 // index page is handled automatically
-
 const login = async (req, res) => {
     res.sendFile(path.join(static_path, "login.html"));
 };
-
 const events = async (req, res) => {
     res.sendFile(path.join(static_path, "events.html"));
 }
-
 const suggestions = async (req, res) => {
     res.sendFile(path.join(static_path, "suggestions.html"));
 }
-
 const account = async (req, res) => {
     res.sendFile(path.join(static_path, "account.html"));
 }
-
 const about = async (req, res) => {
     res.sendFile(path.join(static_path, "about.html"));
 }
-
 const register = async (req, res) => {
     res.sendFile(path.join(static_path, "register.html"));
 }
-
 const dashboard = async (req, res) => {
     res.sendFile(path.join(static_path, "dashboard.html"));
 }
-
 const event_page = async (req, res) => {
     res.sendFile(path.join(static_path, "event-page.html"));
 }
-
 const news = async (req, res) => {
     res.sendFile(path.join(static_path, "news.html"));
 }
-
 const news_page = async (req, res) => {
     // TODO: handle the id and return the actual news id
     res.sendFile(path.join(static_path, "news-page.html"));
 }
-
 const suggestion_page = async (req, res) => {
     // TODO: handle the id and return the actual suggestion id
     res.sendFile(path.join(static_path, "suggestion-page.html"));
 }
-
 const notFound = async (req, res) => {
     res.status(404).end();
 };
@@ -147,9 +152,13 @@ module.exports = {
     postSuggestion,
     getSuggestions,
     getSuggestionById,
+    getSuggestionsByPopularity,
 
     postComment,
     getCommentsBySuggestionId,
+
+    postEvent,
+    getEvents,
 
     login,
     events,
@@ -164,8 +173,6 @@ module.exports = {
     news_page,
     notFound,
 
-    getNewsByPopularity,
-    getEventsByPopularity,
-    getSuggestionsByPopularity
-
+    getNews,
+    getNewsByLimit,
 };

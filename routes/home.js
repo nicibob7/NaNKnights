@@ -2,16 +2,23 @@ const express = require("express");
 const home = require("../controllers/home");
 const router = express.Router();
 
+const validateParameters = require("../middleware/validateParams");
+const userType = require("../middleware/userType");
+
 /* public endpoints */
-// cant have get here, as it will conflict with the get /suggestions/all & /suggestions/:id
-router.post("/suggestions/:id", home.getSuggestionById);
+// cant have get in this one, as it will conflict with the get /suggestions/all & /suggestions/:id
+router.post("/suggestions", validateParameters({
+    id: {type: 'int'},
+}), home.getSuggestionById);
+router.get("/news/all", home.getNews);
+router.get("/news/top/:id", home.getNewsByLimit);
 
-router.get("/news/popular", home.getNewsByPopularity)
-router.get("/events/date", home.getEventsByPopularity)
-router.get("/suggestions/popular", home.getSuggestionsByPopularity)
+router.get("/suggestions/popular", home.getSuggestionsByPopularity);
 router.get("/suggestions/all", home.getSuggestions);
-router.post("/comments/:id", home.getCommentsBySuggestionId);
 
+router.get("/events/all", home.getEvents);
+
+router.get("/comments/:id", home.getCommentsBySuggestionId);
 
 // endpoint to html routes
 router.get("/login", home.login);
@@ -26,14 +33,16 @@ router.get("/news", home.news);
 router.get("/suggestions/:id", home.suggestion_page);
 router.get("/news/:id", home.news_page);
 
+router.post("/account_type", userType);
+
 // keep always last, handles all other unimplemented routes
 router.get("*", (req, res) => {
-    if(req.method === "HEAD"){
+    if (req.method === "HEAD") {
         return res.status(404).end();
     }
 
     res.redirect("/");
 });
-router.all("*", home.notFound);
+router.all("*", );
 
 module.exports = router;

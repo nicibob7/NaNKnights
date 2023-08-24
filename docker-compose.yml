@@ -25,6 +25,8 @@ services:
       DB_URL: postgres://nan:supersecret@postgres:5432/nan_db
       ENV: production
       BCRYPT_SALT_ROUNDS: 12
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
     command: bash -c 'while !</dev/tcp/postgres/5432; do sleep 1; done; npm run setup_db && npm run populate_db && npm run start'
     build:
       context: .

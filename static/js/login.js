@@ -1,13 +1,89 @@
 const loginForm = document.querySelector('#login-form');
 const adminForm = document.querySelector('#admin-form');
-
+const resetPassword = document.querySelector('#forgot-password');
 
 const loginAccountButton = document.querySelector('#login-account-button');
+let resetFlag = false;
 
+resetPassword.addEventListener('click', (e) => {
+    resetFlag = !resetFlag;
+
+    if (resetFlag) {
+        document.querySelector('#password').classList.add('hide');
+        document.querySelector('#username').placeholder = "Email";
+        document.querySelector('#username').name = "email";
+        document.querySelector('#login_reset-btn').value = "Reset Password";
+        e.target.textContent = "Go Back";
+        grecaptcha.reset();
+    } else {
+        document.querySelector('#password').classList.remove('hide');
+        document.querySelector('#username').placeholder = "Username";
+        document.querySelector('#username').name = "username";
+        document.querySelector('#login_reset-btn').value = "Login";
+        e.target.textContent = "Forgot Password?";
+        grecaptcha.reset();
+    }
+});
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const form = new FormData(e.target);
+
+    if (resetFlag) {
+        let raw = JSON.stringify({
+            "email": document.querySelector('#username').value,
+            "g-recaptcha-response": grecaptcha.getResponse(),
+        });
+
+        let requestOptions = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("/users/reset", requestOptions)
+            .then(response => response.text())
+            .then(result => notifyUser(result, 'success'))
+            .catch(error => notifyUser(error, 'error'));
+
+        grecaptcha.reset();
+        // display notification or something
+    } else {
+        const options = {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: form.get("username"),
+                password: form.get("password"),
+                "g-recaptcha-response": grecaptcha.getResponse()
+            })
+        };
+
+        await fetch("/users/login", options)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                window.location.assign("/")
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        grecaptcha.reset();
+    }
+});
+
+adminForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    console.log("admin login")
     const form = new FormData(e.target);
 
     const options = {
@@ -18,19 +94,22 @@ loginForm.addEventListener('submit', async (e) => {
         },
         body: JSON.stringify({
             username: form.get("username"),
-            password: form.get("password")
+            password: form.get("password"),
+            "g-recaptcha-response": grecaptcha.getResponse()
         })
-    }
+    };
 
-    const response = await fetch("/users/login", options);
-    const data = await response.json();
+    await fetch("/admins/login", options)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            //window.location.assign("/")
+        })
+        .catch(error => {
+            console.log(error);
+        });
 
-    if (response.status == 200) {
-        localStorage.setItem("token", data.token);
-        window.location.assign("board.html");
-    } else {
-        alert(data.error);
-    }
+    grecaptcha.reset();
 });
 
 loginAccountButton.addEventListener('click', (e) => {
@@ -40,10 +119,19 @@ loginAccountButton.addEventListener('click', (e) => {
         tie.classList.remove('admin');
         adminForm.classList.add('hide');
         loginForm.classList.remove('hide');
-    }
-    else {
+    } else {
         tie.classList.add('admin');
         loginForm.classList.add('hide');
         adminForm.classList.remove('hide');
     }
+
+    grecaptcha.reset();
+});
+
+document.querySelector("#google-icon").addEventListener("click", () => {
+    window.location.assign("/auth/google");
+});
+
+document.querySelector("#facebook-icon").addEventListener("click", () => {
+    window.location.assign("/auth/facebook/callback");
 });
