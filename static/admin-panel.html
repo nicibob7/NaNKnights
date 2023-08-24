@@ -67,7 +67,7 @@
                         
                 </button>
                 <div id="side-bar-news-list" class="side-bar-list">
-                    <button class="side-bar-button second-button">Top 10</button>
+                    <button id="side-bar-news-top-10" class="side-bar-button second-button">Top 10</button>
                     <button class="side-bar-button second-button">All News</button>
                     <button class="side-bar-button second-button">News By ID</button>
                     <button class="side-bar-button second-button">News By Name</button>
@@ -81,7 +81,7 @@
                         
                 </button>
                 <div id="side-bar-events-list" class="side-bar-list">
-                    <button class="side-bar-button second-button">Top 10</button>
+                    <button id="side-bar-events-top-10" class="side-bar-button second-button">Top 10</button>
                     <button class="side-bar-button second-button">All Events</button>
                     <button class="side-bar-button second-button">Events By ID</button>
                     <button class="side-bar-button second-button">Events By Name</button>
@@ -94,7 +94,7 @@
                                                
                 </button>
                 <div id="side-bar-suggestions-list" class="side-bar-list">
-                    <button class="side-bar-button second-button">Top 10</button>
+                    <button id="side-bar-suggestions-top-10" class="side-bar-button second-button">Top 10</button>
                     <button class="side-bar-button second-button">All Suggestions</button>
                     <button class="side-bar-button second-button">Suggestions By ID</button>
                     <button class="side-bar-button second-button">Suggestions By Name</button>
@@ -134,7 +134,7 @@
                     </button>
                 </div>
             </div>
-            <div id="admin-panel-home-container" class="admin-panel-container">
+            <div id="admin-panel-home" class="admin-panel-container">
                 <div class="scroll-content">
                     <h2 class="admin-panel-title">Welcome to the Admin Panel, <span id="welcome-admin-name">Bobsmith</span>!</h2>
                     <div id="home-data-wrapper" class="data-table-container">
@@ -157,7 +157,7 @@
                                     
                                 </td>
                             </tr>
-                        </div>
+                        </table>
                         <!--
                             <div class="data-box">
                                 Data Here
@@ -167,7 +167,141 @@
                     </div>
                 </div>
             </div>
-            
+            <div id="admin-panel-news-top-10" class="admin-panel-container hide">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">News</h2>
+                    <h2 class="admin-panel-title">Top 10</h2>
+                    <div id="news-top-10-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
+            <div id="admin-panel-events-top-10" class="admin-panel-container hide">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">Events</h2>
+                    <h2 class="admin-panel-title">Top 10</h2>
+                    <div id="events-top-10-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
+            <div id="admin-panel-suggestions-top-10" class="admin-panel-container hide">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">Suggestions</h2>
+                    <h2 class="admin-panel-title">Top 10</h2>
+                    <div id="suggestions-top-10-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
+            <div id="admin-panel-pending" class="admin-panel-container hide">
+                <div class="scroll-content">
+                    <h2 class="admin-panel-title">Pending</h2>
+                    <div id="pending-data-wrapper" class="data-table-container">
+                        <table class="data-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>image</th>
+                                <th>description</th>
+                                <th class="fill-cell"></th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
+                                <td class="fill-cell">
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <!--
+                            <div class="data-box">
+                                Data Here
+                            </div>
+                        -->
+
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -423,7 +557,7 @@
         </div>
     </div>
 
-    <div id="modify-buttons-template" class="hide">
+    <template id="modify-buttons-template">
         <div class="card-modify-buttons-wrapper">
             <button class="card-edit-button hidden-button-style">
                 <svg width="46" height="44" viewBox="0 0 46 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -473,6 +607,22 @@
                     
             </button>
         </div>
-    </div>
+
+        <div class="approve-buttons-wrapper">
+            <button class="accept-button hidden-button-style">
+                <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
+                    </svg>
+                    
+                </button>
+            <button class="reject-button hidden-button-style">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.4056 18L18 15.3685L11.5854 8.86243L17.7287 2.63147L15.1343 0L8.99097 6.23097L2.86572 0.0183226L0.271267 2.64979L6.39652 8.86243L0 15.3502L2.59445 17.9817L8.99097 11.4939L15.4056 18Z" fill="#F25555"/>
+                    </svg>
+                    
+                    
+            </button>
+        </div>
+    </template>
 </body>
 </html>

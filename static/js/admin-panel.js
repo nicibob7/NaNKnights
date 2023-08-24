@@ -1,5 +1,6 @@
 const firstButtons = document.querySelectorAll('.first-button');
 const secondButtons = document.querySelectorAll('.second-button');
+const sidebarButtons = document.querySelectorAll('.side-bar-button');
 const sideBarNewsList = document.querySelector('#side-bar-news-list');
 const sideBarEventsList = document.querySelector('#side-bar-events-list');
 const sideBarSuggestionsList = document.querySelector('#side-bar-suggestions-list');
@@ -8,7 +9,11 @@ const sideBar = document.querySelector('#side-bar');
 const addContentButton = document.querySelector('#add-content-button');
 const topBarAddWrapper = document.querySelector('#top-bar-add-wrapper');
 
-const homePanel = document.querySelector('#admin-panel-home-container');
+const homePanel = document.querySelector('#admin-panel-home');
+const newsTop10Panel = document.querySelector('#admin-panel-news-top-10');
+const eventsTop10Panel = document.querySelector('#admin-panel-events-top-10');
+const suggestionsTop10Panel = document.querySelector('#admin-panel-suggestions-top-10');
+const pendingPanel = document.querySelector('#admin-panel-pending');
 
 const addNewsButton = document.querySelector('#add-news-button');
 const addEventButton = document.querySelector('#add-event-button');
@@ -28,7 +33,7 @@ const formCloseButtons = document.querySelectorAll('.form-close-button');
 const overlay = document.querySelector('#overlay');
 
 const deleteFormButton = document.querySelector('#delete-form-button');
-const modifyButtonsTemplate = document.querySelector('#modify-buttons-template .card-modify-buttons-wrapper');
+const modifyButtonsTemplate = document.querySelector('#modify-buttons-template');
 const pendingAlertButton = document.querySelector('#pending-alert-button');
 
 let selectedId = -1;
@@ -57,7 +62,7 @@ const deselectTabs = () => {
     let tabSelected = sideBar.querySelectorAll('.tab-selected');
     for (let i = 0; i < tabSelected.length; i++) {
         tabSelected[i].classList.remove('tab-selected');
-        console.log(tabSelected[i]);
+        // console.log(tabSelected[i]);
         if (tabSelected[i].classList.contains('first-button-selected')) {
             tabSelected[i].classList.remove('first-button-selected');
         }
@@ -80,11 +85,12 @@ const hidePanels = () => {
     }
 }
 
-const generateTables = (data) => {
+const generatePendingTable = (data) => {
+    // console.log(data.length);
     if (data.length == 0) return;
-    const headerLength = Object.keys(data).length;
-    let modifyButtons = modifyButtonsTemplate.cloneNode(true);
-
+    const headerLength = Object.keys(data[0]).length;
+    // console.log(modifyButtonsTemplate);
+    
     const table = document.createElement('table');
     table.classList.add('data-table');
 
@@ -93,24 +99,230 @@ const generateTables = (data) => {
 
     for (let i = 0; i < headerLength; i++) {
         let header = document.createElement('th');
-        header.textContent = String(Object.keys(data)[i]);
+        // header.textContent = String(Object.keys(data)[i]);
+        header.textContent = String(Object.keys(data[0])[i]);
         trHeader.appendChild(header);
     }
 
-    table.appendChild(trHeader);
+    let approveButtonHeader = document.createElement('th');
+    approveButtonHeader.textContent = "Pending"
+    trHeader.appendChild(approveButtonHeader);
 
+    table.appendChild(trHeader);
+    
+    // console.log('stopping');
+    // console.log(data.length);
     for (let i = 0; i < data.length; i++) {
+        let panel = null;
+        let approveButtons = modifyButtonsTemplate.content.querySelector('.approve-buttons-wrapper').cloneNode(true);
+        // modifyButtons = modifyButtons.content.querySelector('.card-modify-buttons-wrapper');
+
+        for (let i = 0; i < adminPanels.length; i++) {
+            if (!adminPanels[i].classList.contains('hide')) {
+                panel = adminPanels[i];
+                break;
+            }
+        }
+
         let tableRow = document.createElement('tr');
+        switch (panel.id) {
+            case "admin-panel-home":
+                tableRow.id = "news-" + data[i]['id'];
+            break;
+            case "admin-panel-news-top-10":
+                tableRow.id = "news-" + data[i]['id'];
+            break;
+            case "admin-panel-event-top-10":
+                tableRow.id = "event-" + data[i]['id'];
+            break;
+            case "admin-panel-suggestion-top-10":
+                tableRow.id = "suggestion-" + data[i]['id'];
+            break;
+            case "admin-panel-pending":
+                tableRow.id = "pending-" + data[i]['id'];
+            break;
+            case "admin-panel-server-logs":
+
+            break;
+        }
+
+        approveButtons.querySelector('.accept-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const strArray = String(e.target.closest('tr').id).split('-');
+            
+            selectedId = parseInt(strArray[1]);
+            
+            // Approve Stuff
+        });
+
+        approveButtons.querySelector('.reject-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const strArray = String(e.target.closest('tr').id).split('-');
+            
+            selectedId = parseInt(strArray[1]);
+            
+            // Reject Stuff
+
+        });
+
         for (let j = 0; j < headerLength; j++) {
+            // console.log(headerLength);
             let td1 = document.createElement('td');
-            td1.textContent = String(data[Object.keys(data)[j]]);
+            
+            let key = String(Object.keys(data[i])[j]);
+
+            // console.log(data[i][key]);
+
+            td1.textContent = String(data[i][key]);
             tableRow.appendChild(td1);
         }
+        let td2 = document.createElement('td');
+        td2.classList.add('fill-cell');
+        // console.log(modifyButtons);
+        td2.appendChild(approveButtons);
+        tableRow.appendChild(td2);
+        table.appendChild(tableRow);
     }
 
     for (let i = 0; i < adminPanels.length; i++) {
         if (!adminPanels[i].classList.contains('hide')) {
-            adminPanels[i].querySelector('.data-table-wrapper').appendChild(table);
+            adminPanels[i].querySelector('.data-table-container').textContent = "";
+            adminPanels[i].querySelector('.data-table-container').appendChild(table);
+        }
+    }
+}
+
+const generateTables = (data) => {
+    // console.log(data.length);
+    if (data.length == 0) return;
+    const headerLength = Object.keys(data[0]).length;
+    // console.log(modifyButtonsTemplate);
+    
+    const table = document.createElement('table');
+    table.classList.add('data-table');
+
+    const trHeader = document.createElement('tr');
+    
+
+    for (let i = 0; i < headerLength; i++) {
+        let header = document.createElement('th');
+        // header.textContent = String(Object.keys(data)[i]);
+        header.textContent = String(Object.keys(data[0])[i]);
+        trHeader.appendChild(header);
+    }
+
+    let modifyButtonHeader = document.createElement('th');
+    trHeader.appendChild(modifyButtonHeader);
+
+    table.appendChild(trHeader);
+    
+    // console.log('stopping');
+    // console.log(data.length);
+    for (let i = 0; i < data.length; i++) {
+        let panel = null;
+        let modifyButtons = modifyButtonsTemplate.content.querySelector('.card-modify-buttons-wrapper').cloneNode(true);
+        // modifyButtons = modifyButtons.content.querySelector('.card-modify-buttons-wrapper');
+
+        for (let i = 0; i < adminPanels.length; i++) {
+            if (!adminPanels[i].classList.contains('hide')) {
+                panel = adminPanels[i];
+                break;
+            }
+        }
+
+        let tableRow = document.createElement('tr');
+        switch (panel.id) {
+            case "admin-panel-home":
+                tableRow.id = "news-" + data[i]['id'];
+            break;
+            case "admin-panel-news-top-10":
+                tableRow.id = "news-" + data[i]['id'];
+            break;
+            case "admin-panel-event-top-10":
+                tableRow.id = "event-" + data[i]['id'];
+            break;
+            case "admin-panel-suggestion-top-10":
+                tableRow.id = "suggestion-" + data[i]['id'];
+            break;
+            case "admin-panel-pending":
+                tableRow.id = "news-" + data[i]['id'];
+            break;
+            case "admin-panel-server-logs":
+
+            break;
+        }
+
+        modifyButtons.querySelector('.card-edit-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const strArray = String(e.target.closest('tr').id).split('-');
+            
+            selectedId = parseInt(strArray[1]);
+            
+            switch(strArray[0]) {
+                case "news":
+                    updateNewsForm.classList.remove('hide');
+                break;
+                case "event":
+                    updateEventForm.classList.remove('hide');
+                break;
+                case "suggestion":
+                    updateSuggestionForm.classList.remove('hide');
+                break;
+            }
+            overlay.classList.remove('hide');
+        });
+
+        modifyButtons.querySelector('.card-delete-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const strArray = String(e.target.closest('tr').id).split('-');
+            
+            selectedId = parseInt(strArray[1]);
+            
+            switch(strArray[0]) {
+                case "news":
+                    // delete news function
+                    e.target.closest('tr').remove();
+                break;
+                case "event":
+                    // delete event function
+                    e.target.closest('tr').remove();
+                break;
+                case "suggestion":
+                    // delete suggestion function
+                    e.target.closest('tr').remove();
+                break;
+            }
+
+            // overlay.classList.remove('hide');
+        });
+
+        for (let j = 0; j < headerLength; j++) {
+            // console.log(headerLength);
+            let td1 = document.createElement('td');
+            
+            let key = String(Object.keys(data[i])[j]);
+
+            // console.log(data[i][key]);
+
+            td1.textContent = String(data[i][key]);
+            tableRow.appendChild(td1);
+        }
+        let td2 = document.createElement('td');
+        td2.classList.add('fill-cell');
+        // console.log(modifyButtons);
+        td2.appendChild(modifyButtons);
+        tableRow.appendChild(td2);
+        table.appendChild(tableRow);
+    }
+
+    for (let i = 0; i < adminPanels.length; i++) {
+        if (!adminPanels[i].classList.contains('hide')) {
+            adminPanels[i].querySelector('.data-table-container').textContent = "";
+            adminPanels[i].querySelector('.data-table-container').appendChild(table);
         }
     }
 }
@@ -147,7 +359,7 @@ const init = () => {
     for (let i = 0; i < firstButtons.length; i++) {
         firstButtons[i].addEventListener('click', (e) => {
             e.preventDefault();
-    
+            
     
             if (firstButtons[i].id == 'side-bar-news') {
                 if (sideBarNewsList.classList.contains('side-bar-list-expanded')) {
@@ -184,8 +396,7 @@ const init = () => {
                 firstButtons[i].classList.add('tab-selected');
                 firstButtons[i].classList.add('first-button-selected');
             }
-    
-            
+
         });
     }
     
@@ -206,6 +417,36 @@ const init = () => {
 
             formCloseButtons[i].closest('.overlay-form').classList.add('hide');
             overlay.classList.add('hide');
+        });
+    }
+
+    for (let i = 0; i < sidebarButtons.length; i++) {
+        sidebarButtons[i].addEventListener('click', () => {
+           
+
+            switch(sidebarButtons[i].id) {
+                case "side-bar-home":
+                    hidePanels();
+                    homePanel.classList.remove('hide');
+                break;
+                case "side-bar-news-top-10":
+                    hidePanels();
+                    newsTop10Panel.classList.remove('hide');
+                break;
+                case "side-bar-events-top-10":
+                    hidePanels();
+                    eventsTop10Panel.classList.remove('hide');
+                break;
+                case "side-bar-suggestions-top-10":
+                    hidePanels();
+                    suggestionsTop10Panel.classList.remove('hide');
+                break;
+                case "side-bar-pending":
+                    hidePanels();
+                    pendingPanel.classList.remove('hide');
+                break;
+            }
+            
         });
     }
 
@@ -241,3 +482,21 @@ const init = () => {
 }
 
 init();
+
+generatePendingTable (
+    [{
+        id: "1",
+        title: "rest",
+        date: "rest",
+        image: "rest",
+        description: "rest"
+    },
+    {
+        id: "2",
+        title: "rest",
+        date: "rest",
+        image: "rest",
+        description: "rest"
+    }
+    ]
+);
