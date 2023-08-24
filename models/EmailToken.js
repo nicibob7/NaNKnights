@@ -4,7 +4,8 @@ const base_url = require('../security/serverUrl');
 
 
 class EmailToken {
-    constructor(username) {
+    //allowed for the params to be decoupled just incase. If not neccesary then the curly braces can be removed.
+    constructor({username}) {
         this.username = username;
     }
 
