@@ -105,7 +105,7 @@ describe("CommunityEvent Model unit tests", () => {
                     date: "2021-01-01"
                 },
                 {
-                    id: 2 ,
+                    id: 2,
                     title: "Event 2",
                     description: "This is an event",
                     date_posted: "2023-08-24 12:52:02.669291",
