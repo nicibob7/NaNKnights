@@ -18,6 +18,8 @@ const deleteNewsCancelButton = document.querySelector('#delete-news-cancel-butto
 const deleteNewsButton = document.querySelector('#delete-news-button');
 const deleteNewsDialog = document.querySelector('#delete-news-dialog');
 const cardsList = document.querySelectorAll('.card');
+const newsMainContent = document.querySelector('#news-main-content');
+const template = document.querySelector('template');
 
 let selectedID = 0;
 
@@ -62,7 +64,7 @@ addNewsUpload.addEventListener('change', (e) => {
   	if (target.files.length > 0) {
 
         for (let i = 0; i < target.files.length; i++) {
-            const maxAllowedSize = 1 * 1024 * 1024;
+            const maxAllowedSize = 10 * 1024 * 1024;
             if (target.files[i].size > maxAllowedSize) {
                 target.value = ''
             }
@@ -145,23 +147,143 @@ addNewsForm.addEventListener('input', (e) => {
         }
 });
 
-addNewsForm.addEventListener('submit', (e) => {
+addNewsForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     // Add news to database POST Request
-    console.log('Fired');
+
+    const form = new FormData(e.target);
+
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            title: form.get("add-news-title"),
+            description: form.get("add-news-description"),
+            type: form.get("add-news-type"),
+            image: form.get("add-news-image")
+        })
+    };
+    
+    await fetch("/admins/news", options)
+        .then(response => response.json())
+        .then(data => {
+            
+            console.log(data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
 });
+
+
+
+const createNews = (news) => {
+    const { id, title, description, date_posted, posted_by, type, image } = news;
+    let newsElement = null;
+    console.log(title);
+    
+    switch (userType) {
+        case "guest":
+            newsElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "user":
+            newsElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "admin":
+            newsElement = template.content.querySelector('.editable-card').cloneNode(true);
+            newsElement.querySelector('.card-edit-button').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // let idArray = (cardsList[i].id).split('-');
+                // selectedID = idArray[idArray.length-1];
+        
+                
+        
+                updateNewsForm.classList.remove('hide');
+                overlayFadeIn();
+                overlay.classList.remove('hide');
+                // hideOverlay();
+            });
+            newsElement.querySelector('.card-delete-button').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // let idArray = (cardsList[i].id).split('-');
+                // selectedID = idArray[idArray.length-1];
+        
+                deleteNewsDialog.classList.remove('hide');
+                overlayFadeIn();
+                overlay.classList.remove('hide');
+                // hideOverlay();
+            });
+        
+            newsElement.addEventListener('mousemove', () => {
+                newsElement.querySelector('.card-edit-button').classList.remove('hide');
+                newsElement.querySelector('.card-delete-button').classList.remove('hide');
+            });
+        
+            newsElement.addEventListener('mouseleave', () => {
+                newsElement.querySelector('.card-edit-button').classList.add('hide');
+                newsElement.querySelector('.card-delete-button').classList.add('hide');
+            });
+        break;
+        default:
+            newsElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+    }
+
+    let tempDate = new Date(date_posted);
+
+    newsElement.id = "news-" + id; 
+    newsElement.querySelector('.card-title').textContent = title;
+    newsElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+    // newsElement.querySelector('.card-date').textContent = "15/06/2023";
+    newsElement.querySelector('.card-description').textContent = description;
+    newsElement.querySelector('.card-type').textContent = type;
+    // newsElement.querySelector('.card-image-wrapper > img').src = String();
+
+    newsElement.addEventListener('click', (e) => {
+        e.preventDefault();
+        // console.log('Triggered');
+        
+        window.location.assign(`/news/${id}`);
+
+        // open news page ->
+        // 
+    });
+
+    return newsElement;
+    // news.
+}
 
 
 const fetchNews = async () => {
     await fetch('/news/all')
     .then((response) => response.json())
     .then((data) => {
-        console.log(data);
+        //console.log(data);
+        try {
+            newsMainContent.textContent = "";
+            data.forEach(news => {
+                // console.log(news);
+                let elem = createNews(news);
+                
+                console.log(elem);
+                newsMainContent.appendChild(elem);
+            })
+        } catch (error) {
+            console.log(error);
+        }
+        
     })
     .catch((error) => console.log(error.error));
 }
 
 fetchNews();
+
+if (userType != "admin") {
+    //addNewsButton.remove();
+}
+// checkUserType();
 
 /*
 for (let i = 0; i < cardsList.length; i++) {

@@ -481,20 +481,20 @@ const init = () => {
 
 init();
 
-generatePendingTable (
-    [{
-        id: "1",
-        title: "rest",
-        date: "rest",
-        image: "rest",
-        description: "rest"
-    },
-    {
-        id: "2",
-        title: "rest",
-        date: "rest",
-        image: "rest",
-        description: "rest"
-    }
-    ]
-);
+// generatePendingTable (
+//     [{
+//         id: "1",
+//         title: "rest",
+//         date: "rest",
+//         image: "rest",
+//         description: "rest"
+//     },
+//     {
+//         id: "2",
+//         title: "rest",
+//         date: "rest",
+//         image: "rest",
+//         description: "rest"
+//     }
+//     ]
+// );

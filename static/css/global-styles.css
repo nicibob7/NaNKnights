@@ -298,15 +298,6 @@ textarea {
     --dark: #151a30;
 }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-}
-
 #notification_box {
     position: fixed;
     margin-left: auto;
@@ -316,6 +307,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    left: 50%;
+    transform: translate(-50%, 0%);
 }
 
 .alert {

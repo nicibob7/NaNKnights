@@ -31,24 +31,7 @@
                 </div>
 
             </div>
-            <div id="nav-right" class="hide-padding">
-                <div id="nav-right-button-wrapper">
-                    <a href="/admin-panel" id="nav-admin-panel-button" class="nav-button hide">Admin Panel</a>
-                    <a href="/dashboard" id="nav-dashboard-button" class="nav-button hide">My Stuff</a>
-                    <a href="/login" id="nav-login-button" class="nav-button">Login</a>
-                </div>
-                
-                <a href="/register" id="nav-signup-button">SIGN UP</a>
-
-                <div id="nav-account-wrapper" class="hide">
-                    <img id="nav-account-icon" src="./res/account-icon.png">
-                    <div id="nav-account-dropdown-list" class="menu-default hide">
-                        <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
-                        <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
-                        <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </nav>
     <main>
@@ -698,6 +681,46 @@
             <p>Copyrighted by NaNKnights 2023</p>
         </footer>
     </main>
-    
+    <template>
+        <!-- guest -->
+        <div id="nav-right" class="nav-right-guest ide-padding">
+            <div id="nav-right-button-wrapper">
+                <a href="/login" id="nav-login-button" class="nav-button">Login</a>
+            </div>
+            
+            <a href="/register" id="nav-signup-button">SIGN UP</a>
+        </div>
+
+        <!-- user -->
+        <div id="nav-right" class="nav-right-user">
+            <div id="nav-right-button-wrapper">
+                <a href="/dashboard" id="nav-dashboard-button" class="nav-button">My Stuff</a>
+            </div>
+
+            <div id="nav-account-wrapper">
+                <img id="nav-account-icon" src="./res/account-icon.png">
+                <div id="nav-account-dropdown-list" class="menu-default hide">
+                    <a href="" id="nav-account-dashboard" class="account-dropdown-button">My Stuff</a>
+                    <a href="" id="nav-account-settings" class="account-dropdown-button">Account</a>
+                    <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- admin -->
+        <div id="nav-right" class="nav-right-admin">
+            <div id="nav-right-button-wrapper">
+                <a href="/admin-panel" id="nav-admin-panel-button" class="nav-button">Admin Panel</a>
+            </div>
+
+            <div id="nav-account-wrapper">
+                <img id="nav-account-icon" src="./res/account-icon.png">
+                <div id="nav-account-dropdown-list" class="menu-default hide">
+                    <a href="" id="nav-account-admin-panel" class="account-dropdown-button">Admin Panel</a>
+                    <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
+                </div>
+            </div>
+        </div>
+    </template>
 </body>
 </html>

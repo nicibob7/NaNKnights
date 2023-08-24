@@ -26,7 +26,7 @@ main {
 }
 
 #news-main-content {
-    width: 96%;
+    width: 100%;
     height: 80%;
     background-color: antiquewhite;
     overflow: auto;
@@ -307,7 +307,7 @@ main {
 .card-text-padder { 
     padding-left: 3%;
     padding-right: 3%;
-    width: 94%;
+    width: 100%;
 }
 
 .card-text-top {

@@ -1,25 +1,28 @@
 const navWrapper = document.querySelector('#nav-wrapper');
 const templates = document.querySelector('template');
 
+let userType = '';
+
 const notifyUser = async (message, status) => {
     const notificationBox = document.getElementById('notification_box');
+
 
     const alertData = {
         success: {
             class: 'alert-success',
-            image: 'res/tick.png',
+            image: '../res/tick.png',
         },
         warning: {
             class: 'alert-warning',
-            image: 'res/warning.png',
+            image: '../res/warning.png',
         },
         error: {
             class: 'alert-error',
-            image: 'res/error.png',
+            image: '../res/error.png',
         },
         info: {
             class: 'alert-primary',
-            image: 'res/info.png',
+            image: '../res/info.png',
         },
     };
 
@@ -40,10 +43,12 @@ const notifyUser = async (message, status) => {
 
     const iconImage2 = document.createElement('img');
 
-    iconImage2.src = "res/x.png";
+    iconImage2.src = "../res/x.png";
     iconImage2.style.width = '40px';
     iconImage2.style.height = '40px';
     iconImage2.style.marginLeft = 'auto';
+    iconImage2.style.cursor = 'pointer';
+
     iconImage2.addEventListener('click', () => {
         notificationBox.removeChild(alertDiv);
     });
@@ -62,12 +67,14 @@ const checkUserPermission = async () => {
         try {
             
             if (data['account'] == "guest") {
-                console.log("guest");
+                // console.log("Guest");
+                userType = 'guest';
                 navWrapper.appendChild(templates.content.querySelector('.nav-right-guest').cloneNode(true));
             }
             else if (Object.keys(data['account']).length == 5) {
                 // user
-                console.log("User");
+                // console.log("User");
+                userType = 'user';
                 navWrapper.appendChild(templates.content.querySelector('.nav-right-user').cloneNode(true));
                 const navAccountIcon = document.querySelector('#nav-account-icon');
                 const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
@@ -89,12 +96,14 @@ const checkUserPermission = async () => {
             }
             else {
                 // admin
-                console.log("Admin");
+                // console.log("Admin");
+                userType = 'admin';
                 navWrapper.appendChild(templates.content.querySelector('.nav-right-admin').cloneNode(true));
                 const navAccountIcon = document.querySelector('#nav-account-icon');
                 const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
                 
                 navAccountDropdownList.querySelector('#nav-account-admin-panel').addEventListener('click', (e) => {
+                    e.preventDefault();
                     window.location.assign('/admin-panel');
                 });
                 
@@ -116,11 +125,10 @@ const checkUserPermission = async () => {
         } catch (error) {
             
         }
-        console.log(data);
         
     })
     .catch((error) => console.log(error));
 }
 
-// createNotificationWithImage('This is a success message', 'error');
+// notifyUser('This is a success message', 'success');
 checkUserPermission();
