@@ -1,7 +1,7 @@
 const navWrapper = document.querySelector('#nav-wrapper');
 const templates = document.querySelector('template');
 
-const createNotificationWithImage = async (message, status) => {
+const notifyUser = async (message, status) => {
     const notificationBox = document.getElementById('notification_box');
 
     const alertData = {

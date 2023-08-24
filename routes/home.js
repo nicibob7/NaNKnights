@@ -1,7 +1,9 @@
 const express = require("express");
 const home = require("../controllers/home");
 const router = express.Router();
+
 const validateParameters = require("../middleware/validateParams");
+const userType = require("../middleware/userType");
 
 /* public endpoints */
 // cant have get in this one, as it will conflict with the get /suggestions/all & /suggestions/:id
@@ -31,6 +33,8 @@ router.get("/news", home.news);
 router.get("/suggestions/:id", home.suggestion_page);
 router.get("/news/:id", home.news_page);
 
+router.post("/account_type", userType);
+
 // keep always last, handles all other unimplemented routes
 router.get("*", (req, res) => {
     if (req.method === "HEAD") {
@@ -39,6 +43,6 @@ router.get("*", (req, res) => {
 
     res.redirect("/");
 });
-router.all("*", home.notFound);
+router.all("*", );
 
 module.exports = router;

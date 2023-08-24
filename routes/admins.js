@@ -23,4 +23,5 @@ router.post("/suggestion", adminSecureAuth, validate({
     image: {type: 'image'},
 }), admins.postSuggestion);
 router.post("/ping", adminSecureAuth, admins.ping);
+
 module.exports = router;
