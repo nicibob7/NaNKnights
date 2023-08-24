@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/global-styles.css" >
     <link rel="stylesheet" href="./css/admin-panel.css" >
     <script defer src="./js/global-script.js"></script>
+    <script src="./js/chartLoader.js"></script>
     <script defer src="./js/admin-panel.js"></script>
     <title>Admin Panel | Day 'n' Day</title>
 </head>
@@ -119,28 +120,31 @@
             </div>
             <div id="admin-panel-home" class="admin-panel-container">
                 <div class="scroll-content">
-                    <h2 class="admin-panel-title">Welcome to the Admin Panel, <span id="welcome-admin-name">Bobsmith</span>!</h2>
+                    <h2 class="admin-panel-title">Welcome to the Admin Panel, <span id="welcome-admin-name"> </span>!</h2>
                     <div id="home-data-wrapper" class="data-table-container">
-                        <table class="data-table">
-                            <tr>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Date</th>
-                                <th>image</th>
-                                <th>description</th>
-                                <th class="fill-cell"></th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>
-                                <td class="fill-cell">
-                                    
-                                </td>
-                            </tr>
-                        </table>
+                        <div id="server_stats" class="data-box"></div>
+                        <div id="non_reg_users_pie"></div>
+
+<!--                        <table class="data-table">-->
+<!--                            <tr>-->
+<!--                                <th>ID</th>-->
+<!--                                <th>Title</th>-->
+<!--                                <th>Date</th>-->
+<!--                                <th>image</th>-->
+<!--                                <th>description</th>-->
+<!--                                <th class="fill-cell"></th>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                                <td></td>-->
+<!--                                <td>sadasdaoijdoiajwoidjwaojdoajw aasas as da s as daowj doaiow jowidajo jaow jwao jowajwd</td>-->
+<!--                                <td class="fill-cell">-->
+<!--                                    -->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
                         <!--
                             <div class="data-box">
                                 Data Here
@@ -577,7 +581,7 @@
                     <img id="nav-account-icon" src="./res/account-icon.png">
                     <div id="nav-account-dropdown-list" class="menu-default hide">
                         <a href="" id="nav-account-admin-panel" class="account-dropdown-button">Admin Panel</a>
-                        <a href="" id="nav-account-logout" class="account-dropdown-button">Logout</a>
+                        <a href="" id="nav-account-logout" class="account-dropdown-button logout-btn">Logout</a>
                     </div>
                 </div>
             </div>

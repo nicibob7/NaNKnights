@@ -23,7 +23,7 @@ const postSuggestion = async (req, res) => {
 }
 const getSuggestionById = async (req, res) => {
     try {
-        const suggestion = await Suggestion.getById(req.body.id);
+        const suggestion = await Suggestion.getById(req.params.id);
         res.status(200).json(suggestion);
     } catch (error) {
         res.status(400).json({error: error.message});

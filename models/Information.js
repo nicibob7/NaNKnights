@@ -48,6 +48,35 @@ class Information {
 
         return result.rows;
     }
+
+    static async getPostCountLastHour() {
+        const result = await db.query("SELECT COUNT(*) FROM information WHERE date_posted > NOW() - INTERVAL '1 hour'");
+        return result.rows[0].count || 0;
+    }
+
+    static async update(data) {
+        const information = new Information(data);
+        const result = await db.query(
+            'UPDATE information SET title = $1, description = $2, type = $3, image = $4 WHERE id = $5 RETURNING *',
+            [information.title, information.description, information.type, information.image, information.id]);
+
+        // no need to return bytearray or base64 string
+        result.rows[0].image = (data.image.length / 1024).toFixed(2) + " KB image file";
+
+        result.rows.forEach((information) => {
+            if(!information.image) return;
+            // convert to KB
+            information.image = information.image.toString();
+        });
+
+        return result.rows[0];
+    }
+
+    static async delete(id) {
+        const response = await db.query('DELETE FROM information WHERE id = $1 RETURNING *', [id]);
+
+        return response.rows[0];
+    }
 }
 
 module.exports = Information;
