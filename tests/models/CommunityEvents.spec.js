@@ -135,9 +135,12 @@ describe("CommunityEvent Model unit tests", () => {
             jest.spyOn(db,'query').mockResolvedValueOnce({rows: [event2]});
 
             const result = await CommunityEvent.create(frontEndEvent);
+            console.log(result.rows[0])
+
             expect(typeof(result)).toBe('object')
-            expect(Object.keys(result)).toEqual(Object.keys(suggestion1));
-            expect(Object.values(result)).toEqual(Object.values(suggestion1));
+            expect(Object.keys(result.rows[0])).toEqual(Object.keys(event2));
+            expect(Object.values(result.rows[0])).toEqual(Object.values(event2));
         })
+    })    
 
 })
