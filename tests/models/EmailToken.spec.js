@@ -87,6 +87,45 @@ describe("EmailToken Model unit tests", () => {
                 expect(error.message).toBe("Token has been used or expired")
             }
         })
+
+        describe("EmailToken.deleteByToken(token)", () => {
+
+            it("does not return a value so it should be falsy", async () => {
+
+                const token = shortVersionUser.token;
+
+                jest.spyOn(db,'query').mockResolvedValueOnce()
+
+                const result = await EmailToken.deleteByToken(token);
+                expect(result).toBeFalsy();
+            })
+            
+        })
+
+        describe("EmailToken.deleteByUsername(username)", () => {
+
+            it("does not return a value so it should be falsy", async () => {
+
+                const username = shortVersionUser.username;
+
+                jest.spyOn(db,'query').mockResolvedValueOnce({Result: 
+                    {
+                        command: 'DELETE',
+                        rowCount: 0,
+                        oid: null,
+                        rows: [],
+                        fields: [],
+                        _parsers: undefined,
+                        RowCtor: null,
+                        rowAsArray: false
+                    }
+                })
+
+                const result = await EmailToken.deleteByToken(username);
+                expect(result).toBeFalsy();
+            })
+            
+        })
     })
 
     // describe("EmailToken.()", () => {
