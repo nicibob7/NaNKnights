@@ -82,7 +82,7 @@ describe("Suggestion Models unit tests", () => {
                 posted_by: "bob",
                 votes: 1,
                 is_resolved: false,
-                is_activated: false,
+                is_activated: true,
                 image: 1,
                 urgency_level: "low"
             }
@@ -92,7 +92,6 @@ describe("Suggestion Models unit tests", () => {
             const result = await Suggestion.getAll()
             expect(typeof(result[1].image)).toBe('string')
             expect(result.length).toBe(2)
-
 
         })
     })
@@ -199,7 +198,7 @@ describe("Suggestion Models unit tests", () => {
 
         })
 
-        it("Should throw error if row of suggestions does not equal 1", async () => {
+        it("Should throw new Error if row of suggestions does not equal 1", async () => {
 
             let newSuggestion = new Suggestion(suggestion1)
 
