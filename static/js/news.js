@@ -284,9 +284,8 @@ const fetchNews = async () => {
     .catch((error) => console.log(error.error));
 }
 
+
 fetchNews();
-
-
 
 const checkUserType = async () => {
     await getUserType();

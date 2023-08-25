@@ -237,7 +237,12 @@ addNewsForm.addEventListener('input', (e) => {
 //         // console.log('Triggered');
         
 
-//         // open news page ->
-//         // 
+        // open news page ->
+        // 
 //     });
 // }
+
+if(userType !== "admin"){
+    newsEditButton.remove();
+    newsDeleteButton.remove();
+}

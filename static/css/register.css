@@ -122,11 +122,7 @@ footer > p {
   flex-direction: column;
   overflow: auto;
 }
-#login-container {
-  /* height: 95%;
-  width: 40%; */
-  /* padding-bottom: 20%; */
-}
+
 #login-wrapper {
   width: 51%;
   display: flex;
@@ -135,6 +131,12 @@ footer > p {
   justify-content: center;
 }
 
-#login-form {
+
+#login-form{
+  height: auto;
   justify-content: center;
+}
+
+#login-container{
+  height: auto;
 }

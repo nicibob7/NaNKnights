@@ -7,27 +7,29 @@
     <link rel="stylesheet" href="./css/global-styles.css" >
     <link rel="stylesheet" href="./css/login.css" >
     <script defer src="./js/global-script.js"></script>
-    <!-- <script defer src="./js/login.js"></script> -->
     <!--  files for register -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
     <link rel="icon" type="image/x-icon" href="res/logo.png">
     <!-- new file -->
     <link type="text/css" rel="stylesheet" href="css/register.css">
     <script defer src="./js/register.js"></script>
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Register | Day 'n' Day</title>
 
 </head>
 <body>
+<div id="notification_box"></div>
     <!-- navbar -->
         <nav class="menu-default">
+            <div id="nav-wrapper">
+
             <div id="nav-left">
                 <div id="logo-wrapper">
                     <a id="nav-home-button" href="./home.html">
                         <img id="nav-logo" src="./res/logo1.png">
                         <div id="logo-text-wrapper">
                             <p id="logo-text-main">Day 'n' Day</p>
-                            <p id="logo-text-sub">Florin Country Community App</p>
+                            <p id="logo-text-sub">Florin County Community App</p>
                         </div>
                     </a>
                 </div>
@@ -38,37 +40,28 @@
                     <a href="./suggestions.html" id="nav-suggestions-button" class="nav-button">Suggestions</a>
                     <a href="./about.html" id="nav-about-button" class="nav-button">About</a>
                 </div>
-    
             </div>
-        </div>
+
+            </div>
     </nav>
     <main>
         <div id="login-container">
         <form id="login-form" class="registration-form" method="POST">
             <h1 id="login-title">Register</h1>
             <div id="login-wrapper">
-                <p id="registration-link" class="form-text login-el">Already have an account? <a href="/register" class="text-link">Login</a></p>
+                <p id="registration-link" class="form-text login-el">Already have an account? <a href="/login" class="text-link">Login</a></p>
                 <div class="input-container">
                     <input type="email" id="email" class="input-text login-el" name="email" placeholder="Email">
-                </div>
-                <div class="input-container">
                     <input type="text" id="username" class="input-text login-el" name="username" placeholder="Username">
-                </div>
-                 <!-- New Password -->
-                <div class="password-container">
+                    <input type="text" id="firstName" class="input-text login-el" name="username" placeholder="First Name">
+                    <input type="text" id="lastName" class="input-text login-el" name="username" placeholder="Last Name">
+                    <input type="text" id="address" class="input-text login-el" name="username" placeholder="Address">
+                    <input type="text" id="phoneNumber" class="input-text login-el" name="username" placeholder="Phone Number">
                     <input type="password" id="password" autocomplete="password" class="input-text login-el" name="password" placeholder="New Password">
-                    <span class="toggle-password" id="togglePassword">
-                        <i class="fas fa-eye" id="toggleIcon"></i>
-                    </span>
+                    <input type="password" id="password2" autocomplete="password" class="input-text login-el" name="password" placeholder="Confirm Password">
+
                 </div>
-                <!-- confirm Password -->
-            <div class="password-container-2">
-                <input type="password" id="password2" autocomplete="password" class="input-text login-el" name="password" placeholder="Confirm Password">
-                <span class="toggle-password" id="togglePassword2">
-                    <i class="fas fa-eye" id="toggleIcon"></i>
-                </span>
-                <!-- Submit button -->
-            </div>                 
+                <div class="g-recaptcha" data-sitekey="6LfFmcsnAAAAAIxzLO5HlGhP8lONpoY9Z2r3Z2XU"></div>
                 <input type="submit" class="input-submit login-el" value="Register">
             </div>
             <!-- Match message for passwords -->
@@ -87,7 +80,7 @@
     <div id="myPopup" class="popup">
         <!-- Popup content -->
         <div class="popup-content">
-            <span class="close">&times;</span>
+            <span id="popup-close" class="close">&times;</span>
             <div id="to-centre">
                 <image src="./res/verification-illustration.svg" width ="30%">
                     
