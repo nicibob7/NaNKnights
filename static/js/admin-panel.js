@@ -238,10 +238,10 @@ const generateTables = (data) => {
             case "admin-panel-news-top-10":
                 tableRow.id = "news-" + data[i]['id'];
             break;
-            case "admin-panel-event-top-10":
+            case "admin-panel-events-top-10":
                 tableRow.id = "event-" + data[i]['id'];
             break;
-            case "admin-panel-suggestion-top-10":
+            case "admin-panel-suggestions-top-10":
                 tableRow.id = "suggestion-" + data[i]['id'];
             break;
             case "admin-panel-pending":
