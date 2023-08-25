@@ -162,6 +162,18 @@ const getSuggestionsByUsername = async (req, res) => {
     }
 }
 
+const changeEventVolunteers = async (req, res) => {
+    try {
+        let data = req.body;
+        data.username = res.locals.user;
+
+        const events = await CommunityEvent.changeVolunteers(req.body);
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 // explicit mapping of all html files in /static
 // index page is handled automatically
 const login = async (req, res) => {
@@ -207,7 +219,6 @@ const notFound = async (req, res) => {
 };
 
 
-
 module.exports = {
     postSuggestion,
     getSuggestions,
@@ -224,6 +235,7 @@ module.exports = {
     postEvent,
     getEvents,
     getEventById,
+    changeEventVolunteers,
 
     login,
     events,

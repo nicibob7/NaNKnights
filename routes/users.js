@@ -8,10 +8,10 @@ const validateParameters = require("../middleware/validateParams");
 const captchaValidation = require("../middleware/captchaValidation");
 
 // public routes
-router.post("/login", captchaValidation, validateParameters({
+router.post("/login", validateParameters({
     username: {type: 'stringWithMaxLength', maxLength: 32}, password: {type: 'stringWithMaxLength', maxLength: 64},
 }), users.login);
-router.post("/register", validateParameters({
+router.post("/register", captchaValidation, validateParameters({
     username: {type: 'stringWithMaxLength', maxLength: 32},
     password: {type: 'stringWithMaxLength', maxLength: 64},
     email: {type: 'stringWithMaxLength', maxLength: 64}
@@ -46,9 +46,11 @@ router.post("/events/new", authenticator, validateParameters({
     title: {type: 'stringWithMaxLength', maxLength: 32},
     description: {type: 'stringWithMaxLength', maxLength: 512},
     date: {type: 'date'},
-    image: {type: 'image'},
     type: {type: 'stringWithMaxLength', maxLength: 32},
     }), home.postEvent);
+router.post("/events/volunteer", authenticator, validateParameters({
+    event_id: {type: 'integer'},
+}), home.changeEventVolunteers);
 
 router.post("/suggestions/upvote/:id", authenticator, home.incrementVoteByID);
 router.post("/suggestions/downvote/:id", authenticator, home.decrementVoteByID);

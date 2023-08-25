@@ -27,7 +27,7 @@ function overlayShow() {
     if (document.getElementById('overlay').style.opacity < 1) {
         setTimeout(overlayShow, 20);
     }
-    
+
 }
 
 function overlayFadeIn() {
@@ -54,7 +54,7 @@ updateEventCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
    //overlayFadeOut();
     hideOverlay();
-    
+
 });
 
 updateEventSubmitButton.addEventListener('click', (e) => {
@@ -65,7 +65,7 @@ deleteEventCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
    //overlayFadeOut();
     hideOverlay();
-    
+
 });
 
 deleteEventButton.addEventListener('click', (e) => {
@@ -78,7 +78,7 @@ deleteEventButton.addEventListener('click', (e) => {
 //     // let idArray = (cardsList[i].id).split('-');
 //     // selectedID = idArray[idArray.length-1];
 
-    
+
 
 //     updateEventForm.classList.remove('hide');
 //     overlayFadeIn();
@@ -153,10 +153,9 @@ addEventForm.addEventListener('input', (e) => {
 */
 
 const createEvent = (event) => {
-    const { id, title, description, date_posted, posted_by, location, date, image, type } = event;
+    const { id, title, description, date_posted, posted_by, location, date, image, type, volunteers } = event;
     let eventElement = null;
-    console.log(title);
-    
+
     switch (userType) {
         case "guest":
             eventElement = template.content.querySelector('.card').cloneNode(true);
@@ -172,22 +171,62 @@ const createEvent = (event) => {
         break;
     }
 
-    let tempDate = new Date(date_posted);
+    let date_spit = new Date(date).toDateString().split(' ');
 
-    eventElement.id = "event-" + id; 
+    eventElement.id = "event-" + id;
     eventElement.querySelector('.card-title').textContent = title;
-    eventElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
     eventElement.querySelector('.card-host').textContent = posted_by;
     eventElement.querySelector('.card-location').textContent = location;
     eventElement.querySelector('.card-type').textContent = type;
-    // eventElement.querySelector('.card-volunteer.counter').textContent = volunteer;
+    eventElement.querySelector('.card-volunteer-counter').textContent = volunteers.length;
     eventElement.querySelector('.card-description').textContent = description;
+    eventElement.querySelector('.card-date').textContent = date_spit[0] + " at " + date_spit[1] + "-" + date_spit[2] + "-" + date_spit[3];
+
     // eventElement.querySelector('.card-image-wrapper > img').src = String();
+
+    // upvote button
+
+        eventElement.querySelector('.volunteer-button').addEventListener('click', (e) => {
+            if(userType !== "guest") {
+            e.preventDefault();
+
+            let myHeaders = new Headers();
+            myHeaders.append("Authorization", "b00fc05b-465c-4257-bb3a-36f5046f6feb");
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Cookie", "authorization=261210b6-308b-44a7-9d71-66eb60444f06");
+
+            let raw = JSON.stringify({
+                "event_id": 1
+            });
+
+            let requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(`/users/events/volunteer`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status === 200) {
+                        eventElement.querySelector('.card-volunteer-counter').textContent++;
+                        return notifyUser("Successfully upvoted", "success");
+                    } else {
+                        return notifyUser(result.error, "error");
+                    }
+                }).catch(error => console.log(error));
+
+            }else{
+                notifyUser("You must be logged in to volunteer", "error")
+            }
+        });
+
 
     eventElement.addEventListener('click', (e) => {
         e.preventDefault();
         // console.log('Triggered');
-        
+
 
     });
 
@@ -199,19 +238,16 @@ const fetchEvents = async () => {
     await fetch(`/event/${parseInt(String(window.location.href).split('/')[4])}`)
     .then((response) => response.json())
     .then((data) => {
-        console.log(data);
         try {
             eventCardContainer.textContent = "";
-                // console.log(event);
                 let elem = createEvent(data);
-                
-                console.log(elem);
+
                 eventCardContainer.appendChild(elem);
-           
+
         } catch (error) {
             console.log(error);
         }
-        
+
     })
     .catch((error) => console.log(error.error));
 }
@@ -220,15 +256,13 @@ fetchEvents();
 
 const checkUserType = async () => {
     await getUserType();
-    console.log(userType);
     if (userType == "admin") {
-        console.log('fire');
         let modifyButtons = null;
         modifyButtons = template.content.querySelector('.card-modify-buttons-wrapper').cloneNode(true);
          modifyButtons.querySelector('.card-edit-button').addEventListener('click', (e) => {
                e.preventDefault();
         });
-        
+
          modifyButtons.querySelector('.card-delete-button').addEventListener('click', (e) => {
               e.preventDefault();
         });

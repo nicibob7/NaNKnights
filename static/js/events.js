@@ -30,7 +30,7 @@ function overlayShow() {
     if (document.getElementById('overlay').style.opacity < 1) {
         setTimeout(overlayShow, 20);
     }
-    
+
 }
 
 function overlayFadeIn() {
@@ -54,8 +54,7 @@ filterButton.addEventListener('click', (e) => {
     if (filterDropdown.classList.contains('filter-stretch')) {
         filterDropdown.classList.remove('filter-stretch');
         filterButtonPath.classList.remove('filter-image-reverse-path');
-    }
-    else {
+    } else {
         filterDropdown.classList.add('filter-stretch');
         filterButtonPath.classList.add('filter-image-reverse-path');
     }
@@ -63,7 +62,7 @@ filterButton.addEventListener('click', (e) => {
 
 addEventUpload.addEventListener('change', (e) => {
     const target = e.target
-  	if (target.files.length > 0) {
+    if (target.files.length > 0) {
 
         for (let i = 0; i < target.files.length; i++) {
             const maxAllowedSize = 1 * 1024 * 1024;
@@ -71,7 +70,7 @@ addEventUpload.addEventListener('change', (e) => {
                 target.value = ''
             }
         }
-      
+
     }
 });
 
@@ -84,9 +83,9 @@ addEventCloseButton.addEventListener('click', (e) => {
 
 addEventCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
-   //overlayFadeOut();
+    //overlayFadeOut();
     hideOverlay();
-    
+
 });
 
 // addEventSubmitButton.addEventListener('click', (e) => {
@@ -102,9 +101,9 @@ updateEventCloseButton.addEventListener('click', (e) => {
 
 updateEventCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
-   //overlayFadeOut();
+    //overlayFadeOut();
     hideOverlay();
-    
+
 });
 
 // updateEventSubmitButton.addEventListener('click', (e) => {
@@ -113,9 +112,9 @@ updateEventCancelButton.addEventListener('click', (e) => {
 
 deleteEventCancelButton.addEventListener('click', (e) => {
     e.preventDefault();
-   //overlayFadeOut();
+    //overlayFadeOut();
     hideOverlay();
-    
+
 });
 
 deleteEventButton.addEventListener('click', (e) => {
@@ -131,36 +130,35 @@ addEventButton.addEventListener('click', (e) => {
 
 addEventForm.addEventListener('input', (e) => {
     e.preventDefault();
+
     let emptyInput = false;
 
-        for (let j = 0; j < addEventElements.length; j++) {
-            
-            if (addEventElements[j].value == "" || !addEventElements[j].value) {
-                emptyInput = true;
-                break;
-            }
+    for (let j = 0; j < addEventElements.length; j++) {
+
+        if (addEventElements[j].value == "" || !addEventElements[j].value) {
+            emptyInput = true;
+            break;
         }
-        
-        if (!emptyInput) {
-            addEventSubmitButton.disabled = false;
-        }
-        else {
-            addEventSubmitButton.disabled = true;
-        }
+    }
+
+
+    if (!emptyInput) {
+        addEventSubmitButton.disabled = false;
+    } else {
+        addEventSubmitButton.disabled = true;
+    }
+
 });
+
 
 addEventForm.addEventListener('submit', (e) => {
     e.preventDefault();
     // Add event to database POST Request
     console.log('Fired');
-});
-
-
-addEventForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    // Add event to database POST Request
-
     const form = new FormData(e.target);
+
+
+    console.log(file)
 
     const options = {
         method: "POST",
@@ -170,45 +168,47 @@ addEventForm.addEventListener('submit', async (e) => {
             posted_by: form.get("add-event-host"),
             location: form.get("add-event-location"),
             date: form.get("add-event-date"),
-            // type: form.get("add-event-type"),
-            // image: form.get("add-event-upload")
-        })
-    };
-    
-    await fetch("/users/events/new", options)
+            type: form.get("add-event-type"),
+            image: form.get("add-event-upload")
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
+    fetch("/users/events/new", options)
         .then(response => response.json())
         .then(data => {
-            
-            console.log(data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
 
+                console.log(data);
+        }).catch(error => notifyUser(error.error, "error"));
+
+    console.log(options.body);
 });
 
 
-
 const createEvent = (event) => {
-    const { id, title, description, date_posted, posted_by, location, date, image, type } = event;
+    const {id, title, description, date_posted, posted_by, location, date, image, type, volunteers} = event;
     let eventElement = null;
-    console.log(title);
-    
+
     switch (userType) {
         case "guest":
             eventElement = template.content.querySelector('.card').cloneNode(true);
-        break;
+            eventElement.querySelector('.card-volunteer-counter').textContent = volunteers.length;
+            break;
         case "user":
             eventElement = template.content.querySelector('.card').cloneNode(true);
-        break;
+            eventElement.querySelector('.card-volunteer-counter').textContent = volunteers.length;
+            break;
         case "admin":
             eventElement = template.content.querySelector('.editable-card').cloneNode(true);
+            eventElement.querySelector('.card-volunteer-counter').textContent = volunteers.length;
             eventElement.querySelector('.card-edit-button').addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 // let idArray = (cardsList[i].id).split('-');
                 // selectedID = idArray[idArray.length-1];
-        
+
                 updateEventForm.classList.remove('hide');
                 overlayFadeIn();
                 overlay.classList.remove('hide');
@@ -219,33 +219,34 @@ const createEvent = (event) => {
                 e.stopPropagation();
                 // let idArray = (cardsList[i].id).split('-');
                 // selectedID = idArray[idArray.length-1];
-        
+
                 deleteEventDialog.classList.remove('hide');
                 overlayFadeIn();
                 overlay.classList.remove('hide');
                 // hideOverlay();
             });
-        
+
             eventElement.addEventListener('mousemove', () => {
                 eventElement.querySelector('.card-edit-button').classList.remove('hide');
                 eventElement.querySelector('.card-delete-button').classList.remove('hide');
             });
-        
+
             eventElement.addEventListener('mouseleave', () => {
                 eventElement.querySelector('.card-edit-button').classList.add('hide');
                 eventElement.querySelector('.card-delete-button').classList.add('hide');
             });
-        break;
+            break;
         default:
             eventElement = template.content.querySelector('.card').cloneNode(true);
-        break;
+            break;
     }
 
-    let tempDate = new Date(date);
-
-    eventElement.id = "event-" + id; 
+    eventElement.id = "event-" + id;
     eventElement.querySelector('.card-title').textContent = title;
-    eventElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+
+    let date_spit = new Date(date).toDateString().split(' ');
+
+    eventElement.querySelector('.card-date').textContent = date_spit[0] + " at " + date_spit[1] + "-" + date_spit[2] + "-" + date_spit[3];
     eventElement.querySelector('.card-location').textContent = location;
     eventElement.querySelector('.card-type').textContent = type;
     eventElement.querySelector('.card-host').textContent = posted_by;
@@ -255,7 +256,7 @@ const createEvent = (event) => {
     eventElement.addEventListener('click', (e) => {
         e.preventDefault();
         // console.log('Triggered');
-        
+
         window.location.assign(`/event-page/${id}`);
 
         // open event page ->
@@ -266,31 +267,30 @@ const createEvent = (event) => {
     // event.
 }
 
-
 const fetchEvents = async () => {
     await fetch('/events/all')
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data);
-        try {
-            eventMainContent.textContent = "";
-            data.forEach(event => {
-                // console.log(event);
-                let elem = createEvent(event);
-                
-                console.log(elem);
-                eventMainContent.appendChild(elem);
-            })
-        } catch (error) {
-            console.log(error);
-        }
-        
-    })
-    .catch((error) => console.log(error.error));
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            try {
+                eventMainContent.textContent = "";
+                data.forEach(event => {
+                    // console.log(event);
+                    let elem = createEvent(event);
+
+                    console.log(elem);
+                    eventMainContent.appendChild(elem);
+                })
+            } catch (error) {
+                console.log(error);
+            }
+
+        })
+        .catch((error) => console.log(error.error));
 }
 
 fetchEvents();
 
-if (userType != "admin") {
-    // addEventButton.remove();
+if (userType === "guest") {
+    addEventButton.remove();
 }
