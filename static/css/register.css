@@ -113,15 +113,19 @@
   flex-direction: column;
   overflow: auto;
 }
-#login-container {
-  height: 95%;
-  width: 40%;
-  /* padding-bottom: 20%; */
-}
+
 #login-wrapper {
   width: 51%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#login-form{
+  height: auto;
+}
+
+#login-container{
+  height: auto;
 }

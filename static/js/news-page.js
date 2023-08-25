@@ -167,3 +167,8 @@ for (let i = 0; i < cardsList.length; i++) {
         // 
     });
 }
+
+if(userType !== "admin"){
+    newsEditButton.remove();
+    newsDeleteButton.remove();
+}

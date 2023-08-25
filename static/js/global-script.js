@@ -79,7 +79,12 @@ const checkUserPermission = async () => {
                 navWrapper.appendChild(templates.content.querySelector('.nav-right-user').cloneNode(true));
                 const navAccountIcon = document.querySelector('#nav-account-icon');
                 const navAccountDropdownList = document.querySelector('#nav-account-dropdown-list');
-                
+
+                navWrapper.querySelector('#nav-account-logout').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    userLogout();
+                });
+
                 navAccountIcon.addEventListener('click', (e) => {
                     e.preventDefault();
                     if (navAccountDropdownList.classList.contains('hide')) {

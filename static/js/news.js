@@ -278,10 +278,11 @@ const fetchNews = async () => {
     .catch((error) => console.log(error.error));
 }
 
+
 fetchNews();
 
 if (userType != "admin") {
-    //addNewsButton.remove();
+    addNewsButton.remove();
 }
 // checkUserType();
 

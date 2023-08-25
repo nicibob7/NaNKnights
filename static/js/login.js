@@ -65,6 +65,10 @@ loginForm.addEventListener('submit', async (e) => {
         grecaptcha.reset();
         // display notification or something
     } else {
+        if(!document.querySelector('#username').value || !document.querySelector('#password').value) {
+            return notifyUser("Please enter your username and password", 'error');
+        }
+
         const options = {
             method: "POST",
             headers: {
@@ -127,6 +131,8 @@ adminForm.addEventListener('submit', async (e) => {
 
         })
         .catch(error => notifyUser(error, 'error'));
+
+
 });
 
 loginAccountButton.addEventListener('click', (e) => {
