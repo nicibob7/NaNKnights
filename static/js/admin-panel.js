@@ -229,7 +229,7 @@ const generateTables = (data) => {
                 break;
             }
         }
-
+        console.log(panel.id);
         let tableRow = document.createElement('tr');
         switch (panel.id) {
             case "admin-panel-home":
