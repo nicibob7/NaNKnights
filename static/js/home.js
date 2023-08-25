@@ -236,7 +236,7 @@ const loadNews = async () => {
 
 const populateEvents = (item) => {
 
-    const { id, title, date_posted, location, description, type, host } = item
+    const { id, title, description, date_posted, posted_by, location, date, type, volunteers } = item
     
     let tempDate = new Date(date_posted);
 
@@ -288,7 +288,7 @@ const populateEvents = (item) => {
     eventHost.classList.add("card-host")
     eventHost.classList.add("card-text")
     eventHost.classList.add("push-right")
-    eventHost.textContent = host
+    eventHost.textContent = posted_by
 
     const thirdText = document.createElement("div")
     thirdText.classList.add("card-text-third")
@@ -347,6 +347,9 @@ const populateEvents = (item) => {
     const svg2 = document.createElement("svg")
     svg2.classList.add("volunteer-image")
     svg2.classList.add("counter-image")
+
+    console.log(volunteers.length);
+    counterWrapper2.querySelector('.card-volunteer-counter').textContent = volunteers.length;
 
     const eventVolunteerCounter = document.createElement("p")
     eventVolunteerCounter.classList.add("card-volunteer-counter")

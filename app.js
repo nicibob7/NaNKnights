@@ -37,8 +37,8 @@ app.use("/admins", admins);
 
 // TODO: enable later on, with a valid domain
 
-    app.use("/", require("./routes/google"));
-    app.use("/", require("./routes/facebook"));
+    // app.use("/", require("./routes/google"));
+    // app.use("/", require("./routes/facebook"));
 
 // should always be last
 app.use("/", home);
