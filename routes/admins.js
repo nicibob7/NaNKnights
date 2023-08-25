@@ -63,6 +63,7 @@ router.post("/comment", adminSecureAuth, validate({
     type: {type: 'stringWithMaxLength', maxLength: 32},
     image: {type: 'image'},
 }), admins.postComment);
+router.post("/pending", adminSecureAuth, admins.getPendingSuggestions);
 router.post("/comment/delete/:id", adminSecureAuth, admins.deleteComment);
 
 // server management

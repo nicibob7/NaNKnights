@@ -430,18 +430,55 @@ const init = () => {
                 case "side-bar-news-top-10":
                     hidePanels();
                     newsTop10Panel.classList.remove('hide');
+
+                    let newsTable = document.querySelector('#news_table');
+
+                    // get data
+                    fetch("/news/all", { method: "GET" })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            // add data to table
+                            generateTables(data);
+                        }).catch((error) => console.log(error));
                 break;
                 case "side-bar-events-top-10":
                     hidePanels();
                     eventsTop10Panel.classList.remove('hide');
+                    let eventsTable = document.querySelector('#events_table');
+
+                    // get data
+                    fetch("/events/all", { method: "GET" })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            // add data to table
+                            generateTables(data);
+                        }).catch((error) => console.log(error));
                 break;
                 case "side-bar-suggestions-top-10":
                     hidePanels();
                     suggestionsTop10Panel.classList.remove('hide');
+                    let suggestionTable = document.querySelector('#sugestion_table');
+
+                    // get data
+                    fetch("/suggestions/all", { method: "GET" })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            // add data to table
+                            generateTables(data);
+                        }).catch((error) => console.log(error));
                 break;
                 case "side-bar-pending":
                     hidePanels();
                     pendingPanel.classList.remove('hide');
+                    let pendingTable = document.querySelector('#pending_table');
+
+                    // get data
+                    fetch("/admins/pending/all", { method: "GET" })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            // add data to table
+                            generateTables(data);
+                        }).catch((error) => console.log(error));
                 break;
             }
 

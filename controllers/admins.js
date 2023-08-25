@@ -240,6 +240,15 @@ const getNonRegisteredUsers = async (req, res) => {
     }
 }
 
+const getPendingSuggestions = async (req, res) => {
+    try {
+        const result = await Suggestion.getPending();
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 module.exports = {
     login,
     logout,
@@ -255,6 +264,7 @@ module.exports = {
     postSuggestion,
     updateSuggestion,
     deleteSuggestion,
+    getPendingSuggestions,
 
     postComment,
     deleteComment,
