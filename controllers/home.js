@@ -153,6 +153,15 @@ const getEventById = async (req, res) => {
     }
 }
 
+const getSuggestionsByUsername = async (req, res) => {
+    try {
+        const suggestions = await Suggestion.getSuggestionsByUsername(req.body.posted_by);
+        res.status(200).json(suggestions);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 // explicit mapping of all html files in /static
 // index page is handled automatically
 const login = async (req, res) => {
@@ -205,6 +214,7 @@ module.exports = {
     getSuggestionById,
     getSuggestionsByPopularity,
     getSuggestionsWithCommentCount,
+    getSuggestionsByUsername,
     incrementVoteByID,
     decrementVoteByID,
 

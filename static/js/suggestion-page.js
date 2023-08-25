@@ -353,6 +353,7 @@ const checkUserType = async () => {
     }
 }
 
+check
 // for (let i = 0; i < cardsList.length; i++) {
 //     cardsList[i].addEventListener('click', (e) => {
 //         e.preventDefault();

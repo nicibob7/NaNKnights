@@ -52,5 +52,6 @@ router.post("/events/new", authenticator, validateParameters({
 
 router.post("/suggestions/upvote/:id", authenticator, home.incrementVoteByID);
 router.post("/suggestions/downvote/:id", authenticator, home.decrementVoteByID);
+router.get("/suggestions/username", authenticator, home.getSuggestionsByUsername);
 
 module.exports = router;

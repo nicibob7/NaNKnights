@@ -74,6 +74,7 @@ main {
     border: none;
     transition: background-color .4s;
     cursor: pointer;
+    width: 100%;
 }
 
 .carousel-tabs > button:hover {
@@ -144,6 +145,7 @@ main {
     width: 28%;
     flex-shrink: 0;
     margin: 0 0.75% 0 0.75%;
+    cursor: pointer;
 }
 
 /* .news-card:hover > a > .news-text-wrapper {
