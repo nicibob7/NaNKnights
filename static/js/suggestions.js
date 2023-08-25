@@ -260,11 +260,8 @@ const createSuggestion = (suggestion) => {
         e.stopPropagation();
         let voteCount1 = votes;
         await fetch(`/users/suggestions/upvote/${id}`, { method: "POST" })
-        .then((response) => {
-            return response.json();
-        })
+        .then((response) => response.json())
         .then((data) => {
-            console.log(data);
             try {
                 suggestionElement.querySelector('.card-vote-counter').textContent = data;
             } catch (error) {

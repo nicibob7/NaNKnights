@@ -190,19 +190,21 @@ addEventForm.addEventListener('submit', async (e) => {
 
 
 const createEvent = (event) => {
-    const { id, title, description, date_posted, posted_by, location, date, image, type } = event;
+    const { id, title, description, date_posted, posted_by, location, date, image, type, volunteers } = event;
     let eventElement = null;
-    console.log(title);
-    
+
     switch (userType) {
         case "guest":
             eventElement = template.content.querySelector('.card').cloneNode(true);
+            eventElement.querySelector('.card-volunteer-counter').textContent = volunteers.length;
         break;
         case "user":
             eventElement = template.content.querySelector('.card').cloneNode(true);
+            eventElement.querySelector('.card-volunteer-counter').textContent = volunteers.length;
         break;
         case "admin":
             eventElement = template.content.querySelector('.editable-card').cloneNode(true);
+            eventElement.querySelector('.card-volunteer-counter').textContent = volunteers.length;
             eventElement.querySelector('.card-edit-button').addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -241,11 +243,12 @@ const createEvent = (event) => {
         break;
     }
 
-    let tempDate = new Date(date);
-
     eventElement.id = "event-" + id; 
     eventElement.querySelector('.card-title').textContent = title;
-    eventElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+
+    let date_spit = new Date(date).toDateString().split(' ');
+
+    eventElement.querySelector('.card-date').textContent = date_spit[0] + " at " + date_spit[1] + "-" + date_spit[2] + "-" + date_spit[3];
     eventElement.querySelector('.card-location').textContent = location;
     eventElement.querySelector('.card-type').textContent = type;
     eventElement.querySelector('.card-host').textContent = posted_by;
@@ -265,7 +268,6 @@ const createEvent = (event) => {
     return eventElement;
     // event.
 }
-
 
 const fetchEvents = async () => {
     await fetch('/events/all')
@@ -291,6 +293,6 @@ const fetchEvents = async () => {
 
 fetchEvents();
 
-if (userType != "admin") {
-    // addEventButton.remove();
+if (userType === "guest") {
+    addEventButton.remove();
 }

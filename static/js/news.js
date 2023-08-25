@@ -237,15 +237,14 @@ const createNews = (news) => {
         break;
     }
 
-    let tempDate = new Date(date_posted);
+    let date_spit = new Date(date_posted).toDateString().split(' ');
 
     newsElement.id = "news-" + id; 
     newsElement.querySelector('.card-title').textContent = title;
-    newsElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
-    // newsElement.querySelector('.card-date').textContent = "15/06/2023";
+    newsElement.querySelector('.card-date').textContent = date_spit[0] + " at " + date_spit[1] + "-" + date_spit[2] + "-" + date_spit[3];
     newsElement.querySelector('.card-description').textContent = description;
     newsElement.querySelector('.card-type').textContent = type;
-    // newsElement.querySelector('.card-image-wrapper > img').src = String();
+
 
     newsElement.addEventListener('click', (e) => {
         e.preventDefault();

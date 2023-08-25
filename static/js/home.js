@@ -300,6 +300,7 @@ const populateEvents = (item) => {
     eventVolunteerCounter.classList.add("card-volunteer-counter")
     eventVolunteerCounter.classList.add("card-text")
     eventVolunteerCounter.classList.add("card-counter")
+    eventVolunteerCounter.value = item.id;
 
     eventImageWrapper.appendChild(eventImage)
 

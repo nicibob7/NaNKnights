@@ -29,7 +29,7 @@ async function register(req, res) {
         // create an activation link for the new user
         const activationUrl = await EmailToken.create(newUser.username);
         // send the link via email
-        await mailer(newUser.username, activationUrl, newUser.email);
+        await mailer(newUser.username, activationUrl, newUser.email, 'register');
 
         return res.status(201).json({status: "success"});
     } catch (error) {
@@ -129,7 +129,7 @@ const sendResetPasswordEmail = async (req, res) => {
         const resetUrl = await EmailToken.create(user.username);
 
         // send the link via email
-        await mailer(user.username, resetUrl, user.email);
+        await mailer(user.username, resetUrl, user.email, 'reset');
 
         res.status(200).json({status: "success"});
     } catch (error) {

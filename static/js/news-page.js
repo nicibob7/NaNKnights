@@ -107,12 +107,13 @@ const createNews = (news) => {
     var imageUrl = urlCreator.createObjectURL( blob );
     console.log(imageUrl);
     // console.log(arrayBufferView);*/
-    console.log(_arrayBufferToBase64(image));
+    let date_spit = new Date(date_posted).toDateString().split(' ');
 
     selectedID = id;
     newsElement.id = "news-" + id; 
     newsElement.querySelector('.card-title').textContent = title;
-    newsElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+    newsElement.querySelector('.card-date').textContent = date_spit[0] + " at " + date_spit[1] + "-" + date_spit[2] + "-" + date_spit[3];
+
     // newsElement.querySelector('.card-date').textContent = "15/06/2023";
     newsElement.querySelector('.card-description').textContent = description;
     newsElement.querySelector('.card-type').textContent = type;

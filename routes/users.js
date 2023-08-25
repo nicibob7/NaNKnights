@@ -11,7 +11,7 @@ const captchaValidation = require("../middleware/captchaValidation");
 router.post("/login", captchaValidation, validateParameters({
     username: {type: 'stringWithMaxLength', maxLength: 32}, password: {type: 'stringWithMaxLength', maxLength: 64},
 }), users.login);
-router.post("/register", validateParameters({
+router.post("/register", captchaValidation, validateParameters({
     username: {type: 'stringWithMaxLength', maxLength: 32},
     password: {type: 'stringWithMaxLength', maxLength: 64},
     email: {type: 'stringWithMaxLength', maxLength: 64}
@@ -49,6 +49,9 @@ router.post("/events/new", authenticator, validateParameters({
     image: {type: 'image'},
     type: {type: 'stringWithMaxLength', maxLength: 32},
     }), home.postEvent);
+router.post("/events/volunteer", authenticator, validateParameters({
+    event_id: {type: 'integer'},
+}), home.changeEventVolunteers);
 
 router.post("/suggestions/upvote/:id", authenticator, home.incrementVoteByID);
 router.post("/suggestions/downvote/:id", authenticator, home.decrementVoteByID);
