@@ -185,7 +185,6 @@ addSuggestionForm.addEventListener('submit', async (e) => {
 const createSuggestion = (suggestion) => {
     const { id, title, description, date_posted, posted_by, votes, is_resolved, is_activated, image, urgency_level, total} = suggestion;
     let suggestionElement = null;
-    console.log(total);
     
     switch (userType) {
         case "guest":
@@ -242,14 +241,13 @@ const createSuggestion = (suggestion) => {
     suggestionElement.querySelector('.card-title').textContent = title;
     suggestionElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
     suggestionElement.querySelector('.card-host').textContent = posted_by;
-    suggestionElement.querySelector('.card-vote-counter').textContent = votes;
+    suggestionElement.querySelector('.card-vote-counter').value = votes;
     suggestionElement.querySelector('.card-comment-counter').textContent = total;
     suggestionElement.querySelector('.card-description').textContent = description;
     // suggestionElement.querySelector('.card-image-wrapper > img').src = String();
 
     suggestionElement.addEventListener('click', (e) => {
         e.preventDefault();
-        // console.log('Triggered');
         
         window.location.assign(`/suggestions/${id}`);
 
@@ -279,13 +277,9 @@ const createSuggestion = (suggestion) => {
         let voteCount2 = votes;
             await fetch(`/users/suggestions/downvote/${id}`, { method: "POST" })
         .then((response) => {
-            // console.log(response.json());
-
             return response.json();
-            
         })
         .then((data) => {
-            console.log(data);
             try {
                 suggestionElement.querySelector('.card-vote-counter').textContent = data;
             } catch (error) {

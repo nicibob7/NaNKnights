@@ -8,7 +8,7 @@ const validateParameters = require("../middleware/validateParams");
 const captchaValidation = require("../middleware/captchaValidation");
 
 // public routes
-router.post("/login", captchaValidation, validateParameters({
+router.post("/login", validateParameters({
     username: {type: 'stringWithMaxLength', maxLength: 32}, password: {type: 'stringWithMaxLength', maxLength: 64},
 }), users.login);
 router.post("/register", captchaValidation, validateParameters({
@@ -46,7 +46,6 @@ router.post("/events/new", authenticator, validateParameters({
     title: {type: 'stringWithMaxLength', maxLength: 32},
     description: {type: 'stringWithMaxLength', maxLength: 512},
     date: {type: 'date'},
-    image: {type: 'image'},
     type: {type: 'stringWithMaxLength', maxLength: 32},
     }), home.postEvent);
 router.post("/events/volunteer", authenticator, validateParameters({

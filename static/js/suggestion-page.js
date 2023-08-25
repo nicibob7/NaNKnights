@@ -15,7 +15,7 @@ const deleteSuggestionDialog = document.querySelector('#delete-suggestion-dialog
 const cardsList = document.querySelectorAll('.card');
 const suggestionEditButton = document.querySelector('#suggestion-edit-button');
 const suggestionDeleteButton = document.querySelector('#suggestion-delete-button');
-
+addCommentForm.querySelector('#add-comment-textarea').value = "";
 const suggestionMainContent = document.querySelector('#suggestion-main-content');
 const suggestionCardContainer = document.querySelector('#suggestion-card-container');
 const template = document.querySelector('template');
@@ -157,8 +157,6 @@ addSuggestionForm.addEventListener('input', (e) => {
 });
 */
 
-
-
 addCommentButton.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -292,6 +290,7 @@ const createComment = (commentData) => {
     commentElement.querySelector('.comment-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
     commentElement.querySelector('.comment-author').textContent = posted_by;
     commentElement.querySelector('.comment-text').textContent = comment;
+
     // commentElement.querySelector('.card-image-wrapper > img').src = String();
 
     // commentElement.addEventListener('click', (e) => {
@@ -350,8 +349,57 @@ const checkUserType = async () => {
         });
 
         suggestionMainContent.querySelector('.card').appendChild(modifyButtons);
+    }else if(userType === "guest"){
+        addCommentButton.classList.add('hide');
     }
 }
+
+document.querySelector('#add-comment-cancel-button').addEventListener('click', (e) => {
+    e.preventDefault();
+    addCommentForm.classList.remove('add-comment-stretch');
+});
+
+addCommentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    let comment = addCommentForm.querySelector('#add-comment-textarea').value;
+
+    if(comment === ""){
+        notifyUser("Please write something in the comment box!", "error");
+    }
+
+    // prepare comment data
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+        "suggestion_id": parseInt(String(window.location.href).split('/')[4]),
+        "comment": comment
+    });
+
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    fetch("/users/comment/", requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if(data.id != null){
+                notifyUser("Comment posted successfully!", "success");
+                //collapse comment
+                addCommentForm.classList.remove('add-comment-stretch');
+                return fetchComments();
+            }else{
+                return notifyUser("Comment failed to post!", "error");
+            }
+        })
+        .catch(err => notifyUser(err, "error"));
+});
+
 
 // for (let i = 0; i < cardsList.length; i++) {
 //     cardsList[i].addEventListener('click', (e) => {
