@@ -46,7 +46,7 @@ let suggestionsLimit = 5;
 
 const generateCarouselButtons = (amount=3) => {
     carouselButtons.textContent = '';
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < amount; i++) {
         const button = document.createElement('div');
         button.id = 'circle-' + String(i+1);
         button.classList.add('carousel-circle-button');
@@ -120,10 +120,11 @@ const checkCurrentSuggestion = () => {
 }
 
 const populateNewsCarousel = (item) => {
-    const { title, description, date_posted, type } = item
+    const { id, title, description, date_posted, type } = item
 
 
     const newsCard = document.createElement("div")
+    newsCard.id = "news-" + id;
     newsCard.classList.add("news-card")
     const a = document.createElement("a")
     a.href = "#"
@@ -159,6 +160,10 @@ const populateNewsCarousel = (item) => {
 
     newsCard.appendChild(a)
 
+    newsCard.addEventListener('click', () => {
+        window.location.assign(`/news-page/${id}`);
+    });
+
     return newsCard
 }
 
@@ -168,17 +173,61 @@ const loadNews = async () => {
 
     if (response.status == 200) {
         const news = await response.json();
-        const slides = Math.ceil(news.length / 3)
+
+        if (news.length >= 8) {
+            slideLimit = 8;
+        }
+        else {
+            slideLimit = news.length;
+        }
+
+        let slides = Math.ceil((slideLimit + 1) / 3)
+
         for(let i = 0; i < slides; i++){
             const slide = document.createElement("div")
             slide.classList.add("slide")
             slide.textContent = "";
-            for(let j = 0; j < news.length; j++){
+            for(let j = i * 3; j < slideLimit; j++){
+                console.log("j: " + j);
                 const elem = populateNewsCarousel(news[j])
                 slide.appendChild(elem)
+            
             }
+
             carouselStrip.appendChild(slide)
+
+            if (i == slides - 1) {
+                let moreNews = document.createElement('div');
+                moreNews.classList.add('news-card');
+                moreNews.style.marginRight = "auto";
+
+                let moreNewsAnchor = document.createElement('a');
+
+                let moreNewsImage = document.createElement('img');
+                moreNewsImage.classList.add('news-card-image');
+                moreNewsImage.src = "../res/bridge.jpg";
+
+                let moreNewsBG = document.createElement('div');
+                moreNewsBG.classList.add('more-news-bg');
+
+                let moreNewsParagraph = document.createElement('p');
+                moreNewsParagraph.classList.add('more-news-text');
+                moreNewsParagraph.textContent = "More News";
+
+                moreNews.appendChild(moreNewsAnchor);
+                moreNewsAnchor.appendChild(moreNewsImage);
+                moreNewsAnchor.appendChild(moreNewsBG);
+                moreNewsBG.appendChild(moreNewsParagraph);
+
+                moreNews.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    window.location.assign(`/news`);
+                });
+                slide.appendChild(moreNews);
+            }
         }
+        generateCarouselButtons(slides);
     } else {
         console.log("Hello")
     }
@@ -187,11 +236,12 @@ const loadNews = async () => {
 
 const populateEvents = (item) => {
 
-    const { title, date_posted, location, description, type, host } = item
+    const { id, title, description, date_posted, posted_by, location, date, type, volunteers } = item
     
     let tempDate = new Date(date_posted);
 
     const eventSpacing = document.createElement("div")
+    eventSpacing.id = "event-" + id; 
     eventSpacing.classList.add("card")
     eventSpacing.classList.add("card-spacing")
 
@@ -238,7 +288,7 @@ const populateEvents = (item) => {
     eventHost.classList.add("card-host")
     eventHost.classList.add("card-text")
     eventHost.classList.add("push-right")
-    eventHost.textContent = host
+    eventHost.textContent = posted_by
 
     const thirdText = document.createElement("div")
     thirdText.classList.add("card-text-third")
@@ -261,20 +311,20 @@ const populateEvents = (item) => {
     eventType.classList.add("card-text")
     eventType.textContent = type
 
-    const counterWrapper = document.createElement("div")
-    counterWrapper.classList.add("counter-wrapper")
-    counterWrapper.classList.add("push-right")
-    counterWrapper.innerHTML = `<svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
-    <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
-    <path d="M7 6H27V9H7V6Z" fill="white"/>
-    <rect x="7" y="11" width="20" height="3" fill="white"/>
-    <rect x="7" y="16" width="20" height="3" fill="white"/>
-    </svg><p class="card-comment-counter card-text card-counter">0</p>`
+    // const counterWrapper = document.createElement("div")
+    // counterWrapper.classList.add("counter-wrapper")
+    // counterWrapper.classList.add("push-right")
+    // counterWrapper.innerHTML = `<svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+    // <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
+    // <path d="M31.1483 28.8355L25.6347 24.99L30.9721 22.1157L31.1483 28.8355Z" fill="#D9D9D9"/>
+    // <path d="M7 6H27V9H7V6Z" fill="white"/>
+    // <rect x="7" y="11" width="20" height="3" fill="white"/>
+    // <rect x="7" y="16" width="20" height="3" fill="white"/>
+    // </svg><p class="card-comment-counter card-text card-counter">0</p>`
 
-    const svg1 = document.createElement("svg")
-    svg1.classList.add("comment-image")
-    svg1.classList.add("counter-image")
+    // const svg1 = document.createElement("svg")
+    // svg1.classList.add("comment-image")
+    // svg1.classList.add("counter-image")
 
     const eventCommentCounter = document.createElement("p")
     eventCommentCounter.classList.add("card-comment-counter")
@@ -283,6 +333,8 @@ const populateEvents = (item) => {
 
     const counterWrapper2 = document.createElement("div")
     counterWrapper2.classList.add("counter-wrapper")
+    counterWrapper2.classList.add("push-right")
+    
     counterWrapper2.innerHTML=`<svg class="volunteer-image counter-image" width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect class="volunteer-image-rect" x="7.56226" y="2" width="4" height="15" rx="1" fill="#F5DE6A"/>
     <rect class="volunteer-image-rect" y="17.8467" width="4.11361" height="11.8038" rx="1" transform="rotate(-43.7887 0 17.8467)" fill="#F5DE6A"/>
@@ -295,6 +347,9 @@ const populateEvents = (item) => {
     const svg2 = document.createElement("svg")
     svg2.classList.add("volunteer-image")
     svg2.classList.add("counter-image")
+
+    console.log(volunteers.length);
+    counterWrapper2.querySelector('.card-volunteer-counter').textContent = volunteers.length;
 
     const eventVolunteerCounter = document.createElement("p")
     eventVolunteerCounter.classList.add("card-volunteer-counter")
@@ -313,7 +368,7 @@ const populateEvents = (item) => {
     thirdText.appendChild(eventDescription)
 
     eventTextBottom.appendChild(eventType)
-    eventTextBottom.appendChild(counterWrapper)
+    // eventTextBottom.appendChild(counterWrapper)
     eventTextBottom.appendChild(counterWrapper2)
 
     eventTextWrapper.appendChild(eventTextTop)
@@ -325,6 +380,10 @@ const populateEvents = (item) => {
     a.appendChild(eventTextWrapper)
 
     eventSpacing.appendChild(a)
+
+    eventSpacing.addEventListener('click', (e) => {
+        window.location.assign(`/event-page/${id}`);
+    });
 
     return eventSpacing
 }
@@ -345,16 +404,15 @@ const loadEvents = async () => {
 }
 
 const populateSuggestions = (item) => {
-
-    console.log(item)
-
-    const { title, date_posted, location, description, type, host } = item
+    const { id, title, description, date_posted, posted_by, votes, is_resolved, is_activated, image, urgency_level, total} = item;
 
     let tempDate = new Date(date_posted);
 
     const suggestionSpacing = document.createElement("div")
     suggestionSpacing.classList.add("card")
     suggestionSpacing.classList.add("card-spacing")
+    
+    suggestionSpacing.id = "suggestion-" + id;
 
     const a = document.createElement("a")
     a.classList.add("card-link")
@@ -390,16 +448,16 @@ const populateSuggestions = (item) => {
     secondText.classList.add("card-text-flex")
     secondText.classList.add("card-text-padder")
 
-    const suggestionLocation = document.createElement("div")
-    suggestionLocation.classList.add("card-location")
-    suggestionLocation.classList.add("card-text")
-    suggestionLocation.textContent = location
+    // const suggestionLocation = document.createElement("div")
+    // suggestionLocation.classList.add("card-location")
+    // suggestionLocation.classList.add("card-text")
+    // suggestionLocation.textContent = location
 
     const suggestionHost = document.createElement("div")
     suggestionHost.classList.add("card-host")
     suggestionHost.classList.add("card-text")
-    suggestionHost.classList.add("push-right")
-    suggestionHost.textContent = host
+    // suggestionHost.classList.add("push-right")
+    suggestionHost.textContent = posted_by
 
     const thirdText = document.createElement("div")
     thirdText.classList.add("card-text-third")
@@ -417,10 +475,10 @@ const populateSuggestions = (item) => {
     suggestionTextBottom.classList.add("card-text-padder")
     suggestionTextBottom.classList.add("push-bottom")
 
-    const suggestionType = document.createElement("h2")
-    suggestionType.classList.add("card-type")
-    suggestionType.classList.add("card-text")
-    suggestionType.textContent = type
+    // const suggestionType = document.createElement("h2")
+    // suggestionType.classList.add("card-type")
+    // suggestionType.classList.add("card-text")
+    // suggestionType.textContent = type
 
     const counterWrapper3 = document.createElement("div")
     counterWrapper3.classList.add("counter-wrapper")
@@ -443,12 +501,17 @@ const populateSuggestions = (item) => {
     suggestionCommentCounter.classList.add("card-text")
     suggestionCommentCounter.classList.add("card-counter")
 
+    counterWrapper3.querySelector('.card-comment-counter').textContent = total;
+
+    console.log("Votes: " + votes);
+    console.log("Total: " + total);
+
     const counterWrapper4 = document.createElement("div")
     counterWrapper4.classList.add("counter-wrapper")
     counterWrapper4.innerHTML=`<svg class="vote-image counter-image" width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path class="vote-image-path" d="M0 11.0814L7 18L22 3L19 0L7 12L3 8L0 11.0814Z" fill="#4EB41F"/>
 </svg>
-<p class="card-volunteer-counter card-text card-counter">0</p>`
+<p class="card-vote-counter card-text card-counter">0</p>`
 
     const svg2 = document.createElement("svg")
     svg2.classList.add("volunteer-image")
@@ -459,17 +522,21 @@ const populateSuggestions = (item) => {
     suggestionVolunteerCounter.classList.add("card-text")
     suggestionVolunteerCounter.classList.add("card-counter")
 
+    counterWrapper4.querySelector('.card-vote-counter').textContent = votes;
+
+    suggestionVolunteerCounter.textContent = votes;
+
     suggestionImageWrapper.appendChild(suggestionImage)
 
     suggestionTextTop.appendChild(suggestionTitle)
     suggestionTextTop.appendChild(suggestionDate)
     
-    secondText.appendChild(suggestionLocation)
+    // secondText.appendChild(suggestionLocation)
     secondText.appendChild(suggestionHost)
 
     thirdText.appendChild(suggestionDescription)
 
-    suggestionTextBottom.appendChild(suggestionType)
+    // suggestionTextBottom.appendChild(suggestionType)
     suggestionTextBottom.appendChild(counterWrapper3)
     suggestionTextBottom.appendChild(counterWrapper4)
 
@@ -480,6 +547,12 @@ const populateSuggestions = (item) => {
 
     a.appendChild(suggestionImageWrapper)
     a.appendChild(suggestionTextWrapper)
+
+    suggestionSpacing.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        window.location.assign(`/suggestions/${id}`);
+    });
     
     suggestionSpacing.appendChild(a)
     return suggestionSpacing
@@ -565,7 +638,6 @@ suggestionsDownButton.addEventListener('click', (e) => {
 
 
 const init = () => {
-    generateCarouselButtons(slideLimit);
     checkCurrentEvent();
     checkCurrentSuggestion();
     loadNews();

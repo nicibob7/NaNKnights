@@ -200,9 +200,7 @@ const createSuggestion = (suggestion) => {
                 e.stopPropagation();
                 // let idArray = (cardsList[i].id).split('-');
                 // selectedID = idArray[idArray.length-1];
-        
-                
-        
+           
                 updateSuggestionForm.classList.remove('hide');
                 overlayFadeIn();
                 overlay.classList.remove('hide');

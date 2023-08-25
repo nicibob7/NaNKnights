@@ -58,6 +58,15 @@ class Suggestion {
         return result.rows[0];
     }
 
+    static async getSuggestionsByUsername(posted_by) {
+        const result = await db.query('SELECT * FROM suggestion WHERE posted_by = $1', [posted_by]);
+        if(result.rows.length !== 1) {
+            throw new Error("Unable to locate suggestion.");
+        }
+
+        return result.rows;
+    }
+
     static async incrementVote(id) {
         const result = await db.query('UPDATE suggestion SET votes = votes + 1 WHERE id = $1 RETURNING votes', [id]);
         return result.rows[0].votes;
