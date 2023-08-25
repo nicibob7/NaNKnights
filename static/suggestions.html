@@ -48,7 +48,7 @@
                     </button>
                     <div class="filler"></div>
                     <div id="search-container">
-                        <input type="text" id="search-box" class="input-text"/>
+                        <!-- <input type="text" id="search-box" class="input-text"/> -->
                         <button id="search-button" class="hidden-button-style">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="14.0015" cy="9" r="7.5" stroke="#868686" stroke-width="3"/>
@@ -107,14 +107,17 @@
                 
                 <div id="add-suggestion-input-wrapper" class="flex-row suggestion-input-wrapper">
                 <div id="add-suggestion-form-left" class="flex-column form-column new-form-left">
-                        <label for="add-suggestion-type" class="form-label">Type</label>
+                        <!-- <label for="add-suggestion-type" class="form-label">Type</label>
                         <select id="add-suggestion-type" class="input-text form-input-horizontal add-suggestion-form-input suggestion-type" name="add-suggestion-type">
                             <option value="agriculture">Agriculture</option>
                             <option value="sports">Sports</option>
                             <option value="tech">Technology</option>
                             <option value="nature">Nature</option>
                             <option value="science">Science</option>
-                          </select>
+                          </select> -->
+                          <label for="update-suggestion-host" class="form-label">Author</label>
+                        <input type="text" id="update-suggestion-host" class="input-text form-input-horizontal suggestion-host" name="update-suggestion-host">
+                    
                         <label for="add-suggestion-title" class="form-label">Title</label>
                         <input type="text" id="add-suggestion-title" class="input-text form-input-horizontal add-suggestion-form-input suggestion-title" name="add-suggestion-title">
                 </div>
@@ -145,14 +148,17 @@
                 
                 <div id="update-suggestion-input-wrapper" class="flex-row">
                     <div id="update-suggestion-form-left" class="flex-column form-column">
-                        <label for="update-suggestion-type" class="form-label">Type</label>
+                        <!-- <label for="update-suggestion-type" class="form-label">Type</label>
                         <select id="update-suggestion-type" class="input-text form-input-horizontal suggestion-type" name="add-suggestion-type">
                             <option value="agriculture">Agriculture</option>
                             <option value="sports">Sports</option>
                             <option value="tech">Technology</option>
                             <option value="nature">Nature</option>
                             <option value="science">Science</option>
-                          </select>
+                          </select> -->
+                          <label for="update-suggestion-host" class="form-label">Author</label>
+                        <input type="text" id="update-suggestion-host" class="input-text form-input-horizontal suggestion-host" name="update-suggestion-host">
+                    
                         <label for="update-suggestion-title" class="form-label">Title</label>
                         <input type="text" id="update-suggestion-title" class="input-text form-input-horizontal suggestion-title" name="update-suggestion-title">
                     </div>
@@ -228,7 +234,7 @@
         <div class="card card-spacing">
             <a class="card-link" href="#">
             <div class="card-image-wrapper">
-                <img src="./res/recycle-image.png">
+                <img src="../res/recycle-image.png">
             </div>
             <div class="card-text-wrapper">
                 <div class="card-text-top card-text-flex card-text-padder">
@@ -236,12 +242,13 @@
                     <h2 class="card-date card-text push-right">DATE</h2>
                 </div>
                 <div class="card-text-second card-text-flex card-text-padder">
+                    <h2 class="card-host card-text push-right">HOST</h2>
                 </div>
                 <div class="card-text-third card-text-flex card-text-padder">
                     <p class="card-description card-text">Description</p>
                 </div>
                 <div class="card-text-bottom card-text-flex card-text-padder push-bottom">
-                    <h2 class="card-type card-text">TYPE</h2>
+                    <!-- <h2 class="card-type card-text">TYPE</h2> -->
                     <div class="counter-wrapper push-right">
                         <svg class="comment-image counter-image" width="35" height="31" viewBox="0 0 35 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="34" height="25" rx="2" fill="#D9D9D9"/>
@@ -277,7 +284,7 @@
         <div class="card editable-card card-spacing">
             <a class="card-link" href="#">
             <div class="card-image-wrapper">
-                <img src="./res/recycle-image.png">
+                <img src="../res/recycle-image.png">
 
                 <div class="card-modify-buttons-wrapper hide">
                     <button class="card-edit-button hidden-button-style">
@@ -335,6 +342,7 @@
                     <h2 class="card-date card-text push-right">DATE</h2>
                 </div>
                 <div class="card-text-second card-text-flex card-text-padder">
+                    <h2 class="card-host card-text">HOST</h2>
                 </div>
                 <div class="card-text-third card-text-flex card-text-padder">
                     <p class="card-description card-text">Description</p>

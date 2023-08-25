@@ -154,14 +154,21 @@ addNewsForm.addEventListener('submit', async (e) => {
 
     const form = new FormData(e.target);
 
+    console.log({
+        title: form.get("add-news-title"),
+        description: form.get("add-news-description"),
+        type: form.get("add-news-type"),
+        image: form.get("add-news-upload")
+    });
+
     const options = {
         method: "POST",
-        body: JSON.stringify({
+        body: {
             title: form.get("add-news-title"),
             description: form.get("add-news-description"),
             type: form.get("add-news-type"),
             image: form.get("add-news-upload")
-        })
+        }
     };
     
     await fetch("/admins/news", options)
@@ -244,7 +251,7 @@ const createNews = (news) => {
         e.preventDefault();
         // console.log('Triggered');
         
-        window.location.assign(`/news/${id}`);
+        window.location.assign(`/news-page/${id}`);
 
         // open news page ->
         // 
@@ -279,9 +286,19 @@ const fetchNews = async () => {
 
 fetchNews();
 
-if (userType != "admin") {
-    addNewsButton.remove();
+
+
+const checkUserType = async () => {
+    await getUserType();
+    if (userType != "admin") addNewsButton.remove();
 }
+
+checkUserType();
+
+
+
+
+
 // checkUserType();
 
 /*

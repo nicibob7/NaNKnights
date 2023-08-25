@@ -50,4 +50,7 @@ router.post("/events/new", authenticator, validateParameters({
     type: {type: 'stringWithMaxLength', maxLength: 32},
     }), home.postEvent);
 
+router.post("/suggestions/upvote/:id", authenticator, home.incrementVoteByID);
+router.post("/suggestions/downvote/:id", authenticator, home.decrementVoteByID);
+
 module.exports = router;

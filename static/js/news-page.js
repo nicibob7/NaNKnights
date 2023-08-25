@@ -16,6 +16,9 @@ const cardsList = document.querySelectorAll('.card');
 const newsEditButton = document.querySelector('#news-edit-button');
 const newsDeleteButton = document.querySelector('#news-delete-button');
 
+const newsMainContent = document.querySelector('#news-main-content');
+const template = document.querySelector('template');
+
 let selectedID = 0;
 
 function overlayShow() {
@@ -68,30 +71,101 @@ deleteNewsButton.addEventListener('click', (e) => {
     e.preventDefault();
 });
 
-newsEditButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // let idArray = (cardsList[i].id).split('-');
-    // selectedID = idArray[idArray.length-1];
+
+
+
+const createNews = (news) => {
+    const { id, title, description, date_posted, posted_by, type, image } = news;
+    let newsElement = null;
+    
+    console.log(title);
+    
+    switch (userType) {
+        case "guest":
+            newsElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "user":
+            newsElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "admin":
+            newsElement = template.content.querySelector('.card').cloneNode(true);
+            
+        break;
+        default:
+            newsElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+    }
+
+    let tempDate = new Date(date_posted);
+    let base64String = btoa([].reduce.call(new Uint8Array(image),function(p,c){return p+String.fromCharCode(c)},''));
+    // console.log(base64String);
+
+    let arrayBufferView = new Uint8Array(image);
+    /*
+    var blob = new Blob( [ image ], { type: "image/jpeg" } );
+    var urlCreator = window.URL || window.webkitURL;
+    var imageUrl = urlCreator.createObjectURL( blob );
+    console.log(imageUrl);
+    // console.log(arrayBufferView);*/
+    console.log(_arrayBufferToBase64(image));
+
+    selectedID = id;
+    newsElement.id = "news-" + id; 
+    newsElement.querySelector('.card-title').textContent = title;
+    newsElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+    // newsElement.querySelector('.card-date').textContent = "15/06/2023";
+    newsElement.querySelector('.card-description').textContent = description;
+    newsElement.querySelector('.card-type').textContent = type;
+    // newsElement.querySelector('.card-image-wrapper > img').src = imageUrl;
 
     
 
-    updateNewsForm.classList.remove('hide');
-    overlayFadeIn();
-    overlay.classList.remove('hide');
-    // hideOverlay();
-});
-newsDeleteButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // let idArray = (cardsList[i].id).split('-');
-    // selectedID = idArray[idArray.length-1];
+    return newsElement;
+}
 
-    deleteNewsDialog.classList.remove('hide');
-    overlayFadeIn();
-    overlay.classList.remove('hide');
-    // hideOverlay();
-});
+
+const fetchNews = async () => {
+    await fetch(`/news/${parseInt(String(window.location.href).split('/')[4])}`)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        try {
+            newsMainContent.textContent = "";
+                // console.log(news);
+            let elem = createNews(data);
+                
+            console.log(elem);
+            newsMainContent.appendChild(elem);
+           
+        } catch (error) {
+            console.log(error);
+        }
+        
+    })
+    .catch((error) => console.log(error.error));
+}
+
+fetchNews();
+
+const checkUserType = async () => {
+    await getUserType();
+    if (userType == "admin") {
+        let modifyButtons = null;
+        modifyButtons = template.content.querySelector('.card-modify-buttons-wrapper').cloneNode(true);
+         modifyButtons.querySelector('.card-edit-button').addEventListener('click', (e) => {
+               e.preventDefault();
+        });
+        
+         modifyButtons.querySelector('.card-delete-button').addEventListener('click', (e) => {
+              e.preventDefault();
+        });
+
+        newsMainContent.appendChild(modifyButtons);
+    }
+    // if (userType != "admin") addNewsButton.remove();
+}
+
+checkUserType();
 
 /*
 addNewsUpload.addEventListener('change', (e) => {
@@ -145,25 +219,25 @@ addNewsForm.addEventListener('input', (e) => {
 });
 */
 
-addCommentButton.addEventListener('click', (e) => {
-    e.preventDefault();
+// addCommentButton.addEventListener('click', (e) => {
+//     e.preventDefault();
 
-    if (addCommentForm.classList.contains('add-comment-stretch')) {
-        addCommentForm.classList.remove('add-comment-stretch');
-    }
-    else {
-        addCommentForm.classList.add('add-comment-stretch');
-    }
+//     if (addCommentForm.classList.contains('add-comment-stretch')) {
+//         addCommentForm.classList.remove('add-comment-stretch');
+//     }
+//     else {
+//         addCommentForm.classList.add('add-comment-stretch');
+//     }
     
-});
+// });
 
-for (let i = 0; i < cardsList.length; i++) {
-    cardsList[i].addEventListener('click', (e) => {
-        e.preventDefault();
-        // console.log('Triggered');
+// for (let i = 0; i < cardsList.length; i++) {
+//     cardsList[i].addEventListener('click', (e) => {
+//         e.preventDefault();
+//         // console.log('Triggered');
         
 
-        // open news page ->
-        // 
-    });
-}
+//         // open news page ->
+//         // 
+//     });
+// }

@@ -22,18 +22,21 @@ INSERT INTO suggestion (title, description, posted_by, urgency_level) VALUES ('S
 
 -- comment data
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (1, 'bob', 'This is a comment 1');
+INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (1, 'bob', 'This is a comment 1-2');
+INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (1, 'bob', 'This is a comment 1-3');
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (2, 'bob', 'This is a comment 2');
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (3, 'bob', 'This is a comment 3');
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (4, 'bob', 'This is a comment 4');
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (5, 'bob', 'This is a comment 5');
+INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (5, 'bob', 'This is a comment 5');
 INSERT INTO comment (suggestion_id, posted_by, comment) VALUES (6, 'bob', 'This is a comment 6');
 
 -- community_event data
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
-INSERT INTO community_event (title, description, date, location, posted_by) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'fundraiser');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'fundraiser');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'fundraiser');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'fundraiser');
+INSERT INTO community_event (title, description, date, location, posted_by, type) VALUES ('Event 1', 'This is an event', '2021-01-01', 'New York City', 'bob', 'fundraiser');
 
 -- information data
 INSERT INTO information (title, description, posted_by, type, image) VALUES ('Information 1', 'This is an information', 'admin', 'International news', 'image placeholder');

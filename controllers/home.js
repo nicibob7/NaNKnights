@@ -64,6 +64,15 @@ const getNewsByLimit = async (req, res) => {
     }
 }
 
+const getNewsById = async (req, res) => {
+    try {
+        const news = await Information.getNewsById(req.params.id);
+        res.status(200).json(news);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 const postComment = async (req, res) => {
     try {
         const data = req.body;
@@ -76,6 +85,16 @@ const postComment = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
+
+const getSuggestionsWithCommentCount = async (req, res) => {
+    try {
+        const suggestions = await Suggestion.getAllWithCommentCount();
+        res.status(200).json(suggestions);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 const getCommentsBySuggestionId = async (req, res) => {
     try {
         const comments = await Comment.getAllBySuggestionId(req.params.id);
@@ -84,6 +103,25 @@ const getCommentsBySuggestionId = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
+
+const incrementVoteByID = async (req, res) => {
+    try {
+        const suggestions = await Suggestion.incrementVote(req.params.id);
+        res.status(200).json(suggestions);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const decrementVoteByID = async (req, res) => {
+    try {
+        const suggestions = await Suggestion.decrementVote(req.params.id);
+        res.status(200).json(suggestions);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
 
 const postEvent = async (req, res) => {
     try {
@@ -100,6 +138,15 @@ const postEvent = async (req, res) => {
 const getEvents = async (req, res) => {
     try {
         const events = await CommunityEvent.getAll();
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+const getEventById = async (req, res) => {
+    try {
+        const events = await CommunityEvent.getEventById(req.params.id);
         res.status(200).json(events);
     } catch (error) {
         res.status(400).json({error: error.message});
@@ -157,12 +204,16 @@ module.exports = {
     getSuggestions,
     getSuggestionById,
     getSuggestionsByPopularity,
+    getSuggestionsWithCommentCount,
+    incrementVoteByID,
+    decrementVoteByID,
 
     postComment,
     getCommentsBySuggestionId,
 
     postEvent,
     getEvents,
+    getEventById,
 
     login,
     events,
@@ -180,4 +231,5 @@ module.exports = {
 
     getNews,
     getNewsByLimit,
+    getNewsById
 };

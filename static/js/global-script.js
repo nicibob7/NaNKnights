@@ -61,6 +61,35 @@ const notifyUser = async (message, status) => {
     }, 2200);
 }
 
+const getUserType = async () => {
+    await fetch('/account_type', { method: "POST" })
+    .then((response) =>  response.json())
+    .then((data) => {
+        try {
+            
+            if (data['account'] === "guest") {
+                // console.log("Guest");
+                userType = 'guest';
+            }
+            else if (Object.keys(data['account']).length === 5) {
+                // user
+                // console.log("User");
+                userType = 'user';
+                
+            }
+            else {
+                // admin
+                // console.log("Admin");
+                userType = 'admin';
+            }
+        } catch (error) {
+            
+        }
+        
+    })
+    .catch((error) => console.log(error));
+}
+
 const checkUserPermission = async () => {
     await fetch('/account_type', { method: "POST" })
     .then((response) =>  response.json())
@@ -162,7 +191,15 @@ const userLogout = async () => {
         .catch(() => window.location.assign('/'));
 };
 
-
+function _arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+       binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+}
 
 // notifyUser('This is a success message', 'success');
 checkUserPermission();

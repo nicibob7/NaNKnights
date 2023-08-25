@@ -183,9 +183,9 @@ addSuggestionForm.addEventListener('submit', async (e) => {
 
 
 const createSuggestion = (suggestion) => {
-    const { id, title, description, date_posted, posted_by, votes, is_resolved, is_activated, image, urgency_level} = suggestion;
+    const { id, title, description, date_posted, posted_by, votes, is_resolved, is_activated, image, urgency_level, total} = suggestion;
     let suggestionElement = null;
-    console.log(title);
+    console.log(total);
     
     switch (userType) {
         case "guest":
@@ -241,8 +241,9 @@ const createSuggestion = (suggestion) => {
     suggestionElement.id = "suggestion-" + id; 
     suggestionElement.querySelector('.card-title').textContent = title;
     suggestionElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
-    // suggestionElement.querySelector('.card-host').textContent = posted_by;
+    suggestionElement.querySelector('.card-host').textContent = posted_by;
     suggestionElement.querySelector('.card-vote-counter').textContent = votes;
+    suggestionElement.querySelector('.card-comment-counter').textContent = total;
     suggestionElement.querySelector('.card-description').textContent = description;
     // suggestionElement.querySelector('.card-image-wrapper > img').src = String();
 
@@ -254,11 +255,61 @@ const createSuggestion = (suggestion) => {
 
     });
 
+    suggestionElement.querySelector('.up-vote-button').addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        let voteCount1 = votes;
+        await fetch(`/users/suggestions/upvote/${id}`, { method: "POST" })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            try {
+                suggestionElement.querySelector('.card-vote-counter').textContent = data;
+            } catch (error) {
+                console.log(error);
+            }
+           
+            
+        })
+        .catch((error) => console.log(error));
+    });
+
+    suggestionElement.querySelector('.down-vote-button').addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        let voteCount2 = votes;
+            await fetch(`/users/suggestions/downvote/${id}`, { method: "POST" })
+        .then((response) => {
+            // console.log(response.json());
+
+            return response.json();
+            
+        })
+        .then((data) => {
+            console.log(data);
+            try {
+                suggestionElement.querySelector('.card-vote-counter').textContent = data;
+            } catch (error) {
+                console.log(error);
+            }
+        })
+        .catch((error) => console.log(error));
+    });
+
     return suggestionElement;
 }
 
 
 const fetchSuggestions = async () => {
+
+    // const responses = await Promise.all(
+    //     ids.map(async id => {
+    //         const suggestionResponse = await fetch('/suggestions/all'); 
+    //         const commentsResponse = await fetch('/suggestions/all'); 
+    //     })
+    // );
     await fetch('/suggestions/all')
     .then((response) => response.json())
     .then((data) => {

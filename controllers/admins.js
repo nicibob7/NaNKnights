@@ -55,6 +55,7 @@ const logout = async (req, res) => {
 const postNews = async (req, res) => {
     try {
         const news = req.body;
+        console.log(news);
         news.posted_by = res.locals.admin;
 
         const result = await Information.create(news);

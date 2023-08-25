@@ -34,6 +34,16 @@ class Suggestion {
         return result.rows;
     }
 
+    static async getAllWithCommentCount() {
+        const result = await db.query('SELECT suggestion.*, COUNT(comment.id) AS Total FROM suggestion LEFT JOIN comment ON suggestion.id = comment.suggestion_id GROUP BY suggestion.id ORDER BY suggestion.id');
+        // convert image from buffer to base64
+        result.rows.forEach((suggestion) => {
+            if(!suggestion.image) return;
+            suggestion.image = suggestion.image.toString();
+        });
+        return result.rows;
+    }
+
     static async getSuggestionsByPopularity(){
         const result = await db.query("SELECT * FROM suggestion ORDER BY votes DESC");
         return result.rows;
@@ -47,6 +57,16 @@ class Suggestion {
 
         return result.rows[0];
     }
+
+    static async incrementVote(id) {
+        const result = await db.query('UPDATE suggestion SET votes = votes + 1 WHERE id = $1 RETURNING votes', [id]);
+        return result.rows[0].votes;
+    }
+
+    static async decrementVote(id) {
+        const result = await db.query('UPDATE suggestion SET votes = votes - 1 WHERE id = $1 RETURNING votes', [id]);
+        return result.rows[0].votes;
+    } 
 
     static async delete(id) {
         const result = await db.query('DELETE FROM suggestion WHERE id = $1 RETURNING *', [id]);

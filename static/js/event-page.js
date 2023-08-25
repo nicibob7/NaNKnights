@@ -16,6 +16,10 @@ const cardsList = document.querySelectorAll('.card');
 const eventEditButton = document.querySelector('#event-edit-button');
 const eventDeleteButton = document.querySelector('#event-delete-button');
 
+const eventMainContent = document.querySelector('#event-main-content');
+const eventCardContainer = document.querySelector('.card-container');
+const template = document.querySelector('template');
+
 let selectedID = 0;
 
 function overlayShow() {
@@ -68,30 +72,30 @@ deleteEventButton.addEventListener('click', (e) => {
     e.preventDefault();
 });
 
-eventEditButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // let idArray = (cardsList[i].id).split('-');
-    // selectedID = idArray[idArray.length-1];
+// eventEditButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     e.stopPropagation();
+//     // let idArray = (cardsList[i].id).split('-');
+//     // selectedID = idArray[idArray.length-1];
 
     
 
-    updateEventForm.classList.remove('hide');
-    overlayFadeIn();
-    overlay.classList.remove('hide');
-    // hideOverlay();
-});
-eventDeleteButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // let idArray = (cardsList[i].id).split('-');
-    // selectedID = idArray[idArray.length-1];
+//     updateEventForm.classList.remove('hide');
+//     overlayFadeIn();
+//     overlay.classList.remove('hide');
+//     // hideOverlay();
+// });
+// eventDeleteButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     e.stopPropagation();
+//     // let idArray = (cardsList[i].id).split('-');
+//     // selectedID = idArray[idArray.length-1];
 
-    deleteEventDialog.classList.remove('hide');
-    overlayFadeIn();
-    overlay.classList.remove('hide');
-    // hideOverlay();
-});
+//     deleteEventDialog.classList.remove('hide');
+//     overlayFadeIn();
+//     overlay.classList.remove('hide');
+//     // hideOverlay();
+// });
 
 /*
 addEventUpload.addEventListener('change', (e) => {
@@ -148,6 +152,95 @@ addEventForm.addEventListener('input', (e) => {
 });
 */
 
+const createEvent = (event) => {
+    const { id, title, description, date_posted, posted_by, location, date, image, type } = event;
+    let eventElement = null;
+    console.log(title);
+    
+    switch (userType) {
+        case "guest":
+            eventElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "user":
+            eventElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        case "admin":
+            eventElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+        default:
+            eventElement = template.content.querySelector('.card').cloneNode(true);
+        break;
+    }
+
+    let tempDate = new Date(date_posted);
+
+    eventElement.id = "event-" + id; 
+    eventElement.querySelector('.card-title').textContent = title;
+    eventElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+    eventElement.querySelector('.card-host').textContent = posted_by;
+    eventElement.querySelector('.card-location').textContent = location;
+    eventElement.querySelector('.card-type').textContent = type;
+    // eventElement.querySelector('.card-volunteer.counter').textContent = volunteer;
+    eventElement.querySelector('.card-description').textContent = description;
+    // eventElement.querySelector('.card-image-wrapper > img').src = String();
+
+    eventElement.addEventListener('click', (e) => {
+        e.preventDefault();
+        // console.log('Triggered');
+        
+
+    });
+
+    return eventElement;
+}
+
+
+const fetchEvents = async () => {
+    await fetch(`/event/${parseInt(String(window.location.href).split('/')[4])}`)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        try {
+            eventCardContainer.textContent = "";
+                // console.log(event);
+                let elem = createEvent(data);
+                
+                console.log(elem);
+                eventCardContainer.appendChild(elem);
+           
+        } catch (error) {
+            console.log(error);
+        }
+        
+    })
+    .catch((error) => console.log(error.error));
+}
+
+fetchEvents();
+
+const checkUserType = async () => {
+    await getUserType();
+    console.log(userType);
+    if (userType == "admin") {
+        console.log('fire');
+        let modifyButtons = null;
+        modifyButtons = template.content.querySelector('.card-modify-buttons-wrapper').cloneNode(true);
+         modifyButtons.querySelector('.card-edit-button').addEventListener('click', (e) => {
+               e.preventDefault();
+        });
+        
+         modifyButtons.querySelector('.card-delete-button').addEventListener('click', (e) => {
+              e.preventDefault();
+        });
+
+        eventMainContent.appendChild(modifyButtons);
+    }
+    // if (userType != "admin") addNewsButton.remove();
+}
+
+checkUserType();
+
+/*
 addCommentButton.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -159,14 +252,4 @@ addCommentButton.addEventListener('click', (e) => {
     }
     
 });
-
-for (let i = 0; i < cardsList.length; i++) {
-    cardsList[i].addEventListener('click', (e) => {
-        e.preventDefault();
-        // console.log('Triggered');
-        
-
-        // open event page ->
-        // 
-    });
-}
+*/

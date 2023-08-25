@@ -190,7 +190,7 @@ addEventForm.addEventListener('submit', async (e) => {
 
 
 const createEvent = (event) => {
-    const { id, title, description, date_posted, posted_by, location, date, image } = event;
+    const { id, title, description, date_posted, posted_by, location, date, image, type } = event;
     let eventElement = null;
     console.log(title);
     
@@ -208,8 +208,6 @@ const createEvent = (event) => {
                 e.stopPropagation();
                 // let idArray = (cardsList[i].id).split('-');
                 // selectedID = idArray[idArray.length-1];
-        
-                
         
                 updateEventForm.classList.remove('hide');
                 overlayFadeIn();
@@ -249,6 +247,7 @@ const createEvent = (event) => {
     eventElement.querySelector('.card-title').textContent = title;
     eventElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
     eventElement.querySelector('.card-location').textContent = location;
+    eventElement.querySelector('.card-type').textContent = type;
     eventElement.querySelector('.card-host').textContent = posted_by;
     eventElement.querySelector('.card-description').textContent = description;
     // eventElement.querySelector('.card-image-wrapper > img').src = String();
@@ -257,7 +256,7 @@ const createEvent = (event) => {
         e.preventDefault();
         // console.log('Triggered');
         
-        window.location.assign(`/event/${id}`);
+        window.location.assign(`/event-page/${id}`);
 
         // open event page ->
         // 

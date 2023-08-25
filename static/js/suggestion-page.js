@@ -16,10 +16,15 @@ const cardsList = document.querySelectorAll('.card');
 const suggestionEditButton = document.querySelector('#suggestion-edit-button');
 const suggestionDeleteButton = document.querySelector('#suggestion-delete-button');
 
+const suggestionMainContent = document.querySelector('#suggestion-main-content');
 const suggestionCardContainer = document.querySelector('#suggestion-card-container');
 const template = document.querySelector('template');
 
+const commentsNumber = document.querySelector('#comments-number');
+const commentsContainer = document.querySelector('#comments-container');
+
 let selectedID = 0;
+let voteCount = 0;
 
 function overlayShow() {
     document.getElementById('overlay').style.opacity = (parseFloat(document.getElementById('overlay').style.opacity) + 0.1);
@@ -71,31 +76,31 @@ deleteSuggestionButton.addEventListener('click', (e) => {
     e.preventDefault();
 });
 
-suggestionEditButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // let idArray = (cardsList[i].id).split('-');
-    // selectedID = idArray[idArray.length-1];
+// suggestionEditButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     e.stopPropagation();
+//     // let idArray = (cardsList[i].id).split('-');
+//     // selectedID = idArray[idArray.length-1];
 
     
 
-    updateSuggestionForm.classList.remove('hide');
-    overlayFadeIn();
-    overlay.classList.remove('hide');
-    // hideOverlay();
-});
+//     updateSuggestionForm.classList.remove('hide');
+//     overlayFadeIn();
+//     overlay.classList.remove('hide');
+//     // hideOverlay();
+// });
 
-suggestionDeleteButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // let idArray = (cardsList[i].id).split('-');
-    // selectedID = idArray[idArray.length-1];
+// suggestionDeleteButton.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     e.stopPropagation();
+//     // let idArray = (cardsList[i].id).split('-');
+//     // selectedID = idArray[idArray.length-1];
 
-    deleteSuggestionDialog.classList.remove('hide');
-    overlayFadeIn();
-    overlay.classList.remove('hide');
-    // hideOverlay();
-});
+//     deleteSuggestionDialog.classList.remove('hide');
+//     overlayFadeIn();
+//     overlay.classList.remove('hide');
+//     // hideOverlay();
+// });
 
 /*
 addSuggestionUpload.addEventListener('change', (e) => {
@@ -169,7 +174,7 @@ addCommentButton.addEventListener('click', (e) => {
 const createSuggestion = (suggestion) => {
     const { id, title, description, date_posted, posted_by, votes, is_resolved, is_activated, image, urgency_level} = suggestion;
     let suggestionElement = null;
-    console.log(title);
+    // console.log(title);
     
     switch (userType) {
         case "guest":
@@ -179,41 +184,7 @@ const createSuggestion = (suggestion) => {
             suggestionElement = template.content.querySelector('.card').cloneNode(true);
         break;
         case "admin":
-            suggestionElement = template.content.querySelector('.editable-card').cloneNode(true);
-            suggestionElement.querySelector('.card-edit-button').addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                // let idArray = (cardsList[i].id).split('-');
-                // selectedID = idArray[idArray.length-1];
-        
-                
-        
-                updateSuggestionForm.classList.remove('hide');
-                overlayFadeIn();
-                overlay.classList.remove('hide');
-                // hideOverlay();
-            });
-            suggestionElement.querySelector('.card-delete-button').addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                // let idArray = (cardsList[i].id).split('-');
-                // selectedID = idArray[idArray.length-1];
-        
-                deleteSuggestionDialog.classList.remove('hide');
-                overlayFadeIn();
-                overlay.classList.remove('hide');
-                // hideOverlay();
-            });
-        
-            suggestionElement.addEventListener('mousemove', () => {
-                suggestionElement.querySelector('.card-edit-button').classList.remove('hide');
-                suggestionElement.querySelector('.card-delete-button').classList.remove('hide');
-            });
-        
-            suggestionElement.addEventListener('mouseleave', () => {
-                suggestionElement.querySelector('.card-edit-button').classList.add('hide');
-                suggestionElement.querySelector('.card-delete-button').classList.add('hide');
-            });
+            suggestionElement = template.content.querySelector('.card').cloneNode(true);
         break;
         default:
             suggestionElement = template.content.querySelector('.card').cloneNode(true);
@@ -221,20 +192,67 @@ const createSuggestion = (suggestion) => {
     }
 
     let tempDate = new Date(date_posted);
-
+    voteCount = votes;
     suggestionElement.id = "suggestion-" + id; 
     suggestionElement.querySelector('.card-title').textContent = title;
     suggestionElement.querySelector('.card-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
-    // suggestionElement.querySelector('.card-host').textContent = posted_by;
-    suggestionElement.querySelector('.card-vote-counter').textContent = votes;
+    suggestionElement.querySelector('.card-host').textContent = posted_by;
+    suggestionElement.querySelector('.card-vote-counter').textContent = voteCount;
     suggestionElement.querySelector('.card-description').textContent = description;
     // suggestionElement.querySelector('.card-image-wrapper > img').src = String();
+
+    
 
     suggestionElement.addEventListener('click', (e) => {
         e.preventDefault();
         // console.log('Triggered');
-        
+    });
 
+    suggestionElement.querySelector('.up-vote-button').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await fetch(`/users/suggestions/upvote/${parseInt(String(window.location.href).split('/')[4])}`, { method: "POST" })
+        .then((response) => {
+            console.log(response);
+            if (response.status == 200) {
+                try {
+                    voteCount++;
+                    suggestionElement.querySelector('.card-vote-counter').textContent = voteCount;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            // return response.json();
+        })
+        .then((data) => {
+            
+           
+            
+        })
+        .catch((error) => console.log(error));
+    });
+
+    suggestionElement.querySelector('.down-vote-button').addEventListener('click', async (e) => {
+        e.preventDefault();
+            await fetch(`/users/suggestions/downvote/${parseInt(String(window.location.href).split('/')[4])}`, { method: "POST" })
+        .then((response) => {
+            console.log(response);
+
+            if (response.status == 200) {
+                try {
+                    voteCount--;
+                    suggestionElement.querySelector('.card-vote-counter').textContent = voteCount;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            // return response.json();
+            
+        })
+        .then((data) => {
+            
+            
+        })
+        .catch((error) => console.log(error));
     });
 
     return suggestionElement;
@@ -242,19 +260,68 @@ const createSuggestion = (suggestion) => {
 
 
 const fetchSuggestions = async () => {
-    await fetch(`/suggestions/${String(window.location.href).split('/')[4]}`)
+    await fetch(`/suggestion/${parseInt(String(window.location.href).split('/')[4])}`)
     .then((response) => response.json())
     .then((data) => {
         console.log(data);
         try {
-            suggestionCardContainer.textContent = "";
-            data.forEach(suggestion => {
+                suggestionCardContainer.textContent = "";
                 // console.log(suggestion);
-                let elem = createSuggestion(suggestion);
-                
-                console.log(elem);
+                let elem = createSuggestion(data);
+
                 suggestionCardContainer.appendChild(elem);
-            })
+                checkUserType();
+        } catch (error) {
+            console.log(error);
+        }
+        
+    })
+    .catch((error) => console.log(error.error));
+}
+
+const createComment = (commentData) => {
+    const { id, suggestion_id, comment, date_posted, posted_by } = commentData;
+    let commentElement = null;
+    // console.log(title);
+    let tempDate = new Date(date_posted);
+
+    commentElement = template.content.querySelector('.comment').cloneNode(true);
+
+    commentElement.id = "comment-" + id; 
+    // commentElementData.querySelector('.comment-title').textContent = title;
+    commentElement.querySelector('.comment-date').textContent = tempDate.getDay() + "/" + tempDate.getMonth() + "/" + tempDate.getFullYear();
+    commentElement.querySelector('.comment-author').textContent = posted_by;
+    commentElement.querySelector('.comment-text').textContent = comment;
+    // commentElement.querySelector('.card-image-wrapper > img').src = String();
+
+    // commentElement.addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     // console.log('Triggered');
+        
+
+    // });
+
+    return commentElement;
+}
+
+const fetchComments = async () => {
+    await fetch(`/comment/${parseInt(String(window.location.href).split('/')[4])}`)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        commentsNumber.textContent = data.length;
+        try {
+                commentsContainer.textContent = "";
+                // console.log(suggestion);
+                data.forEach(c => {
+                    let elem = createComment(c);
+                    
+                    console.log(elem);
+                    commentsContainer.appendChild(elem);
+                })
+                
+                
+
         } catch (error) {
             console.log(error);
         }
@@ -264,9 +331,26 @@ const fetchSuggestions = async () => {
 }
 
 fetchSuggestions();
+fetchComments();
 
-if (userType != "admin") {
-    // addSuggestionButton.remove();
+const checkUserType = async () => {
+    await getUserType();
+    console.log(userType);
+    // userType = "admin"
+    if (userType == "admin") {
+        console.log('fire');
+        let modifyButtons = null;
+        modifyButtons = template.content.querySelector('.card-modify-buttons-wrapper').cloneNode(true);
+         modifyButtons.querySelector('.card-edit-button').addEventListener('click', (e) => {
+               e.preventDefault();
+        });
+        
+         modifyButtons.querySelector('.card-delete-button').addEventListener('click', (e) => {
+              e.preventDefault();
+        });
+
+        suggestionMainContent.querySelector('.card').appendChild(modifyButtons);
+    }
 }
 
 // for (let i = 0; i < cardsList.length; i++) {

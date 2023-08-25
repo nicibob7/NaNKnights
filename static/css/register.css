@@ -1,3 +1,12 @@
+body {
+  background-size: cover;
+  background-image: url('../res/registration-bg.jpg');
+}
+
+footer > p {
+  color: #fff;
+}
+
 /* Password inputs are in divs */
 .password-container {
   position: relative;
@@ -114,8 +123,8 @@
   overflow: auto;
 }
 #login-container {
-  height: 95%;
-  width: 40%;
+  /* height: 95%;
+  width: 40%; */
   /* padding-bottom: 20%; */
 }
 #login-wrapper {
@@ -123,5 +132,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+#login-form {
   justify-content: center;
 }

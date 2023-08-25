@@ -54,6 +54,11 @@ class Information {
         return result.rows[0].count || 0;
     }
 
+    static async getNewsById(id) {
+        const result = await db.query("SELECT * FROM information WHERE id=$1", [id]);
+        return result.rows[0];
+    }
+
     static async update(data) {
         const information = new Information(data);
         const result = await db.query(

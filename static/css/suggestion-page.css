@@ -292,7 +292,7 @@ main {
 
 .card-host {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 
@@ -407,6 +407,8 @@ main {
 
 .vote-button > svg {
     padding: 10px;
+    width: auto;
+    height: auto;
 }
 
 .down-vote-button {
@@ -568,10 +570,14 @@ main {
 }
 
 #comments-container {
-    background-color: #fff;
+    /* background-color: #fff; */
     width: 100%;
-    min-height: 80px;
+    /* min-height: 80px; */
     max-height: 700px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #comment-title {
@@ -615,6 +621,7 @@ main {
 
 #add-comment-title {
     margin-top: 12px;
+    margin-bottom: 24px;
 }
 
 #add-comment-textarea {
@@ -628,11 +635,13 @@ main {
 
 .comment {
     min-height: 100px;
-    width: 100%;
+    width: 98%;
     display: flex;
     flex-direction: row;
     overflow: hidden;
     box-shadow: 0px 5px 10px 0px #c0c0c0;
+    margin: 24px 0;
+    flex-shrink: 0;
 }
 
 .comment-left {
@@ -648,7 +657,7 @@ main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding: 0 3%;
+    padding: 18px 3%;
     flex-shrink: 0;
     width: 74%;
 }
@@ -670,6 +679,7 @@ main {
 .comment-author {
     font-weight: 600;
     font-size: 1.2rem;
+    margin-top: 6px;
 }
 
 .comment-date {
@@ -686,6 +696,14 @@ main {
 .comment-text:disabled {
     background-color: transparent;
     border: none;
+}
+
+#suggestion-card-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .push-right {

@@ -1,7 +1,17 @@
+body {
+    background-size: cover;
+    background-image: url('../res/user-login-bg.jpg');
+}
+
+footer > p {
+    color: #fff;
+}
+
 main {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 #login-container {
